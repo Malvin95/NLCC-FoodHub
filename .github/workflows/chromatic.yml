@@ -1,11 +1,18 @@
 name: "Chromatic"
 
-on: push
+on:
+    push:
+        branches:
+        - main
+    pull_request:
+        branches:
+        - main
 
 jobs:
   chromatic:
     name: Run Chromatic
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
