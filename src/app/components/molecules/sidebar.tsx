@@ -1,7 +1,7 @@
 import { View } from '@/app/shared/enums';
 import { MenuItem } from '@/app/shared/types';
 import { LayoutDashboard, MessageSquare, Package, Calendar, Users, X, ChevronLeft, ChevronRight, History } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 
 /**
  * Props for the Sidebar component
@@ -16,6 +16,8 @@ interface SidebarProps {
   isOpen: boolean;
   /** Callback function to close the sidebar */
   onClose: () => void;
+  /** Whether the sidebar is in a loading state */
+  isLoading?: boolean;
 }
 
 /**
@@ -40,6 +42,9 @@ const menuItems: MenuItem[] = [
  * - Highlights the currently active view
  * - Can be toggled open/closed on mobile devices
  * - Can be collapsed/expanded on desktop devices
+ * - Loading state with skeleton placeholders
+ * - Non-blocking transitions using React's useTransition for smooth navigation
+ * - Prevents UI freezes during view changes
  * 
  * @component
  * @param {SidebarProps} props - Component props
@@ -52,11 +57,26 @@ const menuItems: MenuItem[] = [
  *   onViewChange={(view) => setCurrentView(view)}
  *   isOpen={isSidebarOpen}
  *   onClose={() => setIsSidebarOpen(false)}
+ *   isLoading={false}
  * />
  * ```
  */
-export function Sidebar({ currentView, onViewChange, isOpen, onClose }: SidebarProps) {
+export function Sidebar({ currentView, onViewChange, isOpen, onClose, isLoading = false }: SidebarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isPending, startTransition] = useTransition();
+
+  /**
+   * Handles view change with transition to prevent blocking UI updates
+   * @param view - The view to navigate to
+   */
+  const handleViewChange = (view: View) => {
+    startTransition(() => {
+      onViewChange(view);
+    });
+  };
+
+  // Combine external loading state with internal transition state
+  const showLoadingState = isLoading || isPending;
 
   return (
     <>
@@ -90,42 +110,47 @@ export function Sidebar({ currentView, onViewChange, isOpen, onClose }: SidebarP
         </div>
 
         {/* Desktop Collapse Toggle */}
-        <div className="hidden lg:flex justify-end p-4">
-          <button
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            className="p-2 rounded-lg hover:bg-gray-100 text-gray-600"
-            aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-          >
-            {isCollapsed ? (
-              <ChevronRight className="w-5 h-5" />
-            ) : (
-              <ChevronLeft className="w-5 h-5" />
-            )}
-          </button>
-        </div>
-
         {/* Navigation */}
         <nav className="px-4 pb-4">
           <div className="space-y-1">
-            {menuItems.map((item: MenuItem) => {
-              const Icon = item.icon;
-              const isActive = currentView === item.id;
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => onViewChange(item.id)}
+            {showLoadingState ? (
+              // Loading skeleton
+              Array.from({ length: 6 }).map((_, index) => (
+                <div
+                  key={`skeleton-${index}`}
                   className={`
-                    w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors
-                    ${isActive ? 'bg-rose-50 text-rose-600' : 'text-gray-700 hover:bg-gray-50'}
+                    w-full flex items-center gap-3 px-4 py-3 rounded-lg
                     ${isCollapsed ? 'lg:justify-center' : ''}
                   `}
-                  title={isCollapsed ? item.label : undefined}
                 >
-                  <Icon className="w-5 h-5 shrink-0" />
-                  <span className={`${isCollapsed ? 'lg:hidden' : ''}`}>{item.label}</span>
-                </button>
-              );
-            })}
+                  <div className="w-5 h-5 bg-gray-200 rounded animate-pulse shrink-0" />
+                  <div className={`h-4 bg-gray-200 rounded animate-pulse flex-1 ${isCollapsed ? 'lg:hidden' : ''}`} />
+                </div>
+              ))
+            ) : (
+              menuItems.map((item: MenuItem) => {
+                const Icon = item.icon;
+                const isActive = currentView === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => handleViewChange(item.id)}
+                    disabled={isPending}
+                    className={`
+                      w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors
+                      ${isActive ? 'bg-rose-50 text-rose-600' : 'text-gray-700 hover:bg-gray-50'}
+                      ${isCollapsed ? 'lg:justify-center' : ''}
+                      ${isPending ? 'opacity-50 cursor-wait' : ''}
+                      disabled:opacity-50 disabled:cursor-not-allowed
+                    `}
+                    title={isCollapsed ? item.label : undefined}
+                  >
+                    <Icon className="w-5 h-5 shrink-0" />
+                    <span className={`${isCollapsed ? 'lg:hidden' : ''}`}>{item.label}</span>
+                  </button>
+                );
+              })
+            )}
           </div>
         </nav>
       </aside>
