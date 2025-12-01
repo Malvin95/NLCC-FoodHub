@@ -110,6 +110,20 @@ export function Sidebar({ currentView, onViewChange, isOpen, onClose, isLoading 
         </div>
 
         {/* Desktop Collapse Toggle */}
+        <div className="hidden lg:flex justify-end p-4">
+          <button
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            className="p-2 rounded-lg hover:bg-gray-100 text-gray-600"
+            aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          >
+            {isCollapsed ? (
+              <ChevronRight className="w-5 h-5" />
+            ) : (
+              <ChevronLeft className="w-5 h-5" />
+            )}
+          </button>
+        </div>
+
         {/* Navigation */}
         <nav className="px-4 pb-4">
           <div className="space-y-1">
