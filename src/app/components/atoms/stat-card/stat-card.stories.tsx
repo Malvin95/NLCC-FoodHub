@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { within, expect } from 'storybook/test';
 import { StatCard } from './stat-card';
+import { StatCardSkeleton } from './stat-card-skeleton';
 import { TrendingUp, TrendingDown, Users, Package, Calendar, Heart } from 'lucide-react';
 
 const meta: Meta<typeof StatCard> = {
@@ -95,5 +96,65 @@ export const ColorClassTest: Story = {
     const accentDiv = canvasElement.querySelector('div.p-3.rounded-lg');
     await expect(accentDiv?.className).toMatch(/bg-blue-100/);
     await expect(accentDiv?.className).toMatch(/text-blue-600/);
+  }
+};
+
+// Skeleton Loading States
+type SkeletonStory = StoryObj<typeof StatCardSkeleton>;
+
+export const LoadingSkeleton: SkeletonStory = {
+  render: () => <StatCardSkeleton />,
+  parameters: {
+    docs: {
+      description: {
+        story: 'Loading skeleton that matches the StatCard layout with animated pulse effects.'
+      }
+    }
+  }
+};
+
+export const SkeletonStructureTest: SkeletonStory = {
+  render: () => <StatCardSkeleton />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Check role and aria-label
+    const container = canvas.getByRole('status');
+    await expect(container).toHaveAttribute('aria-label', 'Loading statistics');
+    
+    // Check skeleton elements exist
+    const pulsingElements = canvasElement.querySelectorAll('.animate-pulse');
+    await expect(pulsingElements.length).toBeGreaterThan(0);
+  }
+};
+
+export const SkeletonAccessibilityTest: SkeletonStory = {
+  render: () => <StatCardSkeleton />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Check for screen reader text
+    const srText = canvas.getByText('Loading statistics data...');
+    await expect(srText).toBeInTheDocument();
+    await expect(srText.className).toContain('sr-only');
+  }
+};
+
+export const MultipleSkeletons: SkeletonStory = {
+  render: () => (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <StatCardSkeleton />
+      <StatCardSkeleton />
+      <StatCardSkeleton />
+      <StatCardSkeleton />
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Multiple skeleton loaders in a grid layout, simulating a dashboard loading state.'
+      }
+    },
+    layout: 'padded'
   }
 };
