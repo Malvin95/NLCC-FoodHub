@@ -29,7 +29,7 @@ const colorClasses = {
   blue: 'bg-blue-100 text-blue-600',
   green: 'bg-green-100 text-green-600',
   purple: 'bg-purple-100 text-purple-600',
-};
+} as const;
 
 /**
  * StatCard component displays a metric with an icon, value, and trend indicator
@@ -94,10 +94,10 @@ export function StatCard({
     >
       <div className="flex items-center justify-between mb-4">
         <div
-          role="icon-container"
+          role={iconLabel ? 'img' : undefined}
           className={`p-3 rounded-lg ${colorClasses[color]}`}
           aria-label={iconLabel}
-          aria-hidden={iconLabel ? undefined : true}
+          aria-hidden={!iconLabel}
         >
           {icon}
         </div>

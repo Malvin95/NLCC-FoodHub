@@ -36,7 +36,8 @@ const baseArgs = {
   change: '+12%',
   trend: 'up' as const,
   color: 'rose' as const,
-  icon: <Users className="w-6 h-6" />
+  icon: <Users className="w-6 h-6" />,
+  iconLabel: 'Volunteers Icon'
 };
 
 export const Default: Story = {
@@ -75,7 +76,7 @@ export const TrendIconTest: Story = {
     // Assert change text renders
     await expect(canvas.getByText('-8%')).toBeInTheDocument();
     // Assert down icon exists (class w-4 h-4 inside red text container)
-    const downIcon = canvas.getByRole('icon-container', { hidden: true }); // lucide icons render svg with role img
+    const downIcon = canvas.getByRole('img', { hidden: true }); // lucide icons render svg with role img
     await expect(downIcon).toBeInTheDocument();
   }
 };
