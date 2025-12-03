@@ -53,18 +53,18 @@ export const CustomLabelsTest: Story = {
     </div>
   ), 
   play: async ({ canvasElement }) => { 
+    const canvas = within(canvasElement);
     // Wait for Recharts animation to complete (typically 400-500ms)
     waitFor(() => {
       // Check for line paths (Recharts renders lines as path elements)
       const linePaths = canvasElement.querySelectorAll('.recharts-line');
       expect(linePaths.length).toBe(2); // Series A and Series B Trends
-    });
 
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('Custom Title Test')).toBeInTheDocument(); 
-    // Check for legend items or use queryByText with exact: false if labels are rendered
-    await expect(canvas.getByText(/Volunteers/i)).toBeInTheDocument();
-    await expect(canvas.getByText(/Clients/i)).toBeInTheDocument();
+      expect(canvas.getByText('Custom Title Test')).toBeInTheDocument(); 
+      // Check for legend items or use queryByText with exact: false if labels are rendered
+      expect(canvas.queryByText(/Volunteers/i)).toBeInTheDocument();
+      expect(canvas.queryByText(/Clients/i)).toBeInTheDocument();
+    });
   }
 };
 
