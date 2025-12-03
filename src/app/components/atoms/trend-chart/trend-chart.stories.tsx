@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { within, expect } from 'storybook/test';
 import { TrendChart } from './trend-chart';
 import { TrendChartSkeleton } from './trend-chart-skeleton';
+import { mockChartData } from './mock-chart-data';
 
 const meta: Meta<typeof TrendChart> = {
   title: 'Atoms/TrendChart',
@@ -22,18 +23,48 @@ export default meta;
 type Story = StoryObj<typeof TrendChart>;
 type SkeletonStory = StoryObj<typeof TrendChartSkeleton>;
 
+const data = mockChartData;
+
 /**
  * Default chart displaying trends for the last 6 months
  */
 export const Default: Story = {
-  render: () => <TrendChart />
+  render: () => <TrendChart data={data}/>
+};
+
+export const CustomLabelsTest: Story = { 
+  render: () => (
+    <div className="flex gap-6 flex-wrap">
+      <div className="flex-1 min-w-[320px]">
+        <TrendChart 
+          chartTitle="Custom Title Test" 
+          firstLineName="Volunteers" 
+          secondLineName="Clients"
+          data={[
+            { month: 'Jan', Volunteers: 30, Clients: 50 },
+            { month: 'Feb', Volunteers: 45, Clients: 60 },
+            { month: 'Mar', Volunteers: 40, Clients: 70 },
+            { month: 'Apr', Volunteers: 60, Clients: 80 },
+            { month: 'May', Volunteers: 55, Clients: 90 },
+            { month: 'Jun', Volunteers: 70, Clients: 100 }
+          ]}
+        /> 
+      </div>
+    </div>
+  ), 
+  play: async ({ canvasElement }) => { 
+    const canvas = within(canvasElement); 
+    await expect(canvas.getByText('Custom Title Test')).toBeInTheDocument(); 
+    await expect(canvas.getByText('Volunteers')).toBeInTheDocument(); 
+    await expect(canvas.getByText('Clients')).toBeInTheDocument(); 
+  }
 };
 
 /**
  * Chart structure and content test
  */
 export const ChartStructureTest: Story = {
-  render: () => <TrendChart />,
+  render: () => <TrendChart data={mockChartData} />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     
@@ -51,15 +82,15 @@ export const ChartStructureTest: Story = {
  * Verify chart renders with data
  */
 export const ChartRendersData: Story = {
-  render: () => <TrendChart />,
+  render: () => <TrendChart data={mockChartData} />,
   play: async ({ canvasElement }) => {
     // Check that SVG elements exist (Recharts renders as SVG)
     const svgElements = canvasElement.querySelectorAll('svg');
     await expect(svgElements.length).toBeGreaterThan(0);
     
-    // Check for Trend paths (Recharts renders Trends as path elements)
-    const TrendPaths = canvasElement.querySelectorAll('.recharts-line');
-    await expect(TrendPaths.length).toBe(2); // volunteers and clients Trends
+    // Check for line paths (Recharts renders lines as path elements)
+    const linePaths = canvasElement.querySelectorAll('.recharts-line');
+    await expect(linePaths.length).toBe(2); // volunteers and clients Trends
   }
 };
 
@@ -67,16 +98,16 @@ export const ChartRendersData: Story = {
  * Verify legend is present
  */
 export const LegendTest: Story = {
-  render: () => <TrendChart />,
+  render: () => <TrendChart data={mockChartData} />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     
     // Check legend items exist
-    const volunteersLegend = canvas.getByText('Volunteers');
-    const clientsLegend = canvas.getByText('Clients');
+    const SeriesALegend = canvas.getByText('Series A');
+    const SeriesBLegend = canvas.getByText('Series B');
     
-    await expect(volunteersLegend).toBeInTheDocument();
-    await expect(clientsLegend).toBeInTheDocument();
+    await expect(SeriesALegend).toBeInTheDocument();
+    await expect(SeriesBLegend).toBeInTheDocument();
   }
 };
 
@@ -84,7 +115,7 @@ export const LegendTest: Story = {
  * Verify axes are rendered
  */
 export const AxesTest: Story = {
-  render: () => <TrendChart />,
+  render: () => <TrendChart data={mockChartData} />,
   play: async ({ canvasElement }) => {
     // Check for X-axis (months should be visible)
     const xAxisElements = canvasElement.querySelectorAll('.recharts-xAxis');
@@ -100,7 +131,7 @@ export const AxesTest: Story = {
  * Verify responsive container
  */
 export const ResponsiveTest: Story = {
-  render: () => <TrendChart />,
+  render: () => <TrendChart data={mockChartData} />,
   play: async ({ canvasElement }) => {
     const responsiveContainer = canvasElement.querySelector('.recharts-responsive-container');
     await expect(responsiveContainer).toBeInTheDocument();
@@ -183,7 +214,7 @@ export const ChartVsSkeleton: Story = {
     <div className="flex gap-6 flex-wrap">
       <div className="flex-1 min-w-[320px]">
         <h3 className="text-sm font-medium mb-2 text-gray-700">Loaded State</h3>
-        <TrendChart />
+        <TrendChart data={mockChartData} />
       </div>
       <div className="flex-1 min-w-[320px]">
         <h3 className="text-sm font-medium mb-2 text-gray-700">Loading State</h3>

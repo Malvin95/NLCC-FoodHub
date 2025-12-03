@@ -1,15 +1,20 @@
 /**
- * TrendChartSkeleton component displays a loading placeholder for the TrendChart
+ * TrendChartSkeleton displays a loading placeholder for `TrendChart`.
  * 
  * Features:
- * - Matches TrendChart dimensions and structure
- * - Animated pulse effect using Tailwind's animate-pulse
- * - Follows Next.js loading UI conventions
- * - Can be used with React Suspense boundaries
- * - Accessible with proper ARIA attributes
+ * - Matches TrendChart dimensions and layout for visual stability
+ * - Animated pulse effect using Tailwind's `animate-pulse`
+ * - Follows Next.js `loading.tsx` UI conventions
+ * - Suitable for React Suspense boundaries
+ * 
+ * Accessibility:
+ * - Uses `role="status"` with an `aria-label` describing the loading state
+ * - Includes visually hidden text (`sr-only`) for screen readers
  * 
  * @component
- * @returns {JSX.Element} The rendered skeleton loader
+ * @since 1.0.0
+ * @returns {JSX.Element} Rendered skeleton loader.
+ * @see TrendChart for the chart component that this skeleton represents.
  * 
  * @example
  * ```tsx
@@ -46,16 +51,16 @@ export function TrendChartSkeleton() {
           ))}
         </div>
         
-        {/* Chart Trend area */}
+        {/* Line Chart area */}
         <div className="ml-12 h-full flex flex-col justify-end space-y-4">
-          {/* Grid Trends skeleton */}
+          {/* Grid lines skeleton */}
           <div className="flex-1 flex flex-col justify-between">
             {Array.from({ length: 5 }).map((_, i) => (
               <div key={i} className="w-full h-px bg-gray-200 animate-pulse" />
             ))}
           </div>
           
-          {/* Trend chart wave skeleton */}
+          {/* Line chart skeleton */}
           <div className="w-full h-32 relative">
             <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
               <path
