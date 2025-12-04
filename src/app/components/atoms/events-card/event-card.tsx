@@ -12,7 +12,7 @@ import { Calendar, MapPin, Users } from "lucide-react";
  * @property {number} volunteers - Optional number of volunteers registered for the event.
  * @property {string} electedVolunteer - Optional name of the elected volunteer for the event.
  */
-interface Event {
+export interface Event {
   id: string;
   title: string;
   date: string;
