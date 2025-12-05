@@ -5,7 +5,6 @@ import { Event } from "@/app/shared/types";
  * Sample upcoming events data for demonstration purposes.
  * 
  * @constant
- * @remarks
  * This is provided as sensible default mock data. In production, this data
  * would be fetched from an API or database.
  */
@@ -110,7 +109,7 @@ interface UpcomingEventsProps {
  * </Suspense>
  * ```
  */
-export default function UpcomingEvents({ events = mockEvents }: UpcomingEventsProps = {}) {
+export default function UpcomingEvents({ events = mockEvents }: UpcomingEventsProps) {
     const eventCount = events.length;
     const eventText = eventCount === 1 ? 'event' : 'events';
     

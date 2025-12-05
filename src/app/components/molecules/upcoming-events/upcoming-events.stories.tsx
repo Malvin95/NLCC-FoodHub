@@ -27,7 +27,7 @@ const mockEvents: Event[] = [
   {
     id: '1',
     title: 'Community Food Drive',
-    date: 'Dec 5, 2025',
+    date: '2025-12-05T09:00:00.000Z',
     time: '9:00 AM - 2:00 PM',
     location: 'Central Community Center',
     volunteers: 24,
@@ -35,7 +35,7 @@ const mockEvents: Event[] = [
   {
     id: '2',
     title: 'Holiday Meal Distribution',
-    date: 'Dec 15, 2025',
+    date: '2025-12-15T10:00:00.000Z',
     time: '10:00 AM - 4:00 PM',
     location: 'Main Food Bank Facility',
     volunteers: 45,
@@ -43,7 +43,7 @@ const mockEvents: Event[] = [
   {
     id: '3',
     title: 'Volunteer Training Session',
-    date: 'Dec 8, 2025',
+    date: '2025-12-08T18:00:00.000Z',
     time: '6:00 PM - 8:00 PM',
     location: 'Food Bank Office',
     volunteers: 12,
@@ -67,7 +67,7 @@ export const CustomEvents: Story = {
         {
           id: 'custom-1',
           title: 'Special Community Outreach',
-          date: 'Dec 10, 2025',
+          date: '2025-12-10T13:00:00.000Z',
           time: '1:00 PM - 5:00 PM',
           location: 'Downtown Plaza',
           volunteers: 30,
@@ -75,7 +75,7 @@ export const CustomEvents: Story = {
         {
           id: 'custom-2',
           title: 'Fundraising Gala',
-          date: 'Dec 20, 2025',
+          date: '2025-12-20T18:00:00.000Z',
           time: '6:00 PM - 9:00 PM',
           location: 'Grand Ballroom',
           volunteers: 100,
@@ -96,7 +96,7 @@ export const SingleEvent: Story = {
         {
           id: '1',
           title: 'Quick Volunteer Signup',
-          date: 'Dec 6, 2025',
+          date: '2025-12-06T15:00:00.000Z',
           time: '3:00 PM - 4:00 PM',
           location: 'Local Office',
           volunteers: 5,
@@ -327,7 +327,7 @@ export const MultipleStates: Story = {
             {
               id: '1',
               title: 'Single Event Demo',
-              date: 'Dec 5, 2025',
+              date: '2025-12-05T14:00:00.000Z',
               time: '2:00 PM',
               location: 'Demo Location',
               volunteers: 5,

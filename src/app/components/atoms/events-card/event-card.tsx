@@ -69,7 +69,6 @@ export default function EventCard({ event }: EventCardProps) {
     <article 
       className="p-4 bg-gray-50 rounded-lg border border-gray-200"
       aria-labelledby={`event-title-${event.id}`}
-      aria-describedby={`event-title-${event.id}`}
     >
         <h3 id={`event-title-${event.id}`} className="text-gray-900 mb-3">{event.title}</h3>
         <div className="space-y-2">
@@ -107,7 +106,7 @@ export default function EventCard({ event }: EventCardProps) {
                         <dl>
                           <dt className="sr-only">Volunteers registered</dt>
                           <dd>
-                            <span aria-label={`${event.volunteers} volunteers registered`}>
+                            <span>
                               {event.volunteers} volunteers registered
                             </span>
                           </dd>

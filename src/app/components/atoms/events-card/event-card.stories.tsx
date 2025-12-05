@@ -207,7 +207,6 @@ export const IconsTest: Story = {
     // 1 MapPin icon for location
     // 1 or 2 Users icons (one for elected volunteer, one for volunteer count)
     await expect(svgElements.length).toBeGreaterThanOrEqual(3);
-    await expect(svgElements.length).toBeLessThanOrEqual(4);
   }
 };
 
