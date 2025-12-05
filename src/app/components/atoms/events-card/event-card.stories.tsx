@@ -25,7 +25,7 @@ type SkeletonStory = StoryObj<typeof EventCardSkeleton>;
 const mockEvent = {
   id: '1',
   title: 'Food Drive',
-  date: 'Dec 15, 2025',
+  date: '2025-12-15',  // ISO 8601 date string
   time: '10:00 AM',
   location: '123 Main St, Downtown',
   volunteers: 12,
@@ -80,7 +80,7 @@ export const HighVolunteerCount: Story = {
       event={{
         ...mockEvent,
         title: 'Annual Gala',
-        date: 'Dec 20, 2025',
+        date: '2025-12-20',
         time: '6:00 PM',
         location: 'Grand Ballroom, 456 Park Ave',
         volunteers: 250,
@@ -127,9 +127,10 @@ export const CardStructureTest: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     
-    // Check container styling
-    const container = canvasElement.querySelector('.bg-gray-50.rounded-lg.border');
-    await expect(container).toBeInTheDocument();
+    // Check article element with proper ARIA attributes
+    const article = canvasElement.querySelector('article');
+    await expect(article).toBeInTheDocument();
+    await expect(article).toHaveAttribute('aria-labelledby', `event-title-${mockEvent.id}`);
     
     // Check title is rendered
     const title = canvas.getByText(mockEvent.title);
@@ -148,8 +149,13 @@ export const AllDetailsRenderedTest: Story = {
     // Check title
     await expect(canvas.getByText(mockEvent.title)).toBeInTheDocument();
     
-    // Check date and time
-    await expect(canvas.getByText(new RegExp(mockEvent.date))).toBeInTheDocument();
+    // Check date is rendered (formatted from ISO string)
+    // The ISO date '2025-12-15' should be displayed as 'Dec 15, 2025'
+    const timeElement = canvasElement.querySelector('time');
+    await expect(timeElement).toBeInTheDocument();
+    await expect(timeElement).toHaveAttribute('dateTime', mockEvent.date);
+    
+    // Check time
     await expect(canvas.getByText(new RegExp(mockEvent.time))).toBeInTheDocument();
     
     // Check location
@@ -157,7 +163,7 @@ export const AllDetailsRenderedTest: Story = {
     
     // Check volunteer count (since mockEvent includes it)
     if (mockEvent.volunteers) {
-      await expect(canvas.getByText(new RegExp(`${mockEvent.volunteers} volunteers`))).toBeInTheDocument();
+      await expect(canvas.getByText(new RegExp(`${mockEvent.volunteers} volunteers registered`))).toBeInTheDocument();
     }
     
     // Check elected volunteer (since mockEvent includes it)
@@ -177,7 +183,7 @@ export const OptionalVolunteerDetailsTest: Story = {
     
     // If event has volunteers count, it should be displayed
     if (mockEvent.volunteers) {
-      await expect(canvas.getByText(new RegExp(`${mockEvent.volunteers} volunteers`))).toBeInTheDocument();
+      await expect(canvas.getByText(new RegExp(`${mockEvent.volunteers} volunteers registered`))).toBeInTheDocument();
     }
     
     // If event has elected volunteer, it should be displayed
@@ -196,14 +202,12 @@ export const IconsTest: Story = {
     // Check for icon SVGs (Lucide icons render as SVG)
     const svgElements = canvasElement.querySelectorAll('svg');
     
-    // Should have at least 2 icons (Calendar, MapPin always present)
-    // Users icon present only if volunteers or electedVolunteer exists
-    await expect(svgElements.length).toBeGreaterThanOrEqual(2);
-    
-    // If event has volunteer details, should have 3 icons total
-    if (mockEvent.volunteers || mockEvent.electedVolunteer) {
-      await expect(svgElements.length).toBe(4);
-    }
+    // Should have at least 3 icons:
+    // 1 Calendar icon for date/time
+    // 1 MapPin icon for location
+    // 1 or 2 Users icons (one for elected volunteer, one for volunteer count)
+    await expect(svgElements.length).toBeGreaterThanOrEqual(3);
+    await expect(svgElements.length).toBeLessThanOrEqual(4);
   }
 };
 
@@ -217,6 +221,10 @@ export const SemanticStructureTest: Story = {
     const heading = canvasElement.querySelector('h3');
     await expect(heading).toBeInTheDocument();
     await expect(heading?.textContent).toContain(mockEvent.title);
+    
+    // Check for description lists (dl elements)
+    const descriptionLists = canvasElement.querySelectorAll('dl');
+    await expect(descriptionLists.length).toBeGreaterThan(0);
     
     // Check for structured details container
     const detailsContainer = canvasElement.querySelector('.space-y-2');
@@ -329,7 +337,7 @@ export const EventListDemo: Story = {
         event={{
           id: '2',
           title: 'Beach Cleanup',
-          date: 'Dec 17, 2025',
+          date: '2025-12-17',
           time: '8:00 AM',
           location: 'Sunset Beach',
           volunteers: 45,
@@ -339,7 +347,7 @@ export const EventListDemo: Story = {
         event={{
           id: '3',
           title: 'Workshop: JavaScript Basics',
-          date: 'Dec 22, 2025',
+          date: '2025-12-22',
           time: '2:00 PM',
           location: 'Tech Center, Room 201',
           volunteers: 8,

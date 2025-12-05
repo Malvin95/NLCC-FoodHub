@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { within, expect } from 'storybook/test';
 import UpcomingEvents from './upcoming-events';
 import { UpcomingEventsSkeleton } from './upcoming-events-skeleton';
-import type { Event } from '../../atoms/events-card/event-card';
+import type { Event } from '@/app/shared/types';
 
 const meta: Meta<typeof UpcomingEvents> = {
   title: 'Molecules/UpcomingEvents',
@@ -258,7 +258,7 @@ export const SkeletonStructureTest: SkeletonStory = {
     await expect(headingSkeleton?.className).toContain('animate-pulse');
     
     // Check event card skeletons
-    const eventSkeletons = canvasElement.querySelectorAll('.space-y-4 > div');
+    const eventSkeletons = canvasElement.querySelectorAll('.space-y-4 > li');
     await expect(eventSkeletons.length).toBe(5);
     
     // Check for screen reader text
@@ -275,7 +275,7 @@ export const SkeletonEventCountTest: SkeletonStory = {
   render: () => <UpcomingEventsSkeleton />,
   play: async ({ canvasElement }) => {
     // Should have 5 event card skeletons (matching default mock data count)
-    const eventPlaceholders = canvasElement.querySelectorAll('.space-y-4 > div');
+    const eventPlaceholders = canvasElement.querySelectorAll('.space-y-4 > li');
     await expect(eventPlaceholders.length).toBe(5);
     
     // Each should have animating elements

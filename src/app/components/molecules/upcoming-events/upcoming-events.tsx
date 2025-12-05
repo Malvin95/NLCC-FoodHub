@@ -1,4 +1,5 @@
-import EventCard, { Event } from "../../atoms/events-card/event-card";
+import EventCard from "../../atoms/events-card/event-card";
+import { Event } from "@/app/shared/types";
 
 /**
  * Sample upcoming events data for demonstration purposes.
@@ -12,7 +13,7 @@ const mockEvents: Event[] = [
     {
         id: '1',
         title: 'Community Food Drive',
-        date: 'Dec 5, 2025',
+        date: '2025-12-05T09:00:00.000Z',
         time: '9:00 AM - 2:00 PM',
         location: 'Central Community Center',
         volunteers: 24,
@@ -20,35 +21,35 @@ const mockEvents: Event[] = [
     {
         id: '2',
         title: 'Holiday Meal Distribution',
-        date: 'Dec 15, 2025',
+        date: '2025-12-10T10:00:00.000Z',
         time: '10:00 AM - 4:00 PM',
         location: 'Main Food Bank Facility',
         volunteers: 45,
     },
     {
         id: '3',
-        title: 'Volunteer Training Session',
-        date: 'Dec 8, 2025',
-        time: '6:00 PM - 8:00 PM',
-        location: 'Food Bank Office',
-        volunteers: 12,
-    },
-    {
-        id: '4',
         title: 'Mobile Pantry - North District',
-        date: 'Dec 12, 2025',
+        date: '2025-12-12T11:00:00.000Z',
         time: '11:00 AM - 3:00 PM',
         location: 'North Park',
         volunteers: 18,
     },
     {
-        id: '5',
-        title: 'Mobile Pantry - North District',
-        date: 'Dec 12, 2025',
+        id: '4',
+        title: 'Mobile Pantry - Town Center',
+        date: '2025-12-13T11:00:00.000Z',
         time: '11:00 AM - 3:00 PM',
-        location: 'North Park',
+        location: 'Town Center',
         electedVolunteer: 'John Doe',
     },
+    {
+        id: '5',
+        title: 'Volunteer Training Session',
+        date: '2025-12-12T18:00:00.000Z',
+        time: '6:00 PM - 8:00 PM',
+        location: 'Food Bank Office',
+        volunteers: 12,
+    }
 ];
 
 /**
@@ -56,11 +57,9 @@ const mockEvents: Event[] = [
  * 
  * @interface UpcomingEventsProps
  * @property {Event[]} [events] Optional array of events to display. Defaults to mockEvents.
- * @property {boolean} [isLoading] Optional loading state. When true, skeleton is shown instead.
  */
 interface UpcomingEventsProps {
   events?: Event[];
-  isLoading?: boolean;
 }
 
 /**
