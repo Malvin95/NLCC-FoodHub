@@ -3,7 +3,7 @@ import { within, expect } from 'storybook/test';
 import InventoryStatusBar from './inventory-status-bar';
 import InventoryStatusBarSkeleton from './inventory-status-bar-skeleton';
 import type { InventoryItem } from '../../atoms/inventory-status-card/inventory-status-card';
-import { statusLevels } from '@/app/shared/enums';
+import { StatusLevels } from '@/app/shared/enums';
 
 const meta: Meta<typeof InventoryStatusBar> = {
   title: 'Molecules/InventoryStatusBar',
@@ -25,9 +25,9 @@ type Story = StoryObj<typeof InventoryStatusBar>;
 type SkeletonStory = StoryObj<typeof InventoryStatusBarSkeleton>;
 
 const mockItems: InventoryItem[] = [
-  { id: 1, category: 'Canned Goods', current: 50, target: 100, unit: 'units', status: statusLevels.MEDIUM },
-  { id: 2, category: 'Fresh Produce', current: 20, target: 80, unit: 'lbs', status: statusLevels.LOW },
-  { id: 3, category: 'Dry Goods', current: 90, target: 100, unit: 'units', status: statusLevels.GOOD },
+  { id: 1, category: 'Canned Goods', current: 50, target: 100, unit: 'units', status: StatusLevels.MEDIUM },
+  { id: 2, category: 'Fresh Produce', current: 20, target: 80, unit: 'lbs', status: StatusLevels.LOW },
+  { id: 3, category: 'Dry Goods', current: 90, target: 100, unit: 'units', status: StatusLevels.GOOD },
 ];
 
 export const Default: Story = {
@@ -39,9 +39,9 @@ export const DenseGrid: Story = {
     <InventoryStatusBar
       items={[
         ...mockItems,
-        { id: 4, category: 'Beverages', current: 75, target: 120, unit: 'bottles', status: statusLevels.MEDIUM },
-        { id: 5, category: 'Snacks', current: 150, target: 100, unit: 'units', status: statusLevels.GOOD },
-        { id: 6, category: 'Frozen', current: 30, target: 60, unit: 'packs', status: statusLevels.LOW },
+        { id: 4, category: 'Beverages', current: 75, target: 120, unit: 'bottles', status: StatusLevels.MEDIUM },
+        { id: 5, category: 'Snacks', current: 150, target: 100, unit: 'units', status: StatusLevels.GOOD },
+        { id: 6, category: 'Frozen', current: 30, target: 60, unit: 'packs', status: StatusLevels.LOW },
       ]}
     />
   )
@@ -85,12 +85,34 @@ export const Skeleton: SkeletonStory = {
 export const SkeletonStructureTest: SkeletonStory = {
   render: () => <InventoryStatusBarSkeleton count={3}/>,
   play: async ({ canvasElement }) => {
-    // Title stub and three card placeholders
+    const canvas = within(canvasElement);
+
+    // Check for role and aria-label for accessibility
+    const skeleton = canvasElement.querySelector('[role="status"]');
+    await expect(skeleton).toBeInTheDocument();
+    await expect(skeleton).toHaveAttribute('aria-label', 'Loading inventory status');
+
+    // Check for screen reader text
+    const srText = canvas.getByText('Loading inventory status...');
+    await expect(srText).toBeInTheDocument();
+    await expect(srText.className).toContain('sr-only');
+
+    // Title stub should be present
     const titleStub = canvasElement.querySelector('.h-6.w-40');
     await expect(titleStub).toBeInTheDocument();
 
+    // Should have correct number of card placeholders
     const placeholders = canvasElement.querySelectorAll('.grid > div');
     await expect(placeholders.length).toBe(3);
+  }
+};
+
+export const SkeletonCustomCountTest: SkeletonStory = {
+  render: () => <InventoryStatusBarSkeleton count={6}/>,
+  play: async ({ canvasElement }) => {
+    // Should render custom count of placeholders
+    const placeholders = canvasElement.querySelectorAll('.grid > div');
+    await expect(placeholders.length).toBe(6);
   }
 };
 

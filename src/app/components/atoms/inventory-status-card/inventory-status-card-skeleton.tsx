@@ -27,7 +27,7 @@
  */
 export default function InventoryStatusCardSkeleton() {
   return (
-    <div className="p-4 rounded-lg border bg-gray-50 animate-pulse">
+    <div role="status" aria-label="Loading inventory item status" className="p-4 rounded-lg border bg-gray-50 animate-pulse">
       <div className="flex items-center justify-between mb-3">
         <div className="h-4 w-32 bg-gray-200 rounded" />
         <div className="h-5 w-16 bg-gray-200 rounded" />
@@ -40,6 +40,7 @@ export default function InventoryStatusCardSkeleton() {
         <div className="w-full bg-gray-200 rounded-full h-2" />
       </div>
       <div className="h-3 w-20 bg-gray-200 rounded" />
+      <span className="sr-only">Loading inventory item status...</span>
     </div>
   );
 }

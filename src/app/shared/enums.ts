@@ -9,7 +9,7 @@ export enum View {
   HISTORY = 'history',
 }
 
-export enum statusLevels {
+export enum StatusLevels {
   LOW = 'low',
   MEDIUM = 'medium',
   GOOD = 'good',

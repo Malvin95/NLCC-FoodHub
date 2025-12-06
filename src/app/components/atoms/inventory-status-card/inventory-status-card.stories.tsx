@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { within, expect } from 'storybook/test';
 import InventoryStatusCard, { InventoryItem } from './inventory-status-card';
 import InventoryStatusCardSkeleton from './inventory-status-card-skeleton';
-import { statusLevels } from '@/app/shared/enums';
+import { StatusLevels } from '@/app/shared/enums';
 
 const meta: Meta<typeof InventoryStatusCard> = {
   title: 'Atoms/InventoryStatusCard',
@@ -29,7 +29,7 @@ const baseItem: InventoryItem = {
   current: 50,
   target: 100,
   unit: 'units',
-  status: statusLevels.MEDIUM,
+  status: StatusLevels.MEDIUM,
 };
 
 export const Default: Story = {
@@ -39,7 +39,7 @@ export const Default: Story = {
 export const LowStatus: Story = {
   render: () => (
     <InventoryStatusCard
-      item={{ ...baseItem, id: 2, category: 'Fresh Produce', current: 20, target: 100, status: statusLevels.LOW }}
+      item={{ ...baseItem, id: 2, category: 'Fresh Produce', current: 20, target: 100, status: StatusLevels.LOW }}
     />
   )
 };
@@ -47,7 +47,7 @@ export const LowStatus: Story = {
 export const GoodStatus: Story = {
   render: () => (
     <InventoryStatusCard
-      item={{ ...baseItem, id: 3, category: 'Dry Goods', current: 90, target: 100, status: statusLevels.GOOD }}
+      item={{ ...baseItem, id: 3, category: 'Dry Goods', current: 90, target: 100, status: StatusLevels.GOOD }}
     />
   )
 };
@@ -55,7 +55,7 @@ export const GoodStatus: Story = {
 export const NearTarget: Story = {
   render: () => (
     <InventoryStatusCard
-      item={{ ...baseItem, id: 4, category: 'Beverages', current: 75, target: 80, status: statusLevels.GOOD }}
+      item={{ ...baseItem, id: 4, category: 'Beverages', current: 75, target: 80, status: StatusLevels.GOOD }}
     />
   )
 };
@@ -63,7 +63,7 @@ export const NearTarget: Story = {
 export const OverTargetCapped: Story = {
   render: () => (
     <InventoryStatusCard
-      item={{ ...baseItem, id: 5, category: 'Snacks', current: 150, target: 100, status: statusLevels.GOOD }}
+      item={{ ...baseItem, id: 5, category: 'Snacks', current: 150, target: 100, status: StatusLevels.GOOD }}
     />
   )
 };
@@ -88,7 +88,7 @@ export const StructureTest: Story = {
 };
 
 export const OverTargetCappingTest: Story = {
-  render: () => <InventoryStatusCard item={{ ...baseItem, id: 6, current: 150, target: 100, status: statusLevels.GOOD }} />,
+  render: () => <InventoryStatusCard item={{ ...baseItem, id: 6, current: 150, target: 100, status: StatusLevels.GOOD }} />,
   play: async ({ canvasElement }) => {
     // Width should be capped at 100%
     const bar = canvasElement.querySelector('div[style*="width: 100%"]');
@@ -110,6 +110,19 @@ export const Skeleton: SkeletonStory = {
 export const SkeletonStructureTest: SkeletonStory = {
   render: () => <InventoryStatusCardSkeleton />,
   play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Check for role and aria-label for accessibility
+    const skeleton = canvasElement.querySelector('[role="status"]');
+    await expect(skeleton).toBeInTheDocument();
+    await expect(skeleton).toHaveAttribute('aria-label', 'Loading inventory item status');
+
+    // Check for screen reader text
+    const srText = canvas.getByText('Loading inventory item status...');
+    await expect(srText).toBeInTheDocument();
+    await expect(srText.className).toContain('sr-only');
+
+    // Check for animated placeholder blocks
     const blocks = canvasElement.querySelectorAll('.animate-pulse .bg-gray-200');
     await expect(blocks.length).toBeGreaterThan(0);
   }

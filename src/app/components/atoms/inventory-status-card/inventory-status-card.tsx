@@ -1,4 +1,4 @@
-import { statusLevels } from "@/app/shared/enums";
+import { StatusLevels } from "@/app/shared/enums";
 
 /**
  * Represents a single inventory item with current vs target levels.
@@ -15,7 +15,7 @@ export interface InventoryItem {
     /** Unit of measurement (e.g., "lbs", "units"). */
     unit: string;
     /** Status level describing how close the item is to its target. */
-    status: statusLevels;
+    status: StatusLevels;
 }
 
 // Tailwind color tokens for the status pill and progress bar.
@@ -73,12 +73,11 @@ const statusBgColors = {
  * @see {@link InventoryItem} for the data interface
  */
 export default function InventoryStatusCard({ item }: { item: InventoryItem }) {
-    const percentage = (item.current / item.target) * 100;
+    const percentage = item.target > 0 ? (item.current / item.target) * 100 : 0;
     const percentageLabel = `${percentage.toFixed(0)}% of target`;
     
     return (
-        <article 
-            key={item.id} 
+        <article
             className={`p-4 rounded-lg border ${statusBgColors[item.status]}`}
             aria-labelledby={`inventory-item-${item.id}`}
         >
