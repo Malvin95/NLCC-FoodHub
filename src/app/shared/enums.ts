@@ -8,3 +8,9 @@ export enum View {
   VOLUNTEERS = 'volunteers',
   HISTORY = 'history',
 }
+
+export enum StatusLevels {
+  LOW = 'low',
+  MEDIUM = 'medium',
+  GOOD = 'good',
+}
