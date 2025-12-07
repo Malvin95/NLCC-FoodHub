@@ -364,9 +364,8 @@ export const TemplateVsSkeleton: Story = {
   render: () => (
     <div className="flex gap-8 flex-wrap">
       <div className="flex-1 min-w-[500px]">
-        <h1 className="text-sm font-medium mb-4 text-gray-700">Loaded State</h1>
         <DashboardPageTemplate 
-          title="Dashboard"
+          title="Loaded State"
           description="Sample dashboard page"
         >
           <div className="bg-white p-6 rounded-lg shadow-sm border">Content 1</div>
@@ -374,7 +373,6 @@ export const TemplateVsSkeleton: Story = {
         </DashboardPageTemplate>
       </div>
       <div className="flex-1 min-w-[500px]">
-        <h1 className="text-sm font-medium mb-4 text-gray-700">Loading State</h1>
         <DashboardPageTemplateSkeleton />
       </div>
     </div>

@@ -1,5 +1,4 @@
 
-
 /**
  * Props for the DashboardPageTemplate component.
  */
