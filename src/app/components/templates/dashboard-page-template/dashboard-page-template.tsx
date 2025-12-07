@@ -5,7 +5,7 @@
  */
 interface DashboardPageTemplateProps {
   /** React children to render in the content area. */
-  children: React.ReactNode;
+  children?: React.ReactNode;
   /** Main page title displayed at the top. */
   title: string;
   /** Descriptive text displayed below the title. */
@@ -73,10 +73,8 @@ export default function DashboardPageTemplate({ children, title, description }: 
         <h1 className="text-2xl font-semibold text-gray-900 mb-6">{title}</h1>
         <p className="text-gray-600 mb-8">{description}</p>
         <div className="space-y-8">
-          {children ? (
-              <div className="space-y-8">{children}</div>
-            ) : (
-              <div className="text-center text-gray-500 py-12">
+          {children || (
+              <div className="text-center text-gray-500 py-12" role="status">
                 No content available
               </div>
           )}

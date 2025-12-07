@@ -191,6 +191,92 @@ export const ChildrenRenderTest: Story = {
   }
 };
 
+/**
+ * Template with no children provided
+ */
+export const EmptyState: Story = {
+  render: () => (
+    <DashboardPageTemplate 
+      title="Empty Dashboard"
+      description="This dashboard has no content sections"
+    >
+    </DashboardPageTemplate>
+  )
+};
+
+/**
+ * Verify empty state message is displayed
+ */
+export const EmptyStateTest: Story = {
+  render: () => (
+    <DashboardPageTemplate 
+      title="Empty Test"
+      description="Testing empty state"
+    >
+    </DashboardPageTemplate>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Title and description should still be present
+    await expect(canvas.getByText('Empty Test')).toBeInTheDocument();
+    await expect(canvas.getByText('Testing empty state')).toBeInTheDocument();
+
+
+    // Empty state message should be displayed
+    const emptyTextElement = canvas.getByText('No content available');
+    await expect(emptyTextElement).toBeInTheDocument();
+
+    // Message should be centered with proper styling
+    await expect(emptyTextElement).toHaveClass('text-center');
+    await expect(emptyTextElement).toHaveClass('text-gray-500');
+    await expect(emptyTextElement).toHaveClass('py-12');
+  }
+};
+
+/**
+ * Verify empty state with long title and description
+ */
+export const EmptyStateWithLongContent: Story = {
+  render: () => (
+    <DashboardPageTemplate 
+      title="Food Bank Inventory Management and Distribution Coordination Dashboard"
+      description="Comprehensive overview of inventory levels, distribution schedules, volunteer coordination, and real-time tracking of food supplies across all locations in the network"
+    >
+    </DashboardPageTemplate>
+  )
+};
+
+/**
+ * Verify title and description are always rendered regardless of state
+ */
+export const AccessibilityTest: Story = {
+  render: () => (
+    <DashboardPageTemplate 
+      title="Accessible Dashboard"
+      description="Testing accessibility features"
+    >
+      <div>Content section</div>
+    </DashboardPageTemplate>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Title should be h1
+    const title = canvas.getByRole('heading', { level: 1 });
+    await expect(title).toBeInTheDocument();
+    await expect(title?.textContent).toBe('Accessible Dashboard');
+
+    // Verify semantic paragraph
+    const description = canvasElement.querySelector('p');
+    await expect(description).toBeInTheDocument();
+    await expect(description?.textContent).toBe('Testing accessibility features');
+
+    // Verify content is rendered
+    await expect(canvas.getByText('Content section')).toBeInTheDocument();
+  }
+};
+
 // Skeleton Loading States
 
 /**
@@ -278,7 +364,7 @@ export const TemplateVsSkeleton: Story = {
   render: () => (
     <div className="flex gap-8 flex-wrap">
       <div className="flex-1 min-w-[500px]">
-        <h3 className="text-sm font-medium mb-4 text-gray-700">Loaded State</h3>
+        <h1 className="text-sm font-medium mb-4 text-gray-700">Loaded State</h1>
         <DashboardPageTemplate 
           title="Dashboard"
           description="Sample dashboard page"
@@ -288,7 +374,7 @@ export const TemplateVsSkeleton: Story = {
         </DashboardPageTemplate>
       </div>
       <div className="flex-1 min-w-[500px]">
-        <h3 className="text-sm font-medium mb-4 text-gray-700">Loading State</h3>
+        <h1 className="text-sm font-medium mb-4 text-gray-700">Loading State</h1>
         <DashboardPageTemplateSkeleton />
       </div>
     </div>
