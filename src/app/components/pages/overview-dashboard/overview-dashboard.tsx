@@ -3,7 +3,7 @@ import DashboardPageTemplate from "../../templates/dashboard-page-template/dashb
 import { TrendChart } from "../../atoms/trend-chart/trend-chart";
 import UpcomingEvents from "../../molecules/upcoming-events/upcoming-events";
 import InventoryStatusBar from "../../molecules/inventory-status-bar/inventory-status-bar";
-import { mockInventoryItems, mockStatCards } from "./mock-data";
+import { mockInventoryItems, mockStatCards } from "./_mock-data_";
 
 
 /**

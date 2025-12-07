@@ -4,7 +4,7 @@ import InventoryStatusBar from './inventory-status-bar';
 import InventoryStatusBarSkeleton from './inventory-status-bar-skeleton';
 import type { InventoryItem } from '../../atoms/inventory-status-card/inventory-status-card';
 import { StatusLevels } from '@/app/shared/enums';
-import { mockInventoryItems } from '../../pages/overview-dashboard/mock-data';
+import { mockInventoryItems } from '../../pages/overview-dashboard/_mock-data_';
 
 const meta: Meta<typeof InventoryStatusBar> = {
   title: 'Molecules/InventoryStatusBar',
