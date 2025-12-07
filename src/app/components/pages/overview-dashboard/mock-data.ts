@@ -1,9 +1,20 @@
-import type { LucideIcon } from "lucide-react";
-import { Heart, Package, TrendingUp, Users } from "lucide-react";
-import type { InventoryItem } from "../../atoms/inventory-status-card/inventory-status-card";
+import { Heart, LucideIcon, Package, TrendingUp, Users } from "lucide-react";
+import type { InventoryItem } from "@/app/components/atoms/inventory-status-card/inventory-status-card";
 import { StatusLevels } from "@/app/shared/enums";
 import type { Event } from "@/app/shared/types";
 
+/**
+ * Represents the structure of a mock statistical card component.
+ * 
+ * @typedef {Object} StatCardMock
+ * @property {string} title - The title or label displayed on the stat card
+ * @property {string} value - The primary numerical or text value to display
+ * @property {string} change - The change in value (typically a percentage or absolute number)
+ * @property {"up" | "down"} trend - The direction of the trend indicator
+ * @property {"rose" | "blue" | "green" | "purple"} color - The color theme of the card
+ * @property {LucideIcon} icon - The Lucide icon component to display on the card
+ * @property {string} [iconLabel] - Optional accessibility label for the icon
+ */
 export type StatCardMock = {
   title: string;
   value: string;

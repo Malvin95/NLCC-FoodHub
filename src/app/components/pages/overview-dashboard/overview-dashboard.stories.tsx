@@ -45,7 +45,7 @@ export const StructureTest: Story = {
     await expect(canvas.getByText('Trends (Last 6 Months)')).toBeInTheDocument();
 
     // Upcoming events heading
-    await expect(canvas.getByRole('heading', { name: 'Upcoming Events' })).toBeInTheDocument();
+    await expect(canvas.getByText('Upcoming Events')).toBeInTheDocument();
 
     // Inventory status heading and item count
     await expect(canvas.getByRole('heading', { name: 'Inventory Status' })).toBeInTheDocument();

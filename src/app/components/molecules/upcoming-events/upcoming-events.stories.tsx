@@ -140,7 +140,7 @@ export const AllEventsRenderTest: Story = {
     // Check each event title is rendered
     await expect(canvas.getByText('Community Food Drive')).toBeInTheDocument();
     await expect(canvas.getByText('Holiday Meal Distribution')).toBeInTheDocument();
-    await expect(canvas.getByText('Volunteer Training Session')).toBeInTheDocument();
+    await expect(canvas.getByText('Mobile Pantry - North District')).toBeInTheDocument();
   }
 };
 

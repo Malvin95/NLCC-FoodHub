@@ -53,12 +53,12 @@ export default function OverviewDashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
             <UpcomingEvents />
             <div>
-                Left Content Feed
+                detailed Content Feed will go here
             </div>
         </div>
 
         {/* Inventory Status Bar */}
-                <InventoryStatusBar items={mockInventoryItems}/>
+        <InventoryStatusBar items={mockInventoryItems}/>
     </DashboardPageTemplate>
   );
 }
