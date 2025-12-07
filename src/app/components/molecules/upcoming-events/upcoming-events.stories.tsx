@@ -3,7 +3,7 @@ import { within, expect } from 'storybook/test';
 import UpcomingEvents from './upcoming-events';
 import { UpcomingEventsSkeleton } from './upcoming-events-skeleton';
 import type { Event } from '@/app/shared/types';
-import { mockEvents } from '../../pages/overview-dashboard/mock-data';
+import { mockEvents } from '../../pages/overview-dashboard/_mock-data_';
 
 const meta: Meta<typeof UpcomingEvents> = {
   title: 'Molecules/UpcomingEvents',

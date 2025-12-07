@@ -1,6 +1,6 @@
 import EventCard from "../../atoms/events-card/event-card";
 import { Event } from "@/app/shared/types";
-import { mockEvents } from "../../pages/overview-dashboard/mock-data";
+import { mockEvents } from "../../pages/overview-dashboard/_mock-data_";
 
 /**
  * Sample upcoming events data for demonstration purposes.
