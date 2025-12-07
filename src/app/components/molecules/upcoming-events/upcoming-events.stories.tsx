@@ -3,6 +3,7 @@ import { within, expect } from 'storybook/test';
 import UpcomingEvents from './upcoming-events';
 import { UpcomingEventsSkeleton } from './upcoming-events-skeleton';
 import type { Event } from '@/app/shared/types';
+import { mockEvents } from '../../pages/overview-dashboard/mock-data';
 
 const meta: Meta<typeof UpcomingEvents> = {
   title: 'Molecules/UpcomingEvents',
@@ -23,32 +24,7 @@ export default meta;
 type Story = StoryObj<typeof UpcomingEvents>;
 type SkeletonStory = StoryObj<typeof UpcomingEventsSkeleton>;
 
-const mockEvents: Event[] = [
-  {
-    id: '1',
-    title: 'Community Food Drive',
-    date: '2025-12-05T09:00:00.000Z',
-    time: '9:00 AM - 2:00 PM',
-    location: 'Central Community Center',
-    volunteers: 24,
-  },
-  {
-    id: '2',
-    title: 'Holiday Meal Distribution',
-    date: '2025-12-15T10:00:00.000Z',
-    time: '10:00 AM - 4:00 PM',
-    location: 'Main Food Bank Facility',
-    volunteers: 45,
-  },
-  {
-    id: '3',
-    title: 'Volunteer Training Session',
-    date: '2025-12-08T18:00:00.000Z',
-    time: '6:00 PM - 8:00 PM',
-    location: 'Food Bank Office',
-    volunteers: 12,
-  },
-];
+const mockEventsForStories: Event[] = mockEvents.slice(0, 3);
 
 /**
  * Default upcoming events list with mock data
@@ -157,7 +133,7 @@ export const SectionStructureTest: Story = {
  * Verify all events are rendered
  */
 export const AllEventsRenderTest: Story = {
-  render: () => <UpcomingEvents events={mockEvents} />,
+  render: () => <UpcomingEvents events={mockEventsForStories} />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     
@@ -193,12 +169,12 @@ export const AccessibilityTest: Story = {
  * Verify event count is announced to screen readers
  */
 export const EventCountAnnouncementTest: Story = {
-  render: () => <UpcomingEvents events={mockEvents} />,
+  render: () => <UpcomingEvents events={mockEventsForStories} />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     
     // Check sr-only event count text is present
-    const countText = canvas.getByText(new RegExp(`\\(${mockEvents.length} events available\\)`));
+    const countText = canvas.getByText(new RegExp(`\\(${mockEventsForStories.length} events available\\)`));
     await expect(countText).toBeInTheDocument();
     await expect(countText.className).toContain('sr-only');
   }
@@ -208,7 +184,7 @@ export const EventCountAnnouncementTest: Story = {
  * Verify event cards maintain spacing in semantic list
  */
 export const EventCardSpacingTest: Story = {
-  render: () => <UpcomingEvents events={mockEvents} />,
+  render: () => <UpcomingEvents events={mockEventsForStories} />,
   play: async ({ canvasElement }) => {
     // Check for list element
     const list = canvasElement.querySelector('ul');
@@ -220,7 +196,7 @@ export const EventCardSpacingTest: Story = {
     
     // Check number of list items matches events array
     const listItems = canvasElement.querySelectorAll('li');
-    await expect(listItems.length).toBe(mockEvents.length);
+    await expect(listItems.length).toBe(mockEventsForStories.length);
   }
 };
 
@@ -292,7 +268,7 @@ export const EventsVsSkeleton: Story = {
     <div className="flex gap-8 flex-wrap">
       <div className="flex-1 min-w-[400px]">
         <h3 className="text-sm font-medium mb-4 text-gray-700">Loaded State</h3>
-        <UpcomingEvents events={mockEvents} />
+        <UpcomingEvents events={mockEventsForStories} />
       </div>
       <div className="flex-1 min-w-[400px]">
         <h3 className="text-sm font-medium mb-4 text-gray-700">Loading State</h3>

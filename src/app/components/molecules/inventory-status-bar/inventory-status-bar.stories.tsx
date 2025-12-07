@@ -4,6 +4,7 @@ import InventoryStatusBar from './inventory-status-bar';
 import InventoryStatusBarSkeleton from './inventory-status-bar-skeleton';
 import type { InventoryItem } from '../../atoms/inventory-status-card/inventory-status-card';
 import { StatusLevels } from '@/app/shared/enums';
+import { mockInventoryItems } from '../../pages/overview-dashboard/mock-data';
 
 const meta: Meta<typeof InventoryStatusBar> = {
   title: 'Molecules/InventoryStatusBar',
@@ -24,11 +25,7 @@ export default meta;
 type Story = StoryObj<typeof InventoryStatusBar>;
 type SkeletonStory = StoryObj<typeof InventoryStatusBarSkeleton>;
 
-const mockItems: InventoryItem[] = [
-  { id: 1, category: 'Canned Goods', current: 50, target: 100, unit: 'units', status: StatusLevels.MEDIUM },
-  { id: 2, category: 'Fresh Produce', current: 20, target: 80, unit: 'lbs', status: StatusLevels.LOW },
-  { id: 3, category: 'Dry Goods', current: 90, target: 100, unit: 'units', status: StatusLevels.GOOD },
-];
+const mockItems: InventoryItem[] = mockInventoryItems;
 
 export const Default: Story = {
   render: () => <InventoryStatusBar items={mockItems} />
