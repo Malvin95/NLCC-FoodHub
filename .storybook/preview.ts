@@ -1,4 +1,5 @@
-import type { Preview } from '@storybook/nextjs-vite';
+import type { Preview, ReactRenderer } from '@storybook/nextjs-vite';
+import { withThemeByClassName } from '@storybook/addon-themes';
 import '../src/app/globals.css';
 
 const preview: Preview = {
@@ -17,6 +18,15 @@ const preview: Preview = {
       test: 'todo'
     }
   },
+  decorators: [
+    withThemeByClassName<ReactRenderer>({
+      themes: {
+        light: '',
+        dark: 'dark',
+      },
+      defaultTheme: 'light',
+    }),
+  ]
 };
 
 export default preview;
