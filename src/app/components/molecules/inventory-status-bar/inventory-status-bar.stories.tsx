@@ -13,7 +13,7 @@ const meta: Meta<typeof InventoryStatusBar> = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Displays a grid of InventoryStatusCard components summarizing inventory levels.'
+        component: 'Displays a grid of InventoryStatusCard components summarizing inventory levels. Features full dark mode support with theme-aware colors, shadows, and smooth transitions.'
       }
     }
   },

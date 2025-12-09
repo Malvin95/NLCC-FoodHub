@@ -15,7 +15,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'A responsive sidebar navigation component with collapsible desktop view, mobile overlay, loading states, and non-blocking transitions using React\'s useTransition hook.',
+          'A responsive sidebar navigation component with collapsible desktop view, mobile overlay, loading states, and non-blocking transitions using React\'s useTransition hook. Features full dark mode support with theme-aware colors, shadows, and smooth transitions.',
       },
     },
   },

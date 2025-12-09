@@ -9,6 +9,8 @@ import { EventCardSkeleton } from "../../atoms/events-card/event-card-skeleton";
  * - Animated pulse effect for visual feedback
  * - Follows Next.js `loading.tsx` UI conventions
  * - Suitable for React Suspense boundaries
+ * - Full dark mode support with theme-aware colors and shadows
+ * - Smooth color transitions when switching themes
  * 
  * Accessibility:
  * - Uses `role="status"` with `aria-label` describing the loading state
@@ -42,12 +44,12 @@ export function UpcomingEventsSkeleton() {
     <section
       role="status"
       aria-label="Loading upcoming events"
-      className="bg-white rounded-lg shadow-sm border border-gray-200 p-6"
+      className="bg-card dark:bg-slate-950 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 p-6 transition-colors"
       aria-live="polite"
       aria-atomic="false"
     >
       {/* Heading skeleton */}
-      <div className="w-40 h-7 bg-gray-200 rounded animate-pulse mb-6" />
+      <div className="w-40 h-7 bg-gray-200 dark:bg-slate-700 rounded animate-pulse mb-6" />
       
       {/* Event list skeleton */}
       <ul className="space-y-4">

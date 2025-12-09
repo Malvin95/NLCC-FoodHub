@@ -18,6 +18,8 @@ interface InventoryStatusBarProps {
  * - Empty state message when no items are provided
  * - Semantic HTML structure using section element
  * - Consistent spacing and styling
+ * - Full dark mode support with theme-aware colors and shadows
+ * - Smooth color transitions when switching themes
  * 
  * Accessibility:
  * - Uses `<section>` landmark with `aria-labelledby`
@@ -62,12 +64,12 @@ interface InventoryStatusBarProps {
 export default function InventoryStatusBar({ items }: InventoryStatusBarProps) {
     return (
         <section 
-            className="bg-white rounded-lg shadow-sm border border-gray-200 p-6"
+            className="bg-card dark:bg-slate-950 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 p-6 transition-colors"
             aria-labelledby="inventory-status-heading"
         >
-            <h2 id="inventory-status-heading" className="text-gray-900 mb-6">Inventory Status</h2>
+            <h2 id="inventory-status-heading" className="text-foreground dark:text-foreground font-medium mb-6">Inventory Status</h2>
             {items.length === 0 ? (
-                <div className="text-center py-8 text-gray-500">
+                <div className="text-center py-8 text-muted-foreground dark:text-muted-foreground">
                     <p>There are no inventory items being tracked at the moment</p>
                 </div>
             ) : (
