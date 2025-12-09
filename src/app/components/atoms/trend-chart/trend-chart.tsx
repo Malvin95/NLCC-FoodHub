@@ -31,6 +31,8 @@ interface TrendChartProps {
  * - Responsive container that adapts to parent width
  * - Grid lines, legend, and active dots for readability and interactivity
  * - Customizable title and line names for any data type
+ * - Full dark mode support with theme-aware colors and shadows
+ * - Smooth color transitions when switching themes
  * 
  * Accessibility:
  * - Renders the container with `role="figure"` and an `aria-label` using `chartTitle`
@@ -92,8 +94,8 @@ export function TrendChart({
   data = mockChartData,
 }: TrendChartProps = {}) {
   return (
-    <div role="figure" aria-label={chartTitle} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-      <h2 className="text-gray-900 mb-6">{chartTitle}</h2>
+    <div role="figure" aria-label={chartTitle} className="bg-card dark:bg-slate-950 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 p-6 transition-colors">
+      <h2 className="text-foreground dark:text-foreground font-medium mb-6">{chartTitle}</h2>
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
@@ -101,7 +103,12 @@ export function TrendChart({
           <YAxis width="auto" />
           <Tooltip 
             formatter={(value) => `${value.toLocaleString()}`}
-            contentStyle={{ borderRadius: '8px', border: '1px solid #e5e7eb' }}
+            contentStyle={{ 
+              borderRadius: '8px', 
+              border: '1px solid #e5e7eb',
+              backgroundColor: 'var(--background)',
+              color: 'var(--foreground)'
+            }}
           />
           <Legend />
           <Line type="monotone" stroke="#f43f5e" dataKey={firstLineName} name={firstLineName} activeDot={{ r: 8 }} />

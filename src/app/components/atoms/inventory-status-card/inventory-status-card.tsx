@@ -27,9 +27,9 @@ const statusColors = {
 
 // Subtle background fills for the card container.
 const statusBgColors = {
-  low: 'bg-red-50',
-  medium: 'bg-yellow-50',
-  good: 'bg-green-50',
+  low: 'bg-red-50 dark:bg-red-950/20',
+  medium: 'bg-yellow-50 dark:bg-yellow-950/20',
+  good: 'bg-green-50 dark:bg-green-950/20',
 };
 
 /**
@@ -42,6 +42,8 @@ const statusBgColors = {
  * - Current and target quantities with units
  * - Percentage calculation with display
  * - Progress bar capped at 100% to prevent visual overflow
+ * - Full dark mode support with theme-aware colors and shadows
+ * - Smooth color transitions when switching themes
  * 
  * Accessibility:
  * - Uses `<article>` element with `aria-labelledby` for semantic structure
@@ -78,11 +80,11 @@ export default function InventoryStatusCard({ item }: { item: InventoryItem }) {
     
     return (
         <article
-            className={`p-4 rounded-lg border ${statusBgColors[item.status]}`}
+            className={`p-4 rounded-lg border border-border dark:border-slate-800 shadow-sm dark:shadow-md transition-colors ${statusBgColors[item.status]}`}
             aria-labelledby={`inventory-item-${item.id}`}
         >
             <div className="flex items-center justify-between mb-3">
-                <h3 id={`inventory-item-${item.id}`} className="text-gray-900">{item.category}</h3>
+                <h3 id={`inventory-item-${item.id}`} className="text-foreground dark:text-foreground font-medium">{item.category}</h3>
                 <span 
                     className={`px-2 py-1 rounded text-white text-xs font-medium ${statusColors[item.status]}`}
                     aria-label={`Status: ${item.status}`}
@@ -91,12 +93,12 @@ export default function InventoryStatusCard({ item }: { item: InventoryItem }) {
                 </span>
             </div>
             <div className="mb-2">
-                <div className="flex justify-between text-sm text-gray-600 mb-1">
+                <div className="flex justify-between text-sm text-muted-foreground dark:text-muted-foreground mb-1">
                     <span aria-label={`Current: ${item.current} ${item.unit}`}>{item.current} {item.unit}</span>
                     <span aria-label={`Target: ${item.target} ${item.unit}`}>{item.target} {item.unit}</span>
                 </div>
                 <div 
-                    className="w-full bg-gray-200 rounded-full h-2"
+                    className="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-2"
                     role="progressbar"
                     aria-valuenow={Math.min(percentage, 100)}
                     aria-valuemin={0}
@@ -109,7 +111,7 @@ export default function InventoryStatusCard({ item }: { item: InventoryItem }) {
                     />
                 </div>
             </div>
-            <p className="text-sm text-gray-600" aria-live="polite">
+            <p className="text-sm text-muted-foreground dark:text-muted-foreground" aria-live="polite">
                 {percentageLabel}
             </p>
         </article>

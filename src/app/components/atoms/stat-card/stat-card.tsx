@@ -25,10 +25,10 @@ interface StatCardProps {
  * @constant
  */
 const colorClasses = {
-  rose: 'bg-rose-100 text-rose-600',
-  blue: 'bg-blue-100 text-blue-600',
-  green: 'bg-green-100 text-green-600',
-  purple: 'bg-purple-100 text-purple-600',
+  rose: 'bg-rose-100 text-rose-600 dark:bg-rose-950 dark:text-rose-400',
+  blue: 'bg-blue-100 text-blue-600 dark:bg-blue-950 dark:text-blue-400',
+  green: 'bg-green-100 text-green-600 dark:bg-green-950 dark:text-green-400',
+  purple: 'bg-purple-100 text-purple-600 dark:bg-purple-950 dark:text-purple-400',
 } as const;
 
 /**
@@ -41,6 +41,8 @@ const colorClasses = {
  * - Four color themes for the icon background (rose, blue, green, purple)
  * - Full accessibility support with ARIA attributes and screen reader announcements
  * - Optional live region for announcing dynamic changes
+ * - Full dark mode support with theme-aware colors and shadows
+ * - Smooth color transitions when switching themes
  * 
  * @component
  * @param {StatCardProps} props - Component props
@@ -90,7 +92,7 @@ export function StatCard({
       role="group"
       aria-labelledby={`${id}-title`}
       aria-describedby={`${id}-value ${id}-change`}
-      className="bg-white rounded-lg shadow-sm border border-gray-200 p-6"
+      className="bg-card dark:bg-slate-950 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 p-6 transition-colors"
     >
       <div className="flex items-center justify-between mb-4">
         <div
@@ -102,7 +104,7 @@ export function StatCard({
           {icon}
         </div>
         <div
-          className={`flex items-center gap-1 ${trend === 'up' ? 'text-green-600' : 'text-red-600'}`}
+          className={`flex items-center gap-1 ${trend === 'up' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}
           id={`${id}-change`}
           aria-live={announceChanges ? 'polite' : undefined}
         >
@@ -116,10 +118,10 @@ export function StatCard({
         </div>
       </div>
       <div>
-        <p id={`${id}-title`} className="text-gray-600 text-sm mb-1">
+        <p id={`${id}-title`} className="text-muted-foreground dark:text-muted-foreground text-sm mb-1">
           {title}
         </p>
-        <p id={`${id}-value`} className="text-gray-900 font-medium">
+        <p id={`${id}-value`} className="text-foreground dark:text-foreground font-medium">
           {value}
         </p>
       </div>

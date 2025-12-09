@@ -10,7 +10,7 @@ const meta: Meta<typeof EventCard> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A card component that displays event information including date, time, location, and volunteer count. Includes a matching skeleton for loading states.'
+        component: 'A card component that displays event information including date, time, location, and volunteer count. Features full dark mode support with theme-aware colors, shadows, and smooth transitions. Includes a matching skeleton for loading states.'
       }
     }
   },
@@ -276,10 +276,11 @@ export const SkeletonStructureTest: SkeletonStory = {
 export const SkeletonTitleTest: SkeletonStory = {
   render: () => <EventCardSkeleton />,
   play: async ({ canvasElement }) => {
-    // Check title skeleton exists
-    const titleSkeleton = canvasElement.querySelector('.w-48.h-6.bg-gray-200');
+    // Check title skeleton exists (with theme-aware classes)
+    const titleSkeleton = canvasElement.querySelector('.w-48.h-6');
     await expect(titleSkeleton).toBeInTheDocument();
     await expect(titleSkeleton?.className).toContain('animate-pulse');
+    await expect(titleSkeleton?.className).toMatch(/bg-gray-200|dark:bg-slate-700/);
   }
 };
 

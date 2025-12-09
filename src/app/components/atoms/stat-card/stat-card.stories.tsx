@@ -11,7 +11,7 @@ const meta: Meta<typeof StatCard> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A statistic display card showing a label, value, delta change and trend indicator (up/down) with customizable accent color and icon.'
+        component: 'A statistic display card showing a label, value, delta change and trend indicator (up/down) with customizable accent color and icon. Features full dark mode support with theme-aware colors, shadows, and smooth transitions.'
       }
     }
   },
