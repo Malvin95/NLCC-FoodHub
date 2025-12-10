@@ -4,7 +4,7 @@ import { EventCardSkeleton } from "../../atoms/events-card/event-card-skeleton";
  * UpcomingEventsSkeleton displays a loading placeholder for `UpcomingEvents`.
  * 
  * Features:
- * - Matches UpcomingEvents container styling
+ * - Matches UpcomingEvents container styling (dark mode compatible)
  * - Displays 5 EventCardSkeleton placeholders (matching default event count)
  * - Animated pulse effect for visual feedback
  * - Follows Next.js `loading.tsx` UI conventions
@@ -16,6 +16,7 @@ import { EventCardSkeleton } from "../../atoms/events-card/event-card-skeleton";
  * - Uses `role="status"` with `aria-label` describing the loading state
  * - Includes visually hidden text (`sr-only`) for screen readers
  * - Proper semantic structure maintained during loading
+ * - Live region attributes (`aria-live="polite"`) for status updates
  * 
  * @component
  * @since 1.0.0
