@@ -1,9 +1,9 @@
 /**
- * FilterTabsSkeleton component displays a loading placeholder matching FilterTabs's layout
+ * FilterBarSkeleton component displays a loading placeholder matching FilterBar's button-group layout
  * 
  * Features:
- * - Matches FilterTabs dimensions and structure exactly
- * - Renders five placeholder tab elements to match default tabs
+ * - Matches FilterBar dimensions and horizontal button layout
+ * - Renders five placeholder pill buttons to match default filters
  * - Animated pulse effect using Tailwind's animate-pulse utility
  * - Full dark mode support with theme-aware colors
  * - Follows Next.js loading UI conventions
@@ -11,8 +11,8 @@
  * - Accessible with proper ARIA status attributes and sr-only text
  * 
  * Styling:
- * - Matches FilterTabs container styling (border, border-radius, background)
- * - Dark mode colors aligned with FilterTabs theme
+ * - Matches FilterBar container styling (gap, rounded pills, secondary palette)
+ * - Dark mode colors aligned with FilterBar theme
  * - Responsive and adapts to parent container
  * 
  * Accessibility:
@@ -28,15 +28,15 @@
  * ```tsx
  * // In a loading.tsx file
  * export default function Loading() {
- *   return <FilterTabsSkeleton />;
+ *   return <FilterBarSkeleton />;
  * }
  * ```
  * 
  * @example
  * ```tsx
  * // With Suspense boundary
- * <Suspense fallback={<FilterTabsSkeleton />}>
- *   <AsyncFilterTabs />
+ * <Suspense fallback={<FilterBarSkeleton />}>
+ *   <AsyncFilterBar />
  * </Suspense>
  * ```
  * 
@@ -44,29 +44,29 @@
  * ```tsx
  * // Multiple skeletons in a layout
  * <div className="space-y-4">
- *   <FilterTabsSkeleton />
- *   <FilterTabsSkeleton />
+ *   <FilterBarSkeleton />
+ *   <FilterBarSkeleton />
  * </div>
  * ```
  * 
- * @see {@link FilterTabs} for the actual component
+ * @see {@link FilterBar} for the actual component
  */
-export function FilterTabsSkeleton() {
+export function FilterBarSkeleton() {
   return (
     <div
       className="animate-pulse"
       role="status"
-      aria-label="Loading filter tabs"
+      aria-label="Loading filter bar"
     >
-      <div className="bg-secondary/10 dark:bg-secondary/20 p-1 rounded-md border border-secondary/30 dark:border-secondary/60 inline-flex gap-1">
+      <div className="flex flex-wrap gap-2 mb-6" aria-hidden="true">
         {Array.from({ length: 5 }).map((_, index) => (
           <div
             key={index}
-            className="h-[calc(100%-2px)] px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-600 min-w-20"
+            className="h-10 px-4 rounded-md bg-secondary/10 dark:bg-secondary/20 border border-secondary/30 dark:border-secondary/60 min-w-24"
           />
         ))}
       </div>
-      <span className="sr-only">Loading filter tabs...</span>
+      <span className="sr-only">Loading filter bar...</span>
     </div>
   );
 }

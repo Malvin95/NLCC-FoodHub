@@ -1,37 +1,33 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from 'storybook/test';
-import FilterTabs from './filter-tabs';
-import { FilterTabsSkeleton } from './filter-tabs-skeleton';
+import { within, expect, userEvent, fn } from 'storybook/test';
+import FilterBar from './filter-bar';
+import { FilterBarSkeleton } from './filter-bar-skeleton';
 import { EngagementRequestType } from '@/app/shared/enums';
 import { useArgs } from 'storybook/preview-api';
 
-const meta: Meta<typeof FilterTabs> = {
-  title: 'Molecules/FilterTabs',
-  component: FilterTabs,
+const meta: Meta<typeof FilterBar> = {
+  title: 'Molecules/FilterBar',
+  component: FilterBar,
   parameters: {
     layout: 'padded',
     docs: {
       description: {
-        component: 'A tabbed filter component for displaying and switching between engagement request types. Displays five request categories as tab triggers with active state indication and full keyboard accessibility.'
+        component: 'A button-based filter group for displaying and switching between engagement request types. Displays five request categories as buttons with pressed-state indication and full keyboard accessibility.'
       }
     }
   },
   argTypes: {
     activeTab: {
       control: 'text',
-      description: 'Currently selected tab value (EngagementRequestType)'
+      description: 'Currently selected filter value (EngagementRequestType)'
     },
     onTabChange: {
       control: false,
-      description: 'Callback function fired when a tab is selected'
-    },
-    className: {
-      control: 'text',
-      description: 'Additional CSS classes for the root Tabs element'
+      description: 'Callback function fired when a filter is selected'
     },
     customLabels: {
       control: 'object',
-      description: 'Custom labels for tab triggers, overriding defaults'
+      description: 'Custom labels for filter buttons, overriding defaults'
     }
   },
   tags: ['autodocs']
@@ -39,7 +35,7 @@ const meta: Meta<typeof FilterTabs> = {
 
 export default meta;
 
-type Story = StoryObj<typeof FilterTabs>;
+type Story = StoryObj<typeof FilterBar>;
 
 export const Default: Story = {
   args: {
@@ -102,7 +98,7 @@ export const Interactive: Story = {
 
     return (
       <div className="space-y-4">
-        <FilterTabs
+        <FilterBar
           activeTab={args.activeTab}
           onTabChange={onChange}
         />
@@ -114,13 +110,6 @@ export const Interactive: Story = {
   }
 };
 
-export const WithCustomStyling: Story = {
-  args: {
-    activeTab: EngagementRequestType.ALL,
-    className: 'mt-4'
-  }
-};
-
 // Interactive test stories
 export const AllTabRenderTest: Story = {
   args: {
@@ -129,12 +118,12 @@ export const AllTabRenderTest: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     
-    // Check all tabs are rendered
-    await expect(canvas.getByRole('tab', { name: /all requests/i })).toBeInTheDocument();
-    await expect(canvas.getByRole('tab', { name: /help requests/i })).toBeInTheDocument();
-    await expect(canvas.getByRole('tab', { name: /volunteers needed/i })).toBeInTheDocument();
-    await expect(canvas.getByRole('tab', { name: /donations/i })).toBeInTheDocument();
-    await expect(canvas.getByRole('tab', { name: /questions/i })).toBeInTheDocument();
+    // Check all filter buttons are rendered
+    await expect(canvas.getByRole('button', { name: /all requests/i })).toBeInTheDocument();
+    await expect(canvas.getByRole('button', { name: /help requests/i })).toBeInTheDocument();
+    await expect(canvas.getByRole('button', { name: /volunteers needed/i })).toBeInTheDocument();
+    await expect(canvas.getByRole('button', { name: /donations/i })).toBeInTheDocument();
+    await expect(canvas.getByRole('button', { name: /questions/i })).toBeInTheDocument();
   }
 };
 
@@ -145,9 +134,9 @@ export const ActiveTabStateTest: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     
-    // Check that the active tab has aria-selected=true
-    const activeTab = canvas.getByRole('tab', { name: /help requests/i, selected: true });
-    await expect(activeTab).toBeInTheDocument();
+    // Check that the active filter has aria-pressed=true
+    const activeButton = canvas.getByRole('button', { name: /help requests/i, pressed: true });
+    await expect(activeButton).toBeInTheDocument();
   }
 };
 
@@ -158,9 +147,9 @@ export const TabAttributesTest: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     
-    // Check that tabs have proper ARIA attributes
-    const allTab = canvas.getByRole('tab', { name: /all requests/i });
-    await expect(allTab).toHaveAttribute('role', 'tab');
+    // Check that buttons have proper ARIA pressed attribute
+    const allButton = canvas.getByRole('button', { name: /all requests/i });
+    await expect(allButton).toHaveAttribute('aria-pressed');
   }
 };
 
@@ -176,43 +165,61 @@ export const CustomLabelsTest: Story = {
     const canvas = within(canvasElement);
     
     // Check custom labels render
-    await expect(canvas.getByRole('tab', { name: /custom all/i })).toBeInTheDocument();
-    await expect(canvas.getByRole('tab', { name: /custom help/i })).toBeInTheDocument();
+    await expect(canvas.getByRole('button', { name: /custom all/i })).toBeInTheDocument();
+    await expect(canvas.getByRole('button', { name: /custom help/i })).toBeInTheDocument();
     
     // Check original labels for non-customized tabs
-    await expect(canvas.getByRole('tab', { name: /volunteers needed/i })).toBeInTheDocument();
+    await expect(canvas.getByRole('button', { name: /volunteers needed/i })).toBeInTheDocument();
   }
 };
 
 export const OnTabChangeTest: Story = {
   args: {
     activeTab: EngagementRequestType.ALL,
-    onTabChange: (value) => console.log('Tab changed to:', value)
+    onTabChange: fn()
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+
+    const filters = [
+      { name: /all requests/i, value: EngagementRequestType.ALL },
+      { name: /help requests/i, value: EngagementRequestType.HELP },
+      { name: /volunteers needed/i, value: EngagementRequestType.VOLUNTEER },
+      { name: /donations/i, value: EngagementRequestType.DONATION },
+      { name: /questions/i, value: EngagementRequestType.QUESTION }
+    ];
+
+    for (const filter of filters) {
+      await userEvent.click(canvas.getByRole('button', { name: filter.name }));
+      await expect(args.onTabChange).toHaveBeenCalledWith(filter.value);
+    }
+
+    await expect(args.onTabChange).toHaveBeenCalledTimes(filters.length);
   }
 };
 
 // Skeleton Loading States
-type SkeletonStory = StoryObj<typeof FilterTabsSkeleton>;
+type SkeletonStory = StoryObj<typeof FilterBarSkeleton>;
 
 export const LoadingSkeleton: SkeletonStory = {
-  render: () => <FilterTabsSkeleton />,
+  render: () => <FilterBarSkeleton />,
   parameters: {
     docs: {
       description: {
-        story: 'Loading skeleton that matches the FilterTabs layout with animated pulse effects.'
+        story: 'Loading skeleton that matches the FilterBar layout with animated pulse effects.'
       }
     }
   }
 };
 
 export const SkeletonStructureTest: SkeletonStory = {
-  render: () => <FilterTabsSkeleton />,
+  render: () => <FilterBarSkeleton />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     
     // Check role and aria-label
     const container = canvas.getByRole('status');
-    await expect(container).toHaveAttribute('aria-label', 'Loading filter tabs');
+    await expect(container).toHaveAttribute('aria-label', 'Loading filter bar');
     
     // Check skeleton elements exist and have pulse animation
     const skeleton = canvasElement.querySelector('.animate-pulse');
@@ -221,12 +228,12 @@ export const SkeletonStructureTest: SkeletonStory = {
 };
 
 export const SkeletonAccessibilityTest: SkeletonStory = {
-  render: () => <FilterTabsSkeleton />,
+  render: () => <FilterBarSkeleton />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     
     // Check for screen reader text
-    const srText = canvas.getByText('Loading filter tabs...');
+    const srText = canvas.getByText('Loading filter bar...');
     await expect(srText).toBeInTheDocument();
     await expect(srText.className).toContain('sr-only');
   }
@@ -235,9 +242,9 @@ export const SkeletonAccessibilityTest: SkeletonStory = {
 export const MultipleSkeletons: SkeletonStory = {
   render: () => (
     <div className="space-y-4">
-      <FilterTabsSkeleton />
-      <FilterTabsSkeleton />
-      <FilterTabsSkeleton />
+      <FilterBarSkeleton />
+      <FilterBarSkeleton />
+      <FilterBarSkeleton />
     </div>
   ),
   parameters: {
