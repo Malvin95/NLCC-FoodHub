@@ -5,7 +5,7 @@ export interface FilterBarProps {
   /** Currently selected filter value from EngagementRequestType enum */
   activeTab?: string;
   /** Callback fired when a filter button is clicked with the selected filter type */
-  onTabChange?: (value: string) => void;
+  onFilterChange?: (value: string) => void;
   /** Optional custom labels for filter buttons, merged with default labels */
   customLabels?: Record<string, string>;
 }
@@ -81,7 +81,7 @@ const FILTER_TYPES = [
 
 export default function FilterBar({
   activeTab,
-  onTabChange,
+  onFilterChange: onTabChange,
   customLabels = {}
 }: FilterBarProps) {
   const labels = {

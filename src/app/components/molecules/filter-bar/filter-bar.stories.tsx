@@ -21,7 +21,7 @@ const meta: Meta<typeof FilterBar> = {
       control: 'text',
       description: 'Currently selected filter value (EngagementRequestType)'
     },
-    onTabChange: {
+    onFilterChange: {
       control: false,
       description: 'Callback function fired when a filter is selected'
     },
@@ -94,13 +94,12 @@ export const Interactive: Story = {
     function onChange(tab: string) {
       updateArgs({ activeTab: tab });
     }
-    // const [activeTab, setActiveTab] = useState<string>(EngagementRequestType.ALL);
 
     return (
       <div className="space-y-4">
         <FilterBar
           activeTab={args.activeTab}
-          onTabChange={onChange}
+          onFilterChange={onChange}
         />
         <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-md">
           <p className="text-sm font-medium">Active tab: <span className="font-bold">{activeTab}</span></p>
@@ -176,7 +175,7 @@ export const CustomLabelsTest: Story = {
 export const OnTabChangeTest: Story = {
   args: {
     activeTab: EngagementRequestType.ALL,
-    onTabChange: fn()
+    onFilterChange: fn()
   },
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
@@ -191,10 +190,10 @@ export const OnTabChangeTest: Story = {
 
     for (const filter of filters) {
       await userEvent.click(canvas.getByRole('button', { name: filter.name }));
-      await expect(args.onTabChange).toHaveBeenCalledWith(filter.value);
+      await expect(args.onFilterChange).toHaveBeenCalledWith(filter.value);
     }
 
-    await expect(args.onTabChange).toHaveBeenCalledTimes(filters.length);
+    await expect(args.onFilterChange).toHaveBeenCalledTimes(filters.length);
   }
 };
 
