@@ -67,9 +67,9 @@ export default function InventoryStatusBar({ items }: InventoryStatusBarProps) {
             className="bg-card dark:bg-slate-950 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 p-6 transition-colors"
             aria-labelledby="inventory-status-heading"
         >
-            <h2 id="inventory-status-heading" className="text-foreground dark:text-foreground font-medium mb-6">Inventory Status</h2>
+            <h2 id="inventory-status-heading" className="text-foreground font-medium mb-6">Inventory Status</h2>
             {items.length === 0 ? (
-                <div className="text-center py-8 text-muted-foreground dark:text-muted-foreground">
+                <div className="text-center py-8 text-muted-foreground">
                     <p>There are no inventory items being tracked at the moment</p>
                 </div>
             ) : (

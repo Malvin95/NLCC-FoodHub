@@ -81,7 +81,7 @@ export const ChartStructureTest: Story = {
     await expect(title).toBeInTheDocument();
     
     // Check container has proper styling
-    const container = canvasElement.querySelector('.bg-white.rounded-lg');
+    const container = canvasElement.querySelector('.bg-card.rounded-lg');
     await expect(container).toBeInTheDocument();
   }
 };

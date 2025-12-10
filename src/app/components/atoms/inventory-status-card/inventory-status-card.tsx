@@ -84,7 +84,7 @@ export default function InventoryStatusCard({ item }: { item: InventoryItem }) {
             aria-labelledby={`inventory-item-${item.id}`}
         >
             <div className="flex items-center justify-between mb-3">
-                <h3 id={`inventory-item-${item.id}`} className="text-foreground dark:text-foreground font-medium">{item.category}</h3>
+                <h3 id={`inventory-item-${item.id}`} className="text-foreground font-medium">{item.category}</h3>
                 <span 
                     className={`px-2 py-1 rounded text-white text-xs font-medium ${statusColors[item.status]}`}
                     aria-label={`Status: ${item.status}`}
@@ -93,7 +93,7 @@ export default function InventoryStatusCard({ item }: { item: InventoryItem }) {
                 </span>
             </div>
             <div className="mb-2">
-                <div className="flex justify-between text-sm text-muted-foreground dark:text-muted-foreground mb-1">
+                <div className="flex justify-between text-sm text-muted-foreground mb-1">
                     <span aria-label={`Current: ${item.current} ${item.unit}`}>{item.current} {item.unit}</span>
                     <span aria-label={`Target: ${item.target} ${item.unit}`}>{item.target} {item.unit}</span>
                 </div>
@@ -111,7 +111,7 @@ export default function InventoryStatusCard({ item }: { item: InventoryItem }) {
                     />
                 </div>
             </div>
-            <p className="text-sm text-muted-foreground dark:text-muted-foreground" aria-live="polite">
+            <p className="text-sm text-muted-foreground" aria-live="polite">
                 {percentageLabel}
             </p>
         </article>

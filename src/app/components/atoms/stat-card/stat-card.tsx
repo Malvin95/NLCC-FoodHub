@@ -118,10 +118,10 @@ export function StatCard({
         </div>
       </div>
       <div>
-        <p id={`${id}-title`} className="text-muted-foreground dark:text-muted-foreground text-sm mb-1">
+        <p id={`${id}-title`} className="text-muted-foreground text-sm mb-1">
           {title}
         </p>
-        <p id={`${id}-value`} className="text-foreground dark:text-foreground font-medium">
+        <p id={`${id}-value`} className="text-foreground font-medium">
           {value}
         </p>
       </div>

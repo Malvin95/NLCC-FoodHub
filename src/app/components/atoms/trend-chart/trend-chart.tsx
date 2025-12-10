@@ -95,7 +95,7 @@ export function TrendChart({
 }: TrendChartProps = {}) {
   return (
     <div role="figure" aria-label={chartTitle} className="bg-card dark:bg-slate-950 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 p-6 transition-colors">
-      <h2 className="text-foreground dark:text-foreground font-medium mb-6">{chartTitle}</h2>
+      <h2 className="text-foreground font-medium mb-6">{chartTitle}</h2>
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
@@ -105,7 +105,7 @@ export function TrendChart({
             formatter={(value) => `${value.toLocaleString()}`}
             contentStyle={{ 
               borderRadius: '8px', 
-              border: '1px solid #e5e7eb',
+              border: '1px solid var(--color-border)',
               backgroundColor: 'var(--background)',
               color: 'var(--foreground)'
             }}

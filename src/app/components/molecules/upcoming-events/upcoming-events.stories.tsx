@@ -119,7 +119,7 @@ export const SectionStructureTest: Story = {
     await expect(section).toHaveAttribute('aria-atomic', 'false');
     
     // Check container styling
-    const container = canvasElement.querySelector('.bg-white.rounded-lg.shadow-sm.border');
+    const container = canvasElement.querySelector('.bg-card.rounded-lg.shadow-sm.border');
     await expect(container).toBeInTheDocument();
     
     // Check heading exists and has proper ID

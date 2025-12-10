@@ -32,12 +32,12 @@ export const Default: Story = {
       description="Monitor key metrics and inventory status at a glance"
     >
       <div className="bg-card dark:bg-slate-950 p-6 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 transition-colors">
-        <h2 className="text-lg font-semibold text-foreground dark:text-foreground mb-4">Section 1</h2>
-        <p className="text-muted-foreground dark:text-muted-foreground">Sample dashboard content goes here.</p>
+        <h2 className="text-lg font-semibold text-foreground mb-4">Section 1</h2>
+        <p className="text-muted-foreground">Sample dashboard content goes here.</p>
       </div>
       <div className="bg-card dark:bg-slate-950 p-6 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 transition-colors">
-        <h2 className="text-lg font-semibold text-foreground dark:text-foreground mb-4">Section 2</h2>
-        <p className="text-muted-foreground dark:text-muted-foreground">More dashboard content.</p>
+        <h2 className="text-lg font-semibold text-foreground mb-4">Section 2</h2>
+        <p className="text-muted-foreground">More dashboard content.</p>
       </div>
     </DashboardPageTemplate>
   )
@@ -53,7 +53,7 @@ export const SingleSection: Story = {
       description="A dashboard with minimal content"
     >
       <div className="bg-card dark:bg-slate-950 p-6 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 transition-colors">
-        <p className="text-muted-foreground dark:text-muted-foreground">Single content section.</p>
+        <p className="text-muted-foreground">Single content section.</p>
       </div>
     </DashboardPageTemplate>
   )
@@ -70,8 +70,8 @@ export const MultipleSections: Story = {
     >
       {Array.from({ length: 4 }).map((_, idx) => (
         <div key={idx} className="bg-card dark:bg-slate-950 p-6 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 transition-colors">
-          <h2 className="text-lg font-semibold text-foreground dark:text-foreground mb-4">Section {idx + 1}</h2>
-          <p className="text-muted-foreground dark:text-muted-foreground">Content for section {idx + 1}.</p>
+          <h2 className="text-lg font-semibold text-foreground mb-4">Section {idx + 1}</h2>
+          <p className="text-muted-foreground">Content for section {idx + 1}.</p>
         </div>
       ))}
     </DashboardPageTemplate>
@@ -88,7 +88,7 @@ export const LongContent: Story = {
       description="Comprehensive overview of inventory levels, distribution schedules, volunteer coordination, and real-time tracking of food supplies across all locations in the network"
     >
       <div className="bg-card dark:bg-slate-950 p-6 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 transition-colors">
-        <p className="text-muted-foreground dark:text-muted-foreground">Dashboard content.</p>
+        <p className="text-muted-foreground">Dashboard content.</p>
       </div>
     </DashboardPageTemplate>
   )
@@ -229,7 +229,7 @@ export const EmptyStateTest: Story = {
 
     // Message should be centered with proper styling
     await expect(emptyTextElement).toHaveClass('text-center');
-    await expect(emptyTextElement).toHaveClass('text-gray-500');
+    await expect(emptyTextElement).toHaveClass('text-muted-foreground');
     await expect(emptyTextElement).toHaveClass('py-12');
   }
 };
@@ -368,8 +368,8 @@ export const TemplateVsSkeleton: Story = {
           title="Loaded State"
           description="Sample dashboard page"
         >
-          <div className="bg-white dark:bg-slate-950 p-6 rounded-lg shadow-sm dark:shadow-md border dark:border-slate-800 transition-colors">Content 1</div>
-          <div className="bg-white dark:bg-slate-950 p-6 rounded-lg shadow-sm dark:shadow-md border dark:border-slate-800 transition-colors">Content 2</div>
+          <div className="bg-card dark:bg-slate-950 p-6 rounded-lg shadow-sm dark:shadow-md border dark:border-slate-800 transition-colors">Content 1</div>
+          <div className="bg-card dark:bg-slate-950 p-6 rounded-lg shadow-sm dark:shadow-md border dark:border-slate-800 transition-colors">Content 2</div>
         </DashboardPageTemplate>
       </div>
       <div className="flex-1 min-w-[500px]">

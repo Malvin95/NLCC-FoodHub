@@ -81,14 +81,14 @@ export default function UpcomingEvents({ events = mockEvents }: UpcomingEventsPr
             aria-live="polite"
             aria-atomic="false"
         >
-            <h2 id="upcoming-events-heading" className="text-foreground dark:text-foreground font-medium mb-6">
+            <h2 id="upcoming-events-heading" className="text-foreground font-medium mb-6">
                 Upcoming Events
                 <span className="sr-only"> ({eventCount} {eventText} available)</span>
             </h2>
             
             {eventCount === 0 ? (
                 <div 
-                    className="text-center py-8 text-muted-foreground dark:text-muted-foreground"
+                    className="text-center py-8 text-muted-foreground"
                     role="status"
                 >
                     <p>No upcoming events scheduled at this time.</p>

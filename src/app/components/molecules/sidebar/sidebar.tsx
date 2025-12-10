@@ -104,7 +104,7 @@ export function Sidebar({ currentView, onViewChange, isOpen, onClose, isLoading 
         <div className="lg:hidden flex justify-end p-4">
           <button
             onClick={onClose}
-            className="p-2 rounded-lg hover:bg-accent dark:hover:bg-slate-800 text-muted-foreground dark:text-muted-foreground transition-colors"
+            className="p-2 rounded-lg hover:bg-accent dark:hover:bg-slate-800 text-muted-foreground transition-colors"
             aria-label="Close menu"
           >
             <X className="w-5 h-5" />
@@ -115,7 +115,7 @@ export function Sidebar({ currentView, onViewChange, isOpen, onClose, isLoading 
         <div className="hidden lg:flex justify-end p-4">
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="p-2 rounded-lg hover:bg-accent dark:hover:bg-slate-800 text-muted-foreground dark:text-muted-foreground transition-colors"
+            className="p-2 rounded-lg hover:bg-accent dark:hover:bg-slate-800 text-muted-foreground transition-colors"
             aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           >
             {isCollapsed ? (
@@ -154,7 +154,7 @@ export function Sidebar({ currentView, onViewChange, isOpen, onClose, isLoading 
                     disabled={isPending}
                     className={`
                       w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors
-                      ${isActive ? 'bg-rose-50 dark:bg-rose-950/20 text-rose-600 dark:text-rose-400' : 'text-foreground dark:text-foreground hover:bg-accent dark:hover:bg-slate-800'}
+                      ${isActive ? 'bg-rose-50 dark:bg-rose-950/20 text-rose-600 dark:text-rose-400' : 'text-foreground hover:bg-accent dark:hover:bg-slate-800'}
                       ${isCollapsed ? 'lg:justify-center' : ''}
                       ${isPending ? 'opacity-50 cursor-wait' : ''}
                       disabled:opacity-50 disabled:cursor-not-allowed
