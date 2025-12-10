@@ -12,7 +12,7 @@ const meta: Meta<typeof UpcomingEvents> = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'A section component displaying a list of upcoming volunteer events. Shows multiple EventCards in a container with loading skeleton support.'
+        component: 'A section component displaying a list of upcoming volunteer events. Shows multiple EventCards in a container with loading skeleton support. Features full dark mode support with theme-aware colors, shadows, and smooth transitions.'
       }
     }
   },
@@ -119,7 +119,7 @@ export const SectionStructureTest: Story = {
     await expect(section).toHaveAttribute('aria-atomic', 'false');
     
     // Check container styling
-    const container = canvasElement.querySelector('.bg-white.rounded-lg.shadow-sm.border');
+    const container = canvasElement.querySelector('.bg-card.rounded-lg.shadow-sm.border');
     await expect(container).toBeInTheDocument();
     
     // Check heading exists and has proper ID

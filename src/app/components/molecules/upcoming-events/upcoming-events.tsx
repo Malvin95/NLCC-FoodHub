@@ -30,6 +30,8 @@ interface UpcomingEventsProps {
  * - Supports loading state with skeleton placeholder
  * - Semantic heading for page structure
  * - Empty state with descriptive messaging
+ * - Full dark mode support with theme-aware colors and shadows
+ * - Smooth color transitions when switching themes
  * 
  * Accessibility:
  * - Uses semantic `<section>` element with descriptive heading
@@ -74,19 +76,19 @@ export default function UpcomingEvents({ events = mockEvents }: UpcomingEventsPr
     
     return (
         <section 
-            className="bg-white rounded-lg shadow-sm border border-gray-200 p-6"
+            className="bg-card dark:bg-slate-950 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 p-6 transition-colors"
             aria-labelledby="upcoming-events-heading"
             aria-live="polite"
             aria-atomic="false"
         >
-            <h2 id="upcoming-events-heading" className="text-gray-900 mb-6">
+            <h2 id="upcoming-events-heading" className="text-foreground font-medium mb-6">
                 Upcoming Events
                 <span className="sr-only"> ({eventCount} {eventText} available)</span>
             </h2>
             
             {eventCount === 0 ? (
                 <div 
-                    className="text-center py-8 text-gray-500"
+                    className="text-center py-8 text-muted-foreground"
                     role="status"
                 >
                     <p>No upcoming events scheduled at this time.</p>

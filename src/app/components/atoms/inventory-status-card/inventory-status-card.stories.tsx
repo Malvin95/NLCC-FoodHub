@@ -11,7 +11,7 @@ const meta: Meta<typeof InventoryStatusCard> = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Displays an inventory item with current vs target levels, status pill, and progress bar.'
+        component: 'Displays an inventory item with current vs target levels, status pill, and progress bar. Features full dark mode support with theme-aware colors, shadows, and smooth transitions.'
       }
     }
   },

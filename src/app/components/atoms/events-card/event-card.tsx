@@ -22,6 +22,8 @@ interface EventCardProps {
  * - Accessible color contrast and readable typography
  * - Optional volunteer count and elected volunteer display
  * - Automatic date formatting from ISO 8601 date strings
+ * - Full dark mode support with theme-aware colors and shadows
+ * - Smooth color transitions when switching themes
  * 
  * Accessibility:
  * - Uses `<article>` element with `aria-labelledby` pointing to the event title
@@ -67,12 +69,12 @@ export default function EventCard({ event }: EventCardProps) {
 
   return (
     <article 
-      className="p-4 bg-gray-50 rounded-lg border border-gray-200"
+      className="p-4 bg-card dark:bg-slate-950 rounded-lg border border-border dark:border-slate-800 shadow-sm dark:shadow-md transition-colors"
       aria-labelledby={`event-title-${event.id}`}
     >
-        <h3 id={`event-title-${event.id}`} className="text-gray-900 mb-3">{event.title}</h3>
+        <h3 id={`event-title-${event.id}`} className="text-foreground font-medium mb-3">{event.title}</h3>
         <div className="space-y-2">
-            <div className="flex items-center gap-2 text-gray-600 text-sm">
+            <div className="flex items-center gap-2 text-muted-foreground text-sm">
                 <Calendar className="w-4 h-4" aria-hidden="true" />
                 <dl>
                   <dt className="sr-only">Date and time</dt>
@@ -83,7 +85,7 @@ export default function EventCard({ event }: EventCardProps) {
                   </dd>
                 </dl>
             </div>
-            <div className="flex items-center gap-2 text-gray-600 text-sm">
+            <div className="flex items-center gap-2 text-muted-foreground text-sm">
                 <MapPin className="w-4 h-4" aria-hidden="true" />
                 <dl>
                   <dt className="sr-only">Location</dt>
@@ -91,7 +93,7 @@ export default function EventCard({ event }: EventCardProps) {
                 </dl>
             </div>
             {(event.volunteers || event.electedVolunteer) && (
-              <div className="flex flex-col gap-2 text-gray-600 text-sm">
+              <div className="flex flex-col gap-2 text-muted-foreground text-sm">
                 {event.electedVolunteer && (
                     <div className="flex gap-2">
                         <Users className="w-4 h-4" aria-hidden="true" />

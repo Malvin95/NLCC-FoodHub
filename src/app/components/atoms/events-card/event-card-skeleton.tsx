@@ -6,6 +6,8 @@
  * - Animated pulse effect using Tailwind's `animate-pulse`
  * - Follows Next.js `loading.tsx` UI conventions
  * - Suitable for React Suspense boundaries
+ * - Full dark mode support with theme-aware colors and shadows
+ * - Smooth color transitions when switching themes
  * 
  * Accessibility:
  * - Uses `role="status"` with an `aria-label` describing the loading state
@@ -37,29 +39,29 @@ export function EventCardSkeleton() {
     <div
       role="status"
       aria-label="Loading event details"
-      className="p-4 bg-gray-50 rounded-lg border border-gray-200"
+      className="p-4 bg-card dark:bg-slate-950 rounded-lg border border-border dark:border-slate-800 shadow-sm dark:shadow-md transition-colors"
     >
       {/* Title skeleton */}
-      <div className="w-48 h-6 bg-gray-200 rounded animate-pulse mb-3" />
+      <div className="w-48 h-6 bg-gray-200 dark:bg-slate-700 rounded animate-pulse mb-3" />
       
       {/* Event details skeleton */}
       <div className="space-y-2">
         {/* Date/Time row */}
         <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-gray-200 rounded animate-pulse shrink-0" />
-          <div className="w-40 h-4 bg-gray-200 rounded animate-pulse" />
+          <div className="w-4 h-4 bg-gray-200 dark:bg-slate-700 rounded animate-pulse shrink-0" />
+          <div className="w-40 h-4 bg-gray-200 dark:bg-slate-700 rounded animate-pulse" />
         </div>
         
         {/* Location row */}
         <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-gray-200 rounded animate-pulse shrink-0" />
-          <div className="w-36 h-4 bg-gray-200 rounded animate-pulse" />
+          <div className="w-4 h-4 bg-gray-200 dark:bg-slate-700 rounded animate-pulse shrink-0" />
+          <div className="w-36 h-4 bg-gray-200 dark:bg-slate-700 rounded animate-pulse" />
         </div>
         
         {/* Optional Volunteers/Elected Volunteer row */}
         <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-gray-200 rounded animate-pulse shrink-0" />
-          <div className="w-44 h-4 bg-gray-200 rounded animate-pulse" />
+          <div className="w-4 h-4 bg-gray-200 dark:bg-slate-700 rounded animate-pulse shrink-0" />
+          <div className="w-44 h-4 bg-gray-200 dark:bg-slate-700 rounded animate-pulse" />
         </div>
       </div>
       

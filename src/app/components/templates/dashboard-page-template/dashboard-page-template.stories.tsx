@@ -10,7 +10,7 @@ const meta: Meta<typeof DashboardPageTemplate> = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'Template component providing consistent layout structure for dashboard pages with title, description, and content areas.'
+        component: 'Template component providing consistent layout structure for dashboard pages with title, description, and content areas. Features full dark mode support with theme-aware colors and smooth transitions.'
       }
     }
   },
@@ -31,13 +31,13 @@ export const Default: Story = {
       title="Dashboard Overview"
       description="Monitor key metrics and inventory status at a glance"
     >
-      <div className="bg-white p-6 rounded-lg shadow-sm border">
-        <h2 className="text-lg font-semibold mb-4">Section 1</h2>
-        <p className="text-gray-600">Sample dashboard content goes here.</p>
+      <div className="bg-card dark:bg-slate-950 p-6 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 transition-colors">
+        <h2 className="text-lg font-semibold text-foreground mb-4">Section 1</h2>
+        <p className="text-muted-foreground">Sample dashboard content goes here.</p>
       </div>
-      <div className="bg-white p-6 rounded-lg shadow-sm border">
-        <h2 className="text-lg font-semibold mb-4">Section 2</h2>
-        <p className="text-gray-600">More dashboard content.</p>
+      <div className="bg-card dark:bg-slate-950 p-6 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 transition-colors">
+        <h2 className="text-lg font-semibold text-foreground mb-4">Section 2</h2>
+        <p className="text-muted-foreground">More dashboard content.</p>
       </div>
     </DashboardPageTemplate>
   )
@@ -52,8 +52,8 @@ export const SingleSection: Story = {
       title="Simple Dashboard"
       description="A dashboard with minimal content"
     >
-      <div className="bg-white p-6 rounded-lg shadow-sm border">
-        <p className="text-gray-600">Single content section.</p>
+      <div className="bg-card dark:bg-slate-950 p-6 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 transition-colors">
+        <p className="text-muted-foreground">Single content section.</p>
       </div>
     </DashboardPageTemplate>
   )
@@ -69,9 +69,9 @@ export const MultipleSections: Story = {
       description="A full dashboard with multiple content sections"
     >
       {Array.from({ length: 4 }).map((_, idx) => (
-        <div key={idx} className="bg-white p-6 rounded-lg shadow-sm border">
-          <h2 className="text-lg font-semibold mb-4">Section {idx + 1}</h2>
-          <p className="text-gray-600">Content for section {idx + 1}.</p>
+        <div key={idx} className="bg-card dark:bg-slate-950 p-6 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 transition-colors">
+          <h2 className="text-lg font-semibold text-foreground mb-4">Section {idx + 1}</h2>
+          <p className="text-muted-foreground">Content for section {idx + 1}.</p>
         </div>
       ))}
     </DashboardPageTemplate>
@@ -87,8 +87,8 @@ export const LongContent: Story = {
       title="Food Bank Inventory Management and Distribution Coordination Dashboard"
       description="Comprehensive overview of inventory levels, distribution schedules, volunteer coordination, and real-time tracking of food supplies across all locations in the network"
     >
-      <div className="bg-white p-6 rounded-lg shadow-sm border">
-        <p className="text-gray-600">Dashboard content.</p>
+      <div className="bg-card dark:bg-slate-950 p-6 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 transition-colors">
+        <p className="text-muted-foreground">Dashboard content.</p>
       </div>
     </DashboardPageTemplate>
   )
@@ -229,7 +229,7 @@ export const EmptyStateTest: Story = {
 
     // Message should be centered with proper styling
     await expect(emptyTextElement).toHaveClass('text-center');
-    await expect(emptyTextElement).toHaveClass('text-gray-500');
+    await expect(emptyTextElement).toHaveClass('text-muted-foreground');
     await expect(emptyTextElement).toHaveClass('py-12');
   }
 };
@@ -368,8 +368,8 @@ export const TemplateVsSkeleton: Story = {
           title="Loaded State"
           description="Sample dashboard page"
         >
-          <div className="bg-white p-6 rounded-lg shadow-sm border">Content 1</div>
-          <div className="bg-white p-6 rounded-lg shadow-sm border">Content 2</div>
+          <div className="bg-card dark:bg-slate-950 p-6 rounded-lg shadow-sm dark:shadow-md border dark:border-slate-800 transition-colors">Content 1</div>
+          <div className="bg-card dark:bg-slate-950 p-6 rounded-lg shadow-sm dark:shadow-md border dark:border-slate-800 transition-colors">Content 2</div>
         </DashboardPageTemplate>
       </div>
       <div className="flex-1 min-w-[500px]">

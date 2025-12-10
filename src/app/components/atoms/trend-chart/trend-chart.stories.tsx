@@ -11,7 +11,7 @@ const meta: Meta<typeof TrendChart> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A versatile line chart component displaying data trends over time using Recharts. Can be used for any two-series comparison (attendance, donations, engagement, etc.) with interactive tooltips and legend.'
+        component: 'A versatile line chart component displaying data trends over time using Recharts. Can be used for any two-series comparison (attendance, donations, engagement, etc.) with interactive tooltips and legend. Features full dark mode support with theme-aware colors, shadows, and smooth transitions.'
       }
     }
   },
@@ -81,7 +81,7 @@ export const ChartStructureTest: Story = {
     await expect(title).toBeInTheDocument();
     
     // Check container has proper styling
-    const container = canvasElement.querySelector('.bg-white.rounded-lg');
+    const container = canvasElement.querySelector('.bg-card.rounded-lg');
     await expect(container).toBeInTheDocument();
   }
 };

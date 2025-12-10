@@ -45,6 +45,8 @@ const menuItems: MenuItem[] = [
  * - Loading state with skeleton placeholders
  * - Non-blocking transitions using React's useTransition for smooth navigation
  * - Prevents UI freezes during view changes
+ * - Full dark mode support with theme-aware colors and shadows
+ * - Smooth color transitions when switching themes
  * 
  * @component
  * @param {SidebarProps} props - Component props
@@ -83,7 +85,7 @@ export function Sidebar({ currentView, onViewChange, isOpen, onClose, isLoading 
       {/* Mobile Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          className="fixed inset-0 bg-black/50 dark:bg-black/70 z-40 lg:hidden transition-colors"
           onClick={onClose}
         />
       )}
@@ -91,7 +93,7 @@ export function Sidebar({ currentView, onViewChange, isOpen, onClose, isLoading 
       {/* Sidebar */}
       <aside
         className={`
-          fixed lg:sticky top-0 h-screen bg-white border-r border-gray-200 z-50
+          fixed lg:sticky top-0 h-screen bg-card dark:bg-slate-950 border-r border-border dark:border-slate-800 z-50 shadow-sm dark:shadow-md
           transition-all duration-300 ease-in-out
           ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
           ${isCollapsed ? 'lg:w-20' : 'lg:w-64'}
@@ -102,7 +104,7 @@ export function Sidebar({ currentView, onViewChange, isOpen, onClose, isLoading 
         <div className="lg:hidden flex justify-end p-4">
           <button
             onClick={onClose}
-            className="p-2 rounded-lg hover:bg-gray-100 text-gray-600"
+            className="p-2 rounded-lg hover:bg-accent dark:hover:bg-slate-800 text-muted-foreground transition-colors"
             aria-label="Close menu"
           >
             <X className="w-5 h-5" />
@@ -113,7 +115,7 @@ export function Sidebar({ currentView, onViewChange, isOpen, onClose, isLoading 
         <div className="hidden lg:flex justify-end p-4">
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="p-2 rounded-lg hover:bg-gray-100 text-gray-600"
+            className="p-2 rounded-lg hover:bg-accent dark:hover:bg-slate-800 text-muted-foreground transition-colors"
             aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           >
             {isCollapsed ? (
@@ -137,8 +139,8 @@ export function Sidebar({ currentView, onViewChange, isOpen, onClose, isLoading 
                     ${isCollapsed ? 'lg:justify-center' : ''}
                   `}
                 >
-                  <div className="w-5 h-5 bg-gray-200 rounded animate-pulse shrink-0" />
-                  <div className={`h-4 bg-gray-200 rounded animate-pulse flex-1 ${isCollapsed ? 'lg:hidden' : ''}`} />
+                  <div className="w-5 h-5 bg-gray-200 dark:bg-slate-700 rounded animate-pulse shrink-0" />
+                  <div className={`h-4 bg-gray-200 dark:bg-slate-700 rounded animate-pulse flex-1 ${isCollapsed ? 'lg:hidden' : ''}`} />
                 </div>
               ))
             ) : (
@@ -152,7 +154,7 @@ export function Sidebar({ currentView, onViewChange, isOpen, onClose, isLoading 
                     disabled={isPending}
                     className={`
                       w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors
-                      ${isActive ? 'bg-rose-50 text-rose-600' : 'text-gray-700 hover:bg-gray-50'}
+                      ${isActive ? 'bg-rose-50 dark:bg-rose-950/20 text-rose-600 dark:text-rose-400' : 'text-foreground hover:bg-accent dark:hover:bg-slate-800'}
                       ${isCollapsed ? 'lg:justify-center' : ''}
                       ${isPending ? 'opacity-50 cursor-wait' : ''}
                       disabled:opacity-50 disabled:cursor-not-allowed
