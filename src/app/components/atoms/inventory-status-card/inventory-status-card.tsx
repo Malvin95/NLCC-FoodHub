@@ -20,9 +20,9 @@ export interface InventoryItem {
 
 // Tailwind color tokens for the status pill and progress bar.
 const statusColors = {
-  low: 'bg-red-500',
-  medium: 'bg-yellow-500',
-  good: 'bg-green-500',
+  low: 'bg-red-800',
+  medium: 'bg-yellow-700',
+  good: 'bg-lime-800',
 };
 
 // Subtle background fills for the card container.
@@ -93,7 +93,7 @@ export default function InventoryStatusCard({ item }: { item: InventoryItem }) {
                 </span>
             </div>
             <div className="mb-2">
-                <div className="flex justify-between text-sm text-muted-foreground mb-1">
+                <div className="flex justify-between text-sm text-muted-foreground transition-colors mb-1">
                     <span aria-label={`Current: ${item.current} ${item.unit}`}>{item.current} {item.unit}</span>
                     <span aria-label={`Target: ${item.target} ${item.unit}`}>{item.target} {item.unit}</span>
                 </div>
@@ -111,7 +111,7 @@ export default function InventoryStatusCard({ item }: { item: InventoryItem }) {
                     />
                 </div>
             </div>
-            <p className="text-sm text-muted-foreground" aria-live="polite">
+            <p className="text-sm text-muted-foreground transition-colors" aria-live="polite">
                 {percentageLabel}
             </p>
         </article>

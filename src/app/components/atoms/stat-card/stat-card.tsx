@@ -104,7 +104,7 @@ export function StatCard({
           {icon}
         </div>
         <div
-          className={`flex items-center gap-1 ${trend === 'up' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}
+          className={`flex items-center gap-1 ${trend === 'up' ? 'text-lime-800 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}
           id={`${id}-change`}
           aria-live={announceChanges ? 'polite' : undefined}
         >
