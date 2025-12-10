@@ -1,5 +1,6 @@
 
 export enum EngagementRequestType {
+  ALL = 'all',
   HELP = 'help',
   VOLUNTEER = 'volunteer',
   DONATION = 'donation',
