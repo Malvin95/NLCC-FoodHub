@@ -93,7 +93,7 @@ export default function InventoryStatusCard({ item }: { item: InventoryItem }) {
                 </span>
             </div>
             <div className="mb-2">
-                <div className="flex justify-between text-sm text-neutral-700 dark:text-neutral-300 transition-colors mb-1">
+                <div className="flex justify-between text-sm text-muted-foreground transition-colors mb-1">
                     <span aria-label={`Current: ${item.current} ${item.unit}`}>{item.current} {item.unit}</span>
                     <span aria-label={`Target: ${item.target} ${item.unit}`}>{item.target} {item.unit}</span>
                 </div>
@@ -111,7 +111,7 @@ export default function InventoryStatusCard({ item }: { item: InventoryItem }) {
                     />
                 </div>
             </div>
-            <p className="text-sm text-neutral-700 dark:text-neutral-300 transition-colors" aria-live="polite">
+            <p className="text-sm text-muted-foreground transition-colors" aria-live="polite">
                 {percentageLabel}
             </p>
         </article>

@@ -1,6 +1,7 @@
 import EventCard from "../../atoms/events-card/event-card";
 import { Event } from "@/app/shared/types";
 import { mockEvents } from "../../pages/overview-dashboard/_mock-data_";
+import { useId } from "react";
 
 /**
  * Sample upcoming events data for demonstration purposes.
@@ -81,15 +82,17 @@ interface UpcomingEventsProps {
 export default function UpcomingEvents({ sectionTitle = "Upcoming Events", events = mockEvents }: UpcomingEventsProps) {
     const eventCount = events.length;
     const eventText = eventCount === 1 ? 'event' : 'events';
+    const sectionID = useId();
     
     return (
         <section
+            id={sectionID}
             aria-label={sectionTitle}
             aria-live="polite"
             aria-atomic="false"
             className="bg-card dark:bg-slate-950 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 p-6 transition-colors"
         >
-            <h2 id="upcoming-events-heading" className="text-foreground font-medium mb-6">
+            <h2 className="text-foreground font-medium mb-6">
                 {sectionTitle}
                 <span className="sr-only"> ({eventCount} {eventText} available)</span>
             </h2>
