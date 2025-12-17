@@ -114,11 +114,7 @@ export default function EngagementCard(props: EngagementCardProps) {
             <p className="text-gray-600 mb-4 dark:text-gray-300">{props.content}</p>
         </CardContent>
         <CardFooter>
-            <div 
-              className="h-full w-full flex items-center justify-between pt-4 border-t border-gray-100 dark:border-slate-800"
-              role="complementary"
-              aria-label="Engagement metadata"
-            >
+            <div className="h-full w-full flex items-center justify-between pt-4 border-t border-gray-100 dark:border-slate-800">
                 <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
                     <span>{props.author ? `Posted by ${props.author}` : 'Posted anonymously'}</span>
                     <span className="flex items-center gap-1">

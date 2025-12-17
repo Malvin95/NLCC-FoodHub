@@ -36,7 +36,7 @@ type Story = StoryObj<typeof EngagementCard>;
 
 export const Default: Story = {
   args: {
-    typeConfigIcon: <MessageCircle className={`w-4 h-4 ${'text-blue-600'}`} />,
+    typeConfigIcon: <MessageCircle className="w-4 h-4 text-blue-600" />,
     typeConfigColor: 'text-blue-600',
     typeConfigLabel: 'Comment',
     statusColor: 'border-green-300 text-green-700',
@@ -51,7 +51,7 @@ export const Default: Story = {
 
 export const ClosedStatus: Story = {
   args: {
-    typeConfigIcon: <MessageCircle className={`w-4 h-4 ${'text-purple-600'}`} />,
+    typeConfigIcon: <MessageCircle className="w-4 h-4 text-purple-600" />,
     typeConfigColor: 'text-purple-600',
     typeConfigLabel: 'Discussion',
     statusColor: 'border-gray-300 text-gray-700',
@@ -67,7 +67,7 @@ export const ClosedStatus: Story = {
 // Interaction tests
 export const RendersCoreFields: Story = {
   args: {
-    typeConfigIcon: <MessageCircle className={`w-4 h-4 ${'text-blue-600'}`} />,
+    typeConfigIcon: <MessageCircle className="w-4 h-4 text-blue-600" />,
     typeConfigColor: 'text-blue-600',
     typeConfigLabel: 'Comment',
     statusColor: 'border-green-300 text-green-700',
@@ -99,7 +99,7 @@ export const RendersCoreFields: Story = {
 
 export const UpdatesResponseCount: Story = {
   args: {
-    typeConfigIcon: <MessageCircle className={`w-4 h-4 ${'text-blue-600'}`} />,
+    typeConfigIcon: <MessageCircle className="w-4 h-4 text-blue-600" />,
     typeConfigColor: 'text-blue-600',
     typeConfigLabel: 'Comment',
     statusColor: 'border-green-300 text-green-700',
