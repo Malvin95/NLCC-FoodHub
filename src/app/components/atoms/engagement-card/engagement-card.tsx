@@ -95,32 +95,42 @@ export default function EngagementCard(props: EngagementCardProps) {
   return (
     <Card>
         <CardHeader className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-                {props.typeConfigIcon}
-                <span className={`text-sm ${props.typeConfigColor}`}>
+            <div className="flex items-center gap-2" role="group" aria-label="Engagement type">
+                <span aria-hidden="true">{props.typeConfigIcon}</span>
+                <span className={`text-sm ${props.typeConfigColor} dark:opacity-90`}>
                     {props.typeConfigLabel}
                 </span>
             </div>
-            <span className={`px-3 py-1 rounded-full border text-xs ${props.statusColor}`}>
+            <span 
+              className={`px-3 py-1 rounded-full border text-xs ${props.statusColor} dark:border-opacity-70`}
+              role="status"
+              aria-label={`Status: ${props.statusLabel}`}
+            >
                 {props.statusLabel}
             </span>
         </CardHeader>
         <CardContent>
-            <h3 className="text-gray-900 mb-2">{props.title}</h3>
-            <p className="text-gray-600 mb-4">{props.content}</p>
+            <h3 className="text-gray-900 mb-2 dark:text-gray-50 font-semibold">{props.title}</h3>
+            <p className="text-gray-600 mb-4 dark:text-gray-300">{props.content}</p>
         </CardContent>
         <CardFooter>
-            <div className="h-full w-full flex items-center justify-between pt-4 border-t border-gray-100">
-                <div className="flex items-center gap-4 text-sm text-gray-500">
-                    <span>Posted by {props.author}</span>
+            <div 
+              className="h-full w-full flex items-center justify-between pt-4 border-t border-gray-100 dark:border-slate-800"
+              role="complementary"
+              aria-label="Engagement metadata"
+            >
+                <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+                    <span>{props.author ? `Posted by ${props.author}` : 'Posted anonymously'}</span>
                     <span className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
-                    {props.time}
+                      <Clock className="w-4 h-4" aria-hidden="true" />
+                      <time dateTime={props.time}>{props.time}</time>
                     </span>
                 </div>
                 <div className="flex items-center gap-2">
-                    <MessageCircle className="w-4 h-4 text-gray-400" />
-                    <span className="text-sm text-gray-600">{props.responseCount} responses</span>
+                    <MessageCircle className="w-4 h-4 text-gray-400 dark:text-gray-500" aria-hidden="true" />
+                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                      {props.responseCount} {props.responseCount === 1 ? 'response' : 'responses'}
+                    </span>
                 </div>
             </div>
         </CardFooter>
