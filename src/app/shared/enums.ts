@@ -1,6 +1,13 @@
 
+export enum EngagementRequestSortType {
+  ALL = 'all',  
+  HELP = 'help',
+  VOLUNTEER = 'volunteer',
+  DONATION = 'donation',
+  QUESTION = 'question',
+}
+
 export enum EngagementRequestType {
-  ALL = 'all',
   HELP = 'help',
   VOLUNTEER = 'volunteer',
   DONATION = 'donation',

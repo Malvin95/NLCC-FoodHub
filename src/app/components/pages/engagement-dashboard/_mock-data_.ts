@@ -1,4 +1,4 @@
-import { EngagementRequestStatus, EngagementRequestType } from "@/app/shared/enums";
+import { EngagementRequestStatus, EngagementRequestSortType } from "@/app/shared/enums";
 import { EngagementRequest } from "./engagement-dashboard";
 
 /**
@@ -26,7 +26,7 @@ import { EngagementRequest } from "./engagement-dashboard";
 export const requests: EngagementRequest[] = [
   {
     id: 1,
-    type: EngagementRequestType.HELP,
+    type: EngagementRequestSortType.HELP,
     title: 'Emergency Food Request - Family of 5',
     description: 'A family just arrived in the area and needs immediate food assistance. They have dietary restrictions (no dairy).',
     author: 'Maria Rodriguez',
@@ -36,7 +36,7 @@ export const requests: EngagementRequest[] = [
   },
   {
     id: 2,
-    type: EngagementRequestType.VOLUNTEER,
+    type: EngagementRequestSortType.VOLUNTEER,
     title: 'Need drivers for Saturday delivery',
     description: 'Looking for 4 volunteers with vehicles to help deliver food boxes to homebound seniors this Saturday, 9 AM - 1 PM.',
     author: 'James Wilson',
@@ -46,7 +46,7 @@ export const requests: EngagementRequest[] = [
   },
   {
     id: 3,
-    type: EngagementRequestType.DONATION,
+    type: EngagementRequestSortType.DONATION,
     title: 'Fresh produce available for pickup',
     description: 'Local farm has surplus vegetables (carrots, lettuce, tomatoes) - approximately 200 lbs. Available for pickup today or tomorrow.',
     author: 'Green Valley Farms',
@@ -56,7 +56,7 @@ export const requests: EngagementRequest[] = [
   },
   {
     id: 4,
-    type: EngagementRequestType.QUESTION,
+    type: EngagementRequestSortType.QUESTION,
     title: 'Holiday meal program planning',
     description: 'What are the requirements to participate in the holiday meal distribution program? Can families sign up in advance?',
     author: 'Susan Chen',
@@ -66,7 +66,7 @@ export const requests: EngagementRequest[] = [
   },
   {
     id: 5,
-    type: EngagementRequestType.HELP,
+    type: EngagementRequestSortType.HELP,
     title: 'Transportation assistance needed',
     description: 'Client in wheelchair needs help getting to the food bank. Does anyone know of accessible transportation options?',
     author: 'David Thompson',
@@ -76,7 +76,7 @@ export const requests: EngagementRequest[] = [
   },
   {
     id: 6,
-    type: EngagementRequestType.VOLUNTEER,
+    type: EngagementRequestSortType.VOLUNTEER,
     title: 'Inventory counting help - Wednesday evening',
     description: 'Need 3-4 volunteers to help with monthly inventory count. Wednesday 5-7 PM. Great for first-time volunteers!',
     author: 'Lisa Park',
@@ -86,7 +86,7 @@ export const requests: EngagementRequest[] = [
   },
   {
     id: 7,
-    type: EngagementRequestType.DONATION,
+    type: EngagementRequestSortType.DONATION,
     title: 'Corporate donation coordination',
     description: 'Tech company wants to do a canned food drive. Need someone to coordinate pickup and provide donation guidelines.',
     author: 'Michael Brown',
@@ -96,7 +96,7 @@ export const requests: EngagementRequest[] = [
   },
   {
     id: 8,
-    type: EngagementRequestType.QUESTION,
+    type: EngagementRequestSortType.QUESTION,
     title: 'Volunteer training schedule?',
     description: 'I\'m interested in becoming a regular volunteer. When is the next orientation/training session?',
     author: 'Emma Johnson',

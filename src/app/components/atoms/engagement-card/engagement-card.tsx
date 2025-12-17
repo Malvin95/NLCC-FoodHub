@@ -110,7 +110,7 @@ export default function EngagementCard(props: EngagementCardProps) {
             </span>
         </CardHeader>
         <CardContent>
-            <p className="text-foreground mb-2 font-semibold">{props.title}</p>
+            <h3 className="text-foreground mb-2 font-semibold">{props.title}</h3>
             <p className="text-muted-foreground mb-4">{props.content}</p>
         </CardContent>
         <CardFooter className="h-full w-full flex items-center justify-between pt-4 border-t text-sm text-foreground dark:text-muted-foreground border-gray-100 dark:border-slate-800">

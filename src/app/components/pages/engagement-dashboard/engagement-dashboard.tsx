@@ -15,29 +15,9 @@ import DashboardPageTemplate from "../../templates/dashboard-page-template/dashb
 import FilterBar from "../../molecules/filter-bar/filter-bar";
 import EngagementCard from "../../atoms/engagement-card/engagement-card";
 import { requests } from "./_mock-data_";
-import { EngagementRequestStatus, EngagementRequestType } from "@/app/shared/enums";
-import { AlertCircle, CheckCircle, MessageCircle, User } from "lucide-react";
-import { EngagementConfig, EngagementStatusConfig } from "@/app/shared/types";
-
-/**
- * Icon/label/color mapping per engagement request type
- */
-const typeConfig: Record<string, EngagementConfig> = {
-  [EngagementRequestType.HELP]: { label: 'Help Request', icon: AlertCircle, color: 'text-red-600 dark:text-red-300' },
-  [EngagementRequestType.VOLUNTEER]: { label: 'Volunteer Needed', icon: User, color: 'text-blue-600 dark:text-blue-300' },
-  [EngagementRequestType.DONATION]: { label: 'Donation', icon: CheckCircle, color: 'text-green-700 dark:text-green-400' },
-  [EngagementRequestType.QUESTION]: { label: 'Question', icon: MessageCircle, color: 'text-purple-600 dark:text-purple-300' },
-};
-
-/**
- * Badge color/label mapping per engagement status
- */
-const statusConfig: Record<EngagementRequestStatus, EngagementStatusConfig> = {
-  [EngagementRequestStatus.URGENT]: { label: 'Urgent', color: 'bg-red-100 text-red-700 border-red-200 dark:bg-red-900 dark:text-red-100 dark:border-red-800' },
-  [EngagementRequestStatus.OPEN]: { label: 'Open', color: 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900 dark:text-blue-100 dark:border-blue-800' },
-  [EngagementRequestStatus.IN_PROGRESS]: { label: 'In Progress', color: 'bg-yellow-100 text-yellow-700 border-yellow-200 dark:bg-amber-900 dark:text-amber-100 dark:border-amber-800' },
-  [EngagementRequestStatus.RESOLVED]: { label: 'Resolved', color: 'bg-green-100 text-green-700 border-green-200 dark:bg-green-900 dark:text-green-100 dark:border-green-800' },
-};
+import { EngagementRequestSortType, EngagementRequestStatus, EngagementRequestType } from "@/app/shared/enums";
+import { useState } from "react";
+import { statusConfig, typeConfig } from "@/app/shared/config";
 
 export interface EngagementRequest {
   id: number;
@@ -51,19 +31,34 @@ export interface EngagementRequest {
 }
 
 export default function EngagementDashboard() {
+  const [activeFilter, setActiveFilter] = useState(EngagementRequestSortType.ALL);
+
+  // TODO: implement filtering logic based on activeFilter state, and place within a hook
+
+  const handleFilterChange = (value: string) => {
+    setActiveFilter(value as EngagementRequestSortType);
+  };
+
   return (
     <DashboardPageTemplate
       title="Engagement Dashboard"
       description="Community requests, questions, and volunteer opportunities"
     >
       <div aria-label="Filter engagement requests" className="mt-4" role="toolbar">
-        <FilterBar />
+        <FilterBar activeTab={activeFilter} onFilterChange={handleFilterChange} />
       </div>
 
       <section aria-label="Engagement requests" className="mt-8" role="feed">
         {requests.map((request) => {
-            const IconComponent = typeConfig[request.type].icon;
-            const typeColor = typeConfig[request.type].color;
+            const typeConfigEntry = typeConfig[request.type];
+            if (!typeConfigEntry) {
+              // Unknown request type; skip rendering this entry to avoid runtime errors
+              // TODO: consider logging a warning in development mode, and also think about a fallback UI
+              return null;
+            }
+
+            const IconComponent = typeConfigEntry.icon;
+            const typeColor = typeConfigEntry.color;
 
             return (
               <div key={request.id} className="mb-6" role="article">

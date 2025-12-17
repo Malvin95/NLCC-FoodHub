@@ -7,14 +7,14 @@
  * @see {@link FilterBar} for usage example
  */
 
-import { EngagementRequestType } from '../enums';
+import { EngagementRequestSortType } from '../enums';
 
 export const DEFAULT_FILTER_LABELS: Record<string, string> = {
-  [EngagementRequestType.ALL]: 'All Requests',
-  [EngagementRequestType.HELP]: 'Help Requests',
-  [EngagementRequestType.VOLUNTEER]: 'Volunteers Needed',
-  [EngagementRequestType.DONATION]: 'Donations',
-  [EngagementRequestType.QUESTION]: 'Questions'
+  [EngagementRequestSortType.ALL]: 'All Requests',
+  [EngagementRequestSortType.HELP]: 'Help Requests',
+  [EngagementRequestSortType.VOLUNTEER]: 'Volunteers Needed',
+  [EngagementRequestSortType.DONATION]: 'Donations',
+  [EngagementRequestSortType.QUESTION]: 'Questions'
 };
 
 /**
@@ -22,11 +22,11 @@ export const DEFAULT_FILTER_LABELS: Record<string, string> = {
  * Useful for loops and map operations in filter components
  */
 export const FILTER_TYPES = [
-  EngagementRequestType.ALL,
-  EngagementRequestType.HELP,
-  EngagementRequestType.VOLUNTEER,
-  EngagementRequestType.DONATION,
-  EngagementRequestType.QUESTION
+  EngagementRequestSortType.ALL,
+  EngagementRequestSortType.HELP,
+  EngagementRequestSortType.VOLUNTEER,
+  EngagementRequestSortType.DONATION,
+  EngagementRequestSortType.QUESTION
 ] as const;
 
 /**

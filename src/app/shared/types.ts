@@ -8,13 +8,13 @@ export type MenuItem = {
 };
 
 export type EngagementConfig = {
-  label: string; 
-  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>; 
+  label: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   color: string;
 };
 
 export type EngagementStatusConfig = {
-  label: string; 
+  label: string;
   color: string;
 };
 
