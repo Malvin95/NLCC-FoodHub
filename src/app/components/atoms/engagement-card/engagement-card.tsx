@@ -3,11 +3,11 @@ import { Card, CardContent, CardFooter, CardHeader } from "../ui/card/card";
 
 interface EngagementCardProps {
   /** Icon component for the engagement type (e.g., MessageCircle, HelpCircle, AlertCircle) */
-  typeConfigIcon: React.ReactNode;
+  configIcon: React.ReactNode;
   /** Tailwind color class for type label styling (e.g., 'text-blue-600', 'text-red-500') */
-  typeConfigColor: string;
+  configColor: string;
   /** Readable engagement type label that pairs with icon (e.g., 'Comment', 'Question', 'Alert') */
-  typeConfigLabel: string;
+  configLabel: string;
   /** Tailwind classes for status badge border and text (e.g., 'border-green-300 text-green-700') */
   statusColor: string;
   /** Status indicator text (e.g., 'Open', 'Closed', 'In Progress') */
@@ -59,9 +59,9 @@ interface EngagementCardProps {
  * ```tsx
  * // Comment-type engagement with open status
  * <EngagementCard
- *   typeConfigIcon={<MessageCircle className="w-4 h-4" />}
- *   typeConfigColor="text-blue-600"
- *   typeConfigLabel="Comment"
+ *   configIcon={<MessageCircle className="w-4 h-4" />}
+ *   configColor="text-blue-600"
+ *   configLabel="Comment"
  *   statusColor="border-green-300 text-green-700"
  *   statusLabel="Open"
  *   title="Community Pantry Request"
@@ -76,9 +76,9 @@ interface EngagementCardProps {
  * ```tsx
  * // Question-type engagement with closed status
  * <EngagementCard
- *   typeConfigIcon={<HelpCircle className="w-4 h-4" />}
- *   typeConfigColor="text-orange-600"
- *   typeConfigLabel="Question"
+ *   configIcon={<HelpCircle className="w-4 h-4" />}
+ *   configColor="text-orange-600"
+ *   configLabel="Question"
  *   statusColor="border-gray-300 text-gray-700"
  *   statusLabel="Closed"
  *   title="How do I apply for the food assistance program?"
@@ -96,9 +96,9 @@ export default function EngagementCard(props: EngagementCardProps) {
     <Card>
         <CardHeader className="flex items-center justify-between">
             <div className="flex items-center gap-2" role="group" aria-label="Engagement type">
-                <span aria-hidden="true">{props.typeConfigIcon}</span>
-                <span className={`text-sm ${props.typeConfigColor} dark:opacity-90`}>
-                    {props.typeConfigLabel}
+                <span aria-hidden="true">{props.configIcon}</span>
+                <span className={`text-sm ${props.configColor} dark:opacity-90`}>
+                    {props.configLabel}
                 </span>
             </div>
             <span 
@@ -110,25 +110,23 @@ export default function EngagementCard(props: EngagementCardProps) {
             </span>
         </CardHeader>
         <CardContent>
-            <h3 className="text-gray-900 mb-2 dark:text-gray-50 font-semibold">{props.title}</h3>
-            <p className="text-gray-600 mb-4 dark:text-gray-300">{props.content}</p>
+            <h3 className="text-foreground mb-2 font-semibold">{props.title}</h3>
+            <p className="text-muted-foreground mb-4">{props.content}</p>
         </CardContent>
-        <CardFooter>
-            <div className="h-full w-full flex items-center justify-between pt-4 border-t border-gray-100 dark:border-slate-800">
-                <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
-                    <span>{props.author ? `Posted by ${props.author}` : 'Posted anonymously'}</span>
-                    <span className="flex items-center gap-1">
-                      <Clock className="w-4 h-4" aria-hidden="true" />
-                      <time dateTime={props.time}>{props.time}</time>
-                    </span>
-                </div>
-                <div className="flex items-center gap-2">
-                    <MessageCircle className="w-4 h-4 text-gray-400 dark:text-gray-500" aria-hidden="true" />
-                    <span className="text-sm text-gray-600 dark:text-gray-400">
-                      {props.responseCount} {props.responseCount === 1 ? 'response' : 'responses'}
-                    </span>
-                </div>
-            </div>
+        <CardFooter className="h-full w-full flex items-center justify-between pt-4 border-t text-sm text-foreground dark:text-muted-foreground border-gray-100 dark:border-slate-800">
+          <div className="flex flex-col sm:flex-row items-center gap-2">
+              <span>{props.author ? `Posted by ${props.author}` : 'Posted anonymously'}</span>
+              <span className="flex items-center gap-1 mr-auto sm:mr-0">
+                <Clock className="w-4 h-4" aria-hidden="true" />
+                <time dateTime={props.time}>{props.time}</time> {/* TODO: Create a function that formats the time string Ref Ticket #44 */}
+              </span>
+          </div>
+          <div className="flex items-center gap-2 sm:gap-4 justify-end">
+              <MessageCircle className="w-4 h-4" aria-hidden="true" />
+              <span>
+                {props.responseCount} {props.responseCount === 1 ? 'response' : 'responses'}
+              </span>
+          </div>
         </CardFooter>
     </Card>
   );

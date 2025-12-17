@@ -36,9 +36,9 @@ type Story = StoryObj<typeof EngagementCard>;
 
 export const Default: Story = {
   args: {
-    typeConfigIcon: <MessageCircle className="w-4 h-4 text-blue-600" />,
-    typeConfigColor: 'text-blue-600',
-    typeConfigLabel: 'Comment',
+    configIcon: <MessageCircle className="w-4 h-4 text-blue-600" />,
+    configColor: 'text-blue-600',
+    configLabel: 'Comment',
     statusColor: 'border-green-300 text-green-700',
     statusLabel: 'Open',
     title: 'Community Pantry Request',
@@ -51,9 +51,9 @@ export const Default: Story = {
 
 export const ClosedStatus: Story = {
   args: {
-    typeConfigIcon: <MessageCircle className="w-4 h-4 text-purple-600" />,
-    typeConfigColor: 'text-purple-600',
-    typeConfigLabel: 'Discussion',
+    configIcon: <MessageCircle className="w-4 h-4 text-purple-600" />,
+    configColor: 'text-purple-600',
+    configLabel: 'Discussion',
     statusColor: 'border-gray-300 text-gray-700',
     statusLabel: 'Closed',
     title: 'Donation Sorting Completed',
@@ -67,9 +67,9 @@ export const ClosedStatus: Story = {
 // Interaction tests
 export const RendersCoreFields: Story = {
   args: {
-    typeConfigIcon: <MessageCircle className="w-4 h-4 text-blue-600" />,
-    typeConfigColor: 'text-blue-600',
-    typeConfigLabel: 'Comment',
+    configIcon: <MessageCircle className="w-4 h-4 text-blue-600" />,
+    configColor: 'text-blue-600',
+    configLabel: 'Comment',
     statusColor: 'border-green-300 text-green-700',
     statusLabel: 'Open',
     title: 'Community Pantry Request',
@@ -99,9 +99,9 @@ export const RendersCoreFields: Story = {
 
 export const UpdatesResponseCount: Story = {
   args: {
-    typeConfigIcon: <MessageCircle className="w-4 h-4 text-blue-600" />,
-    typeConfigColor: 'text-blue-600',
-    typeConfigLabel: 'Comment',
+    configIcon: <MessageCircle className="w-4 h-4 text-blue-600" />,
+    configColor: 'text-blue-600',
+    configLabel: 'Comment',
     statusColor: 'border-green-300 text-green-700',
     statusLabel: 'Open',
     title: 'Community Pantry Request',

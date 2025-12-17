@@ -38,7 +38,7 @@ export const FILTER_TYPES = [
  * 
  * @example
  * ```tsx
- * const label = getFilterLabel(EngagementRequestType.HELP, { Help: 'Need Help' });
+ * const label = getFilterLabel(EngagementRequestType.HELP, { [EngagementRequestType.HELP]: 'Need Help' });
  * // Returns: 'Need Help'
  * ```
  */
