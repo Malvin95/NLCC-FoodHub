@@ -25,7 +25,7 @@ import { EngagementConfig, EngagementStatusConfig } from "@/app/shared/types";
 const typeConfig: Record<string, EngagementConfig> = {
   [EngagementRequestType.HELP]: { label: 'Help Request', icon: AlertCircle, color: 'text-red-600 dark:text-red-300' },
   [EngagementRequestType.VOLUNTEER]: { label: 'Volunteer Needed', icon: User, color: 'text-blue-600 dark:text-blue-300' },
-  [EngagementRequestType.DONATION]: { label: 'Donation', icon: CheckCircle, color: 'text-green-600 dark:text-green-300' },
+  [EngagementRequestType.DONATION]: { label: 'Donation', icon: CheckCircle, color: 'text-green-700 dark:text-green-400' },
   [EngagementRequestType.QUESTION]: { label: 'Question', icon: MessageCircle, color: 'text-purple-600 dark:text-purple-300' },
 };
 
@@ -56,11 +56,11 @@ export default function EngagementDashboard() {
       title="Engagement Dashboard"
       description="Community requests, questions, and volunteer opportunities"
     >
-      <section aria-label="Filter engagement requests" className="mt-4">
+      <div aria-label="Filter engagement requests" className="mt-4" role="tabpanel">
         <FilterBar />
-      </section>
+      </div>
 
-      <section aria-label="Engagement requests" className="mt-8" role="list">
+      <div aria-label="Engagement requests" className="mt-8" role="list">
         {requests.map((request) => {
             const IconComponent = typeConfig[request.type].icon;
             const typeColor = typeConfig[request.type].color;
@@ -82,7 +82,7 @@ export default function EngagementDashboard() {
             )
           })
         }
-      </section>
+      </div>
     </DashboardPageTemplate>
   );
 }

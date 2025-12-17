@@ -70,9 +70,9 @@ interface DashboardPageTemplateProps {
  */
 export default function DashboardPageTemplate({ children, title, description }: DashboardPageTemplateProps) {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 transition-colors">
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 transition-colors">
         <h1 className="text-2xl font-semibold text-foreground mb-6">{title}</h1>
-        <p className="text-muted-foreground mb-8">{description}</p>
+        <h2 className="text-muted-foreground mb-8">{description}</h2>
         <div className="space-y-8">
           {children || (
               <div className="text-center text-muted-foreground py-12" role="status">
@@ -80,6 +80,6 @@ export default function DashboardPageTemplate({ children, title, description }: 
               </div>
           )}
         </div>
-    </div>
+    </section>
   );
 }

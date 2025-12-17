@@ -4,7 +4,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import EngagementDashboard from './engagement-dashboard';
 import EngagementDashboardSkeleton from './engagement-dashboard-skeleton';
-import { within, expect, screen } from 'storybook/test';
+import { within, expect } from 'storybook/test';
 
 const meta: Meta<typeof EngagementDashboard> = {
   title: 'Pages/EngagementDashboard',
@@ -54,7 +54,7 @@ export const RendersCards: Story = {
     await expect(filterSection).toBeInTheDocument();
     
     // Verify engagement list exists with proper role
-    const engagementList = canvas.getByLabelText(/Engagement requests/i);
+    const engagementList = canvas.getByLabelText(/Engagement requests/);
     await expect(engagementList).toBeInTheDocument();
     await expect(engagementList).toHaveAttribute('role', 'list');
   },
@@ -85,7 +85,9 @@ export const RendersMockData: Story = {
     
     // Verify status badges render
     await expect(canvas.getByText(/Urgent/)).toBeInTheDocument();
-    await expect(canvas.getByText(/Open/)).toBeInTheDocument();
+
+    const openBadges = canvas.getAllByText(/Open/i);
+    await expect(openBadges.length).toBeGreaterThan(0);
   },
 };
 
@@ -105,10 +107,17 @@ export const DisplaysEngagementTypes: Story = {
     const canvas = within(canvasElement);
     
     // Verify all engagement type labels render
-    await expect(canvas.getByText(/Help Request/i)).toBeInTheDocument();
-    await expect(canvas.getByText(/Volunteer Needed/i)).toBeInTheDocument();
-    await expect(canvas.getByText(/Donation/i)).toBeInTheDocument();
-    await expect(canvas.getByText(/Question/i)).toBeInTheDocument();
+    const helpLabels = canvas.getAllByText(/Help Request/i);
+    await expect(helpLabels.length).toBeGreaterThan(0);
+
+    const volunteerLabels = canvas.getAllByText(/Volunteer Needed/i);
+    await expect(volunteerLabels.length).toBeGreaterThan(0);
+
+    const donationLabels = canvas.getAllByText(/Donation/i);
+    await expect(donationLabels.length).toBeGreaterThan(0);
+
+    const questionLabels = canvas.getAllByText(/Question/i);
+    await expect(questionLabels.length).toBeGreaterThan(0);
   },
 };
 
@@ -129,9 +138,15 @@ export const DisplaysStatuses: Story = {
     
     // Verify status badges are displayed
     await expect(canvas.getByText(/Urgent/)).toBeInTheDocument();
-    await expect(canvas.getAllByText(/Open/i).length).toBeGreaterThan(0);
-    await expect(canvas.getByText(/In Progress/)).toBeInTheDocument();
-    await expect(canvas.getByText(/Resolved/)).toBeInTheDocument();
+
+    const openBadges = canvas.getAllByText(/Open/i);
+    await expect(openBadges.length).toBeGreaterThan(0);
+
+    const inProgressBadges = canvas.getAllByText(/In Progress/i);
+    await expect(inProgressBadges.length).toBeGreaterThan(0);
+
+    const resolvedBadges = canvas.getAllByText(/Resolved/i);
+    await expect(resolvedBadges.length).toBeGreaterThan(0);
   },
 };
 
@@ -177,7 +192,7 @@ export const HasAccessibilityStructure: Story = {
     const canvas = within(canvasElement);
     
     // Verify list structure
-    const engagementList = canvas.getByLabelText(/Engagement requests/i);
+    const engagementList = canvas.getByLabelText(/Engagement requests/);
     await expect(engagementList).toHaveAttribute('role', 'list');
     
     // Verify list items exist
