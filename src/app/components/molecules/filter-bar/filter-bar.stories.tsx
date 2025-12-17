@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { within, expect, userEvent, fn } from 'storybook/test';
 import FilterBar from './filter-bar';
 import { FilterBarSkeleton } from './filter-bar-skeleton';
-import { EngagementRequestType } from '@/app/shared/enums';
+import { EngagementRequestSortType } from '@/app/shared/enums';
 import { useArgs } from 'storybook/preview-api';
 
 const meta: Meta<typeof FilterBar> = {
@@ -39,31 +39,31 @@ type Story = StoryObj<typeof FilterBar>;
 
 export const Default: Story = {
   args: {
-    activeTab: EngagementRequestType.ALL
+    activeTab: EngagementRequestSortType.ALL
   }
 };
 
 export const HelpTabActive: Story = {
   args: {
-    activeTab: EngagementRequestType.HELP
+    activeTab: EngagementRequestSortType.HELP
   }
 };
 
 export const VolunteerTabActive: Story = {
   args: {
-    activeTab: EngagementRequestType.VOLUNTEER
+    activeTab: EngagementRequestSortType.VOLUNTEER
   }
 };
 
 export const DonationTabActive: Story = {
   args: {
-    activeTab: EngagementRequestType.DONATION
+    activeTab: EngagementRequestSortType.DONATION
   }
 };
 
 export const QuestionTabActive: Story = {
   args: {
-    activeTab: EngagementRequestType.QUESTION
+    activeTab: EngagementRequestSortType.QUESTION
   }
 };
 
@@ -73,20 +73,20 @@ export const NoActiveTab: Story = {
 
 export const WithCustomLabels: Story = {
   args: {
-    activeTab: EngagementRequestType.ALL,
+    activeTab: EngagementRequestSortType.ALL,
     customLabels: {
-      [EngagementRequestType.ALL]: 'All Types',
-      [EngagementRequestType.HELP]: 'Need Help',
-      [EngagementRequestType.VOLUNTEER]: 'Volunteer Ops',
-      [EngagementRequestType.DONATION]: 'Donate Items',
-      [EngagementRequestType.QUESTION]: 'Q&A'
+      [EngagementRequestSortType.ALL]: 'All Types',
+      [EngagementRequestSortType.HELP]: 'Need Help',
+      [EngagementRequestSortType.VOLUNTEER]: 'Volunteer Ops',
+      [EngagementRequestSortType.DONATION]: 'Donate Items',
+      [EngagementRequestSortType.QUESTION]: 'Q&A'
     }
   }
 };
 
 export const Interactive: Story = {
   args: {
-    activeTab: EngagementRequestType.ALL
+    activeTab: EngagementRequestSortType.ALL
   },
   render: function Render(args) {
     const [{activeTab}, updateArgs] = useArgs();
@@ -112,7 +112,7 @@ export const Interactive: Story = {
 // Interactive test stories
 export const AllTabRenderTest: Story = {
   args: {
-    activeTab: EngagementRequestType.ALL
+    activeTab: EngagementRequestSortType.ALL
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -128,7 +128,7 @@ export const AllTabRenderTest: Story = {
 
 export const ActiveTabStateTest: Story = {
   args: {
-    activeTab: EngagementRequestType.HELP
+    activeTab: EngagementRequestSortType.HELP
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -141,7 +141,7 @@ export const ActiveTabStateTest: Story = {
 
 export const TabAttributesTest: Story = {
   args: {
-    activeTab: EngagementRequestType.ALL
+    activeTab: EngagementRequestSortType.ALL
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -154,10 +154,10 @@ export const TabAttributesTest: Story = {
 
 export const CustomLabelsTest: Story = {
   args: {
-    activeTab: EngagementRequestType.ALL,
+    activeTab: EngagementRequestSortType.ALL,
     customLabels: {
-      [EngagementRequestType.ALL]: 'Custom All',
-      [EngagementRequestType.HELP]: 'Custom Help'
+      [EngagementRequestSortType.ALL]: 'Custom All',
+      [EngagementRequestSortType.HELP]: 'Custom Help'
     }
   },
   play: async ({ canvasElement }) => {
@@ -174,18 +174,18 @@ export const CustomLabelsTest: Story = {
 
 export const OnTabChangeTest: Story = {
   args: {
-    activeTab: EngagementRequestType.ALL,
+    activeTab: EngagementRequestSortType.ALL,
     onFilterChange: fn()
   },
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
 
     const filters = [
-      { name: /all requests/i, value: EngagementRequestType.ALL },
-      { name: /help requests/i, value: EngagementRequestType.HELP },
-      { name: /volunteers needed/i, value: EngagementRequestType.VOLUNTEER },
-      { name: /donations/i, value: EngagementRequestType.DONATION },
-      { name: /questions/i, value: EngagementRequestType.QUESTION }
+      { name: /all requests/i, value: EngagementRequestSortType.ALL },
+      { name: /help requests/i, value: EngagementRequestSortType.HELP },
+      { name: /volunteers needed/i, value: EngagementRequestSortType.VOLUNTEER },
+      { name: /donations/i, value: EngagementRequestSortType.DONATION },
+      { name: /questions/i, value: EngagementRequestSortType.QUESTION }
     ];
 
     for (const filter of filters) {

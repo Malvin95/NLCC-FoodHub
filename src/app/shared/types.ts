@@ -7,6 +7,17 @@ export type MenuItem = {
     icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 };
 
+export type EngagementConfig = {
+  label: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  color: string;
+};
+
+export type EngagementStatusConfig = {
+  label: string;
+  color: string;
+};
+
 /**
  * Represents a single event with details for volunteer coordination.
  * 

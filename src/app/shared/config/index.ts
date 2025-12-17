@@ -11,3 +11,4 @@
  */
 
 export { DEFAULT_FILTER_LABELS, FILTER_TYPES, getFilterLabel } from './filter-labels';
+export { typeConfig, statusConfig } from './engagement-configs';
