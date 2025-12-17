@@ -268,7 +268,7 @@ export const AccessibilityTest: Story = {
     await expect(title?.textContent).toBe('Accessible Dashboard');
 
     // Verify semantic paragraph
-    const description = canvasElement.querySelector('h2');
+    const description = canvasElement.querySelector('p');
     await expect(description).toBeInTheDocument();
     await expect(description?.textContent).toBe('Testing accessibility features');
 

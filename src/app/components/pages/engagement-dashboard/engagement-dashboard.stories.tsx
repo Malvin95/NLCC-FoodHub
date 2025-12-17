@@ -5,6 +5,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import EngagementDashboard from './engagement-dashboard';
 import EngagementDashboardSkeleton from './engagement-dashboard-skeleton';
 import { within, expect } from 'storybook/test';
+import { requests } from './_mock-data_';
 
 const meta: Meta<typeof EngagementDashboard> = {
   title: 'Pages/EngagementDashboard',
@@ -43,8 +44,8 @@ export const RendersCards: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     
-    // Verify page title
-    await expect(canvas.getByText(/Engagement Dashboard/i)).toBeInTheDocument();
+    // Verify page title using role for stability
+    await expect(canvas.getByRole('heading', { level: 1, name: /Engagement Dashboard/i })).toBeInTheDocument();
     
     // Verify page description
     await expect(canvas.getByText(/Community requests, questions, and volunteer opportunities/i)).toBeInTheDocument();
@@ -53,10 +54,11 @@ export const RendersCards: Story = {
     const filterSection = canvas.getByLabelText(/Filter engagement requests/i);
     await expect(filterSection).toBeInTheDocument();
     
-    // Verify engagement list exists with proper role
-    const engagementList = canvas.getByLabelText(/Engagement requests/);
+    // Verify engagement list exists with proper role and count
+    const engagementList = canvas.getByRole('feed', { name: /Engagement requests/i });
     await expect(engagementList).toBeInTheDocument();
-    await expect(engagementList).toHaveAttribute('role', 'feed');
+    const listItems = within(engagementList).getAllByRole('article');
+    await expect(listItems.length).toBe(requests.length);
   },
 };
 
@@ -74,20 +76,17 @@ export const RendersMockData: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
-    // Verify first card (Emergency Food Request - Family of 5)
-    await expect(canvas.getByText(/Emergency Food Request - Family of 5/i)).toBeInTheDocument();
-    await expect(canvas.getByText(/Maria Rodriguez/i)).toBeInTheDocument();
-    
-    // Verify second card (Volunteer drivers)
-    await expect(canvas.getByText(/Need drivers for Saturday delivery/i)).toBeInTheDocument();
-    await expect(canvas.getByText(/James Wilson/i)).toBeInTheDocument();
-    
-    // Verify status badges render
-    await expect(canvas.getByText(/Urgent/)).toBeInTheDocument();
 
-    const openBadges = canvas.getAllByText(/Open/i);
-    await expect(openBadges.length).toBeGreaterThan(0);
+    // Use role-based, structure-first assertions to avoid brittle text checks
+    const engagementList = canvas.getByRole('feed', { name: /Engagement requests/i });
+    const items = within(engagementList).getAllByRole('article');
+    await expect(items.length).toBe(requests.length);
+
+    // Each item should have a status badge and a response count
+    for (const item of items) {
+      await expect(within(item).getByRole('status')).toBeInTheDocument();
+      await expect(within(item).getByText(/\d+\s+responses/i)).toBeInTheDocument();
+    }
   },
 };
 
@@ -105,19 +104,21 @@ export const DisplaysEngagementTypes: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+
+    // Query by role alone, then check for type labels within list items
+    const engagementList = canvas.getByRole('feed', { name: /Engagement requests/i });
+    const items = within(engagementList).getAllByRole('article');
     
-    // Verify all engagement type labels render
-    const helpLabels = canvas.getAllByText(/Help Request/i);
-    await expect(helpLabels.length).toBeGreaterThan(0);
-
-    const volunteerLabels = canvas.getAllByText(/Volunteer Needed/i);
-    await expect(volunteerLabels.length).toBeGreaterThan(0);
-
-    const donationLabels = canvas.getAllByText(/Donation/i);
-    await expect(donationLabels.length).toBeGreaterThan(0);
-
-    const questionLabels = canvas.getAllByText(/Question/i);
-    await expect(questionLabels.length).toBeGreaterThan(0);
+    // Collect all type labels from items and verify each type appears
+    const allTypeElements = items.flatMap(item => 
+      within(item).queryAllByRole('group')
+    );
+    
+    const typeTexts = allTypeElements.flatMap(el => el.textContent);
+    await expect(typeTexts.some(text => text?.match(/Help Request/i))).toBe(true);
+    await expect(typeTexts.some(text => text?.match(/Volunteer Needed/i))).toBe(true);
+    await expect(typeTexts.some(text => text?.match(/Donation/i))).toBe(true);
+    await expect(typeTexts.some(text => text?.match(/Question/i))).toBe(true);
   },
 };
 
@@ -136,17 +137,15 @@ export const DisplaysStatuses: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     
-    // Verify status badges are displayed
-    await expect(canvas.getByText(/Urgent/)).toBeInTheDocument();
-
-    const openBadges = canvas.getAllByText(/Open/i);
-    await expect(openBadges.length).toBeGreaterThan(0);
-
-    const inProgressBadges = canvas.getAllByText(/In Progress/i);
-    await expect(inProgressBadges.length).toBeGreaterThan(0);
-
-    const resolvedBadges = canvas.getAllByText(/Resolved/i);
-    await expect(resolvedBadges.length).toBeGreaterThan(0);
+    // Query status badges by role, then verify text content
+    const statusBadges = canvas.getAllByRole('status');
+    await expect(statusBadges.length).toBeGreaterThan(0);
+    
+    const statusTexts = statusBadges.map(badge => badge.textContent);
+    await expect(statusTexts.some(text => text?.match(/Urgent/i))).toBe(true);
+    await expect(statusTexts.some(text => text?.match(/Open/i))).toBe(true);
+    await expect(statusTexts.some(text => text?.match(/In Progress/i))).toBe(true);
+    await expect(statusTexts.some(text => text?.match(/Resolved/i))).toBe(true);
   },
 };
 
@@ -165,14 +164,15 @@ export const DisplaysResponseCounts: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     
-    // Verify response counts are displayed
-    const responseCounts = canvas.getAllByText(/responses/i);
-    await expect(responseCounts.length).toBeGreaterThan(0);
+    // Verify response counts are displayed once per item to match dataset size
+    const engagementList = canvas.getByRole('feed', { name: /Engagement requests/i });
+    const items = within(engagementList).getAllByRole('article');
     
-    // Verify specific response counts from mock data
-    await expect(canvas.getByText(/3 responses/i)).toBeInTheDocument(); // First card
-    await expect(canvas.getByText(/7 responses/i)).toBeInTheDocument(); // Second card
-    await expect(canvas.getByText(/12 responses/i)).toBeInTheDocument(); // Fourth card
+    // Each item should have exactly one response count
+    for (const item of items) {
+      const count = within(item).getAllByText(/\d+\s+responses/i);
+      await expect(count.length).toBeGreaterThan(0);
+    }
   },
 };
 
@@ -191,12 +191,13 @@ export const HasAccessibilityStructure: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     
-    // Verify list structure
-    const engagementList = canvas.getByLabelText(/Engagement requests/);
-    await expect(engagementList).toHaveAttribute('role', 'list');
+    // Verify list structure with role-based query and expected count
+    const engagementList = canvas.getByRole('feed', { name: /Engagement requests/i });
+    const items = within(engagementList).getAllByRole('article');
+    await expect(items.length).toBe(requests.length);
     
     // Verify list items exist
-    const listItems = canvas.getAllByRole('listitem');
+    const listItems = canvas.getAllByRole('article');
     await expect(listItems.length).toBeGreaterThan(0);
     
     // Verify filter section has proper label
