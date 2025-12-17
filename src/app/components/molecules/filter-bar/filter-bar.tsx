@@ -1,49 +1,49 @@
-import { EngagementRequestType } from "@/app/shared/enums";
+import { DEFAULT_FILTER_LABELS, FILTER_TYPES } from "@/app/shared/config";
 import { Button } from "../../atoms/button/button";
 
 export interface FilterBarProps {
-  /** Currently selected filter value from EngagementRequestType enum */
+  /** Currently selected filter value, matches an EngagementRequestType enum value */
   activeTab?: string;
-  /** Callback fired when a filter button is clicked with the selected filter type */
+  /** Callback invoked when a filter button is clicked, receives the selected filter type */
   onFilterChange?: (value: string) => void;
-  /** Optional custom labels for filter buttons, merged with default labels */
+  /** Optional custom label overrides, merged with default filter labels */
   customLabels?: Record<string, string>;
 }
 
 /**
  * FilterBar component displays engagement request types as a button-based filter group
  * 
- * Features:
- * - Five filter buttons (All, Help, Volunteer, Donation, Question) using EngagementRequestType enum
- * - Active filter indication via button variants (secondary when pressed, outline otherwise)
- * - ARIA pressed state for accessibility and screen reader support
- * - Customizable labels per filter via the customLabels prop
- * - Full dark mode support with theme-aware styling
- * - Keyboard accessible (native button Tab/Enter/Space support)
+ * Provides an accessible, customizable set of filter buttons for toggling between different
+ * engagement request types. Uses native HTML buttons for maximum accessibility and relies on
+ * the shared config for consistent labeling across the application.
  * 
- * Styling:
- * - Uses secondary color palette with dark mode variants
+ * Features:
+ * - Five filter buttons (All, Help, Volunteer, Donation, Question) backed by EngagementRequestType
+ * - Visual feedback via button variants (secondary for active, outline for inactive)
+ * - ARIA pressed state for assistive technology compatibility
+ * - Fully customizable labels with fallback to defaults
+ * - Dark mode support with theme-aware styling
  * - Responsive flex layout that wraps on smaller screens
- * - Smooth transitions and visual feedback
  * 
  * Accessibility:
- * - `role="group"` with descriptive `aria-label` for context
- * - Native buttons with `aria-pressed` state
- * - Keyboard operable by default (no custom handlers needed)
- * - Works with screen readers out of the box
+ * - Semantic HTML `<button>` elements with proper `type="button"`
+ * - `role="group"` wrapper with descriptive `aria-label`
+ * - `aria-pressed` attribute to indicate active filter state
+ * - Keyboard operable by default (Tab, Enter, Space)
+ * - Works seamlessly with screen readers
  * 
  * @component
- * @param {FilterBarProps} props - Component configuration
- * @returns {JSX.Element} Rendered filter bar with buttons
+ * @param {FilterBarProps} props - Component props
+ * @returns {JSX.Element} A flex container with semantic filter buttons
  * 
  * @example
  * ```tsx
- * // Basic usage with controlled state
- * const [activeTab, setActiveTab] = useState(EngagementRequestType.ALL);
+ * // Controlled filter with state
+ * const [activeFilter, setActiveFilter] = useState(EngagementRequestType.ALL);
  * 
  * <FilterBar
- *   activeTab={activeTab}
- *   onTabChange={setActiveTab}
+ *   activeTab={activeFilter}
+ *   onFilterChange={setActiveFilter}
  * />
  * ```
  * 
@@ -51,33 +51,19 @@ export interface FilterBarProps {
  * ```tsx
  * // With custom labels
  * <FilterBar
- *   activeTab={EngagementRequestType.ALL}
+ *   activeTab={activeFilter}
+ *   onFilterChange={setActiveFilter}
  *   customLabels={{
- *     [EngagementRequestType.ALL]: 'All Types',
- *     [EngagementRequestType.HELP]: 'Need Help',
+ *     [EngagementRequestType.ALL]: 'Show All',
+ *     [EngagementRequestType.HELP]: 'Help Needed',
  *   }}
- *   onTabChange={handleFilterChange}
  * />
  * ```
  * 
- * @see {@link FilterBarSkeleton} for loading state placeholder
- * @see {@link EngagementRequestType} for available filter values
+ * @see {@link FilterBarSkeleton} - Loading skeleton placeholder
+ * @see {@link DEFAULT_FILTER_LABELS} - Default filter label configuration
+ * @see {@link FILTER_TYPES} - Supported filter type constants
  */
-const DEFAULT_LABELS: Record<string, string> = {
-  [EngagementRequestType.ALL]: "All Requests",
-  [EngagementRequestType.HELP]: "Help Requests",
-  [EngagementRequestType.VOLUNTEER]: "Volunteers Needed",
-  [EngagementRequestType.DONATION]: "Donations",
-  [EngagementRequestType.QUESTION]: "Questions"
-};
-
-const FILTER_TYPES = [
-  EngagementRequestType.ALL,
-  EngagementRequestType.HELP,
-  EngagementRequestType.VOLUNTEER,
-  EngagementRequestType.DONATION,
-  EngagementRequestType.QUESTION
-];
 
 export default function FilterBar({
   activeTab,
@@ -85,7 +71,7 @@ export default function FilterBar({
   customLabels = {}
 }: FilterBarProps) {
   const labels = {
-    ...DEFAULT_LABELS,
+    ...DEFAULT_FILTER_LABELS,
     ...customLabels
   };
 
