@@ -32,7 +32,7 @@ const typeConfig: Record<string, EngagementConfig> = {
 /**
  * Badge color/label mapping per engagement status
  */
-const statusConfig: Record<string, EngagementStatusConfig> = {
+const statusConfig: Record<EngagementRequestStatus, EngagementStatusConfig> = {
   [EngagementRequestStatus.URGENT]: { label: 'Urgent', color: 'bg-red-100 text-red-700 border-red-200 dark:bg-red-900 dark:text-red-100 dark:border-red-800' },
   [EngagementRequestStatus.OPEN]: { label: 'Open', color: 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900 dark:text-blue-100 dark:border-blue-800' },
   [EngagementRequestStatus.IN_PROGRESS]: { label: 'In Progress', color: 'bg-yellow-100 text-yellow-700 border-yellow-200 dark:bg-amber-900 dark:text-amber-100 dark:border-amber-800' },
@@ -56,17 +56,17 @@ export default function EngagementDashboard() {
       title="Engagement Dashboard"
       description="Community requests, questions, and volunteer opportunities"
     >
-      <div aria-label="Filter engagement requests" className="mt-4" role="tabpanel">
+      <div aria-label="Filter engagement requests" className="mt-4" role="toolbar">
         <FilterBar />
       </div>
 
-      <div aria-label="Engagement requests" className="mt-8" role="list">
+      <section aria-label="Engagement requests" className="mt-8" role="feed">
         {requests.map((request) => {
             const IconComponent = typeConfig[request.type].icon;
             const typeColor = typeConfig[request.type].color;
 
             return (
-              <div key={request.id} className="mb-6" role="listitem">
+              <div key={request.id} className="mb-6" role="article">
                 <EngagementCard 
                   configIcon={<IconComponent className={`w-5 h-5 ${typeColor}`} aria-hidden="true" />}
                   configColor={typeColor} 
@@ -82,7 +82,7 @@ export default function EngagementDashboard() {
             )
           })
         }
-      </div>
+      </section>
     </DashboardPageTemplate>
   );
 }

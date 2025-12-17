@@ -56,7 +56,7 @@ export const RendersCards: Story = {
     // Verify engagement list exists with proper role
     const engagementList = canvas.getByLabelText(/Engagement requests/);
     await expect(engagementList).toBeInTheDocument();
-    await expect(engagementList).toHaveAttribute('role', 'list');
+    await expect(engagementList).toHaveAttribute('role', 'feed');
   },
 };
 
