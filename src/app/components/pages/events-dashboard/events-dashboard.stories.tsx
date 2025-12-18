@@ -112,21 +112,31 @@ export const HasAccessibilityStructure: Story = {
  * Loading state showing the events dashboard skeleton
  */
 export const LoadingSkeleton: SkeletonStory = {
-  render: () => <EventsDashboardSkeleton />,
-  parameters: {
-    docs: {
-      description: {
-        story: 'Skeleton state mirroring the events dashboard layout while data loads.',
-      },
+    render: () => <EventsDashboardSkeleton />,
+    parameters: {
+        docs: {
+            description: {
+                story: 'Skeleton state mirroring the events dashboard layout while data loads.',
+            },
+        },
     },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
 
-    const layoutGroup = canvas.getByRole('group', { name: /Events and calendar layout \(loading\)/i });
-    await expect(layoutGroup).toBeInTheDocument();
+        // Verify layout group exists with loading state
+        const layoutGroup = canvas.getByRole('group', { name: /Events and calendar layout \(loading\)/i });
+        await expect(layoutGroup).toBeInTheDocument();
 
-    const calendarRegion = canvas.getByRole('group').childNodes[1];
-    await expect(calendarRegion).toHaveAttribute('aria-busy', 'true');
-  },
+        // Verify real event items are not rendered
+        const eventItems = canvas.queryAllByRole('listitem');
+        await expect(eventItems.length).toBe(0);
+
+        // Verify skeleton content is present instead of actual events
+        const skeletonItems = canvas.getAllByRole('status', { name: /Loading event details/i, hidden: true });
+        await expect(skeletonItems.length).toBeGreaterThan(0);
+
+        // Verify calendar skeleton is visible
+        const calendarSkeleton = canvas.getByRole('group', { name: /Event Calendar \(loading\)/i });
+        await expect(calendarSkeleton).toBeInTheDocument();
+    },
 };

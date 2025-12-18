@@ -18,7 +18,6 @@ import { UpcomingEventsSkeleton } from "../../molecules/upcoming-events/upcoming
 import { useId } from "react";
 
 export default function EventsDashboardSkeleton() {
-  const calendarHeadingId = useId();
   const calendarStatusId = useId();
 
   return (
@@ -33,22 +32,24 @@ export default function EventsDashboardSkeleton() {
       >
         <UpcomingEventsSkeleton />
 
-        <div
-          aria-describedby={calendarStatusId}
-          aria-busy="true"
-          className="bg-card dark:bg-slate-950 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 p-6 transition-colors animate-pulse"
+        <section
+            aria-label="Event Calendar (loading)"
+            role="group"
+            aria-describedby={calendarStatusId}
+            aria-busy="true"
+            className="bg-card dark:bg-slate-950 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 p-6 transition-colors animate-pulse"
         >
-          <div className="w-40 h-7 bg-gray-200 dark:bg-slate-700 rounded mb-6" id={calendarHeadingId} />
-          <div
-            id={calendarStatusId}
-            className="space-y-3"
+            <div className="w-40 h-7 bg-gray-200 dark:bg-slate-700 rounded mb-6" />
+            <div
+                id={calendarStatusId}
+                className="space-y-3"
           >
             <div className="h-4 w-3/4 bg-gray-200 dark:bg-slate-700 rounded" />
             <div className="h-4 w-5/6 bg-gray-200 dark:bg-slate-700 rounded" />
             <div className="h-4 w-2/3 bg-gray-200 dark:bg-slate-700 rounded" />
           </div>
           <span className="sr-only">Loading event calendar placeholder...</span>
-        </div>
+        </section>
       </div>
       <span className="sr-only">Loading events dashboard...</span>
     </DashboardPageTemplate>
