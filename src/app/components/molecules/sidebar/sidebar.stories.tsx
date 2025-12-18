@@ -1,46 +1,47 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { expect, fn, userEvent, within } from 'storybook/test';
-import { Sidebar } from './sidebar';
-import { View } from '@/app/shared/enums';
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect, fn, userEvent, within } from "storybook/test";
+import { Sidebar } from "./sidebar";
+import { View } from "@/app/shared/enums";
 
 /**
  * The Sidebar component provides navigation for the application with support for
  * mobile overlays, desktop collapse functionality, loading states, and smooth transitions.
  */
 const meta = {
-  title: 'Molecules/Sidebar',
+  title: "Molecules/Sidebar",
   component: Sidebar,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
     docs: {
       description: {
         component:
-          'A responsive sidebar navigation component with collapsible desktop view, mobile overlay, loading states, and non-blocking transitions using React\'s useTransition hook. Features full dark mode support with theme-aware colors, shadows, and smooth transitions.',
+          "A responsive sidebar navigation component with collapsible desktop view, mobile overlay, loading states, and non-blocking transitions using React's useTransition hook. Features full dark mode support with theme-aware colors, shadows, and smooth transitions.",
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     currentView: {
-      control: 'select',
+      control: "select",
       options: Object.values(View),
-      description: 'The currently active view in the application',
+      description: "The currently active view in the application",
     },
     isOpen: {
-      control: 'boolean',
-      description: 'Controls whether the sidebar is open (primarily for mobile)',
+      control: "boolean",
+      description:
+        "Controls whether the sidebar is open (primarily for mobile)",
     },
     isLoading: {
-      control: 'boolean',
-      description: 'Shows skeleton loading state when true',
+      control: "boolean",
+      description: "Shows skeleton loading state when true",
     },
     onViewChange: {
-      action: 'view-changed',
-      description: 'Callback fired when a menu item is clicked',
+      action: "view-changed",
+      description: "Callback fired when a menu item is clicked",
     },
     onClose: {
-      action: 'closed',
-      description: 'Callback fired when the sidebar should close',
+      action: "closed",
+      description: "Callback fired when the sidebar should close",
     },
   },
   args: {
@@ -140,7 +141,7 @@ export const MobileClosed: Story = {
   },
   parameters: {
     viewport: {
-      defaultViewport: 'mobile1',
+      defaultViewport: "mobile1",
     },
   },
 };
@@ -156,7 +157,7 @@ export const MobileOpen: Story = {
   },
   parameters: {
     viewport: {
-      defaultViewport: 'mobile1',
+      defaultViewport: "mobile1",
     },
   },
 };
@@ -174,7 +175,7 @@ export const ClickMenuItem: Story = {
     const canvas = within(canvasElement);
 
     // Find and click the Inventory menu item
-    const inventoryButton = canvas.getByRole('button', { name: /inventory/i });
+    const inventoryButton = canvas.getByRole("button", { name: /inventory/i });
     await userEvent.click(inventoryButton);
 
     // Verify the callback was called with the correct view
@@ -193,7 +194,7 @@ export const ClickCloseButton: Story = {
   },
   parameters: {
     viewport: {
-      defaultViewport: 'mobile1',
+      defaultViewport: "mobile1",
     },
   },
   play: async ({ canvasElement, args }) => {
@@ -219,7 +220,7 @@ export const ClickCollapseToggle: Story = {
   },
   parameters: {
     viewport: {
-      defaultViewport: 'desktop',
+      defaultViewport: "desktop",
     },
   },
   play: async ({ canvasElement }) => {
@@ -248,12 +249,24 @@ export const VerifyAllMenuItems: Story = {
     const canvas = within(canvasElement);
 
     // Verify all menu items exist
-    await expect(canvas.getByRole('button', { name: /dashboard/i })).toBeInTheDocument();
-    await expect(canvas.getByRole('button', { name: /engagement board/i })).toBeInTheDocument();
-    await expect(canvas.getByRole('button', { name: /inventory/i })).toBeInTheDocument();
-    await expect(canvas.getByRole('button', { name: /events/i })).toBeInTheDocument();
-    await expect(canvas.getByRole('button', { name: /volunteers/i })).toBeInTheDocument();
-    await expect(canvas.getByRole('button', { name: /volunteer history/i })).toBeInTheDocument();
+    await expect(
+      canvas.getByRole("button", { name: /dashboard/i }),
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByRole("button", { name: /engagement board/i }),
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByRole("button", { name: /inventory/i }),
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByRole("button", { name: /events/i }),
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByRole("button", { name: /volunteers/i }),
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByRole("button", { name: /volunteer history/i }),
+    ).toBeInTheDocument();
   },
 };
 
@@ -270,7 +283,9 @@ export const VerifyActiveState: Story = {
     const canvas = within(canvasElement);
 
     // Get the active button (Engagement Board)
-    const activeButton = canvas.getByRole('button', { name: /engagement board/i });
+    const activeButton = canvas.getByRole("button", {
+      name: /engagement board/i,
+    });
 
     // Verify it has the active styling classes
     await expect(activeButton).toHaveClass(/bg-rose-50/);
@@ -291,11 +306,13 @@ export const VerifyLoadingSkeleton: Story = {
     const canvas = within(canvasElement);
 
     // In loading state, buttons should not be present
-    const buttons = canvas.queryAllByRole('button', { name: /dashboard|inventory|events/i });
+    const buttons = canvas.queryAllByRole("button", {
+      name: /dashboard|inventory|events/i,
+    });
     await expect(buttons.length).toBe(0);
 
     // Skeleton elements should be present (with animate-pulse class)
-    const skeletons = canvasElement.querySelectorAll('.animate-pulse');
+    const skeletons = canvasElement.querySelectorAll(".animate-pulse");
     await expect(skeletons.length).toBeGreaterThan(0);
   },
 };
@@ -313,12 +330,12 @@ export const KeyboardNavigation: Story = {
     const canvas = within(canvasElement);
 
     // Tab to the first menu item
-    const dashboardButton = canvas.getByRole('button', { name: /dashboard/i });
+    const dashboardButton = canvas.getByRole("button", { name: /dashboard/i });
     dashboardButton.focus();
     await expect(dashboardButton).toHaveFocus();
 
     // Press Enter to activate
-    await userEvent.keyboard('{Enter}');
+    await userEvent.keyboard("{Enter}");
     await expect(args.onViewChange).toHaveBeenCalledWith(View.DASHBOARD);
   },
 };

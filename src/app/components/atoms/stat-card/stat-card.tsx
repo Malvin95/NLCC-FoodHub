@@ -1,5 +1,5 @@
-import { TrendingUp, TrendingDown } from 'lucide-react';
-import { useId } from 'react';
+import { TrendingUp, TrendingDown } from "lucide-react";
+import { useId } from "react";
 
 interface StatCardProps {
   /** Visible label describing the statistic */
@@ -9,11 +9,11 @@ interface StatCardProps {
   /** The delta / change value (e.g. +12%, -4%) */
   change: string;
   /** Direction of change used for trend icon */
-  trend: 'up' | 'down';
+  trend: "up" | "down";
   /** Icon displayed in the colored circle – treated as decorative unless iconLabel provided */
   icon: React.ReactNode;
   /** Accent color theme */
-  color: 'rose' | 'blue' | 'green' | 'purple';
+  color: "rose" | "blue" | "green" | "purple";
   /** Optional accessible label describing the icon if it conveys meaning */
   iconLabel?: string;
   /** If true, the change value will be announced politely when updated */
@@ -25,15 +25,16 @@ interface StatCardProps {
  * @constant
  */
 const colorClasses = {
-  rose: 'bg-rose-100 text-rose-600 dark:bg-rose-950 dark:text-rose-400',
-  blue: 'bg-blue-100 text-blue-600 dark:bg-blue-950 dark:text-blue-400',
-  green: 'bg-green-100 text-green-600 dark:bg-green-950 dark:text-green-400',
-  purple: 'bg-purple-100 text-purple-600 dark:bg-purple-950 dark:text-purple-400',
+  rose: "bg-rose-100 text-rose-600 dark:bg-rose-950 dark:text-rose-400",
+  blue: "bg-blue-100 text-blue-600 dark:bg-blue-950 dark:text-blue-400",
+  green: "bg-green-100 text-green-600 dark:bg-green-950 dark:text-green-400",
+  purple:
+    "bg-purple-100 text-purple-600 dark:bg-purple-950 dark:text-purple-400",
 } as const;
 
 /**
  * StatCard component displays a metric with an icon, value, and trend indicator
- * 
+ *
  * Features:
  * - Displays a statistic with title, value, and percentage change
  * - Visual trend indicator (up/down) with color coding (green for up, red for down)
@@ -43,11 +44,11 @@ const colorClasses = {
  * - Optional live region for announcing dynamic changes
  * - Full dark mode support with theme-aware colors and shadows
  * - Smooth color transitions when switching themes
- * 
+ *
  * @component
  * @param {StatCardProps} props - Component props
  * @returns {JSX.Element} The rendered stat card component
- * 
+ *
  * @example
  * ```tsx
  * <StatCard
@@ -61,7 +62,7 @@ const colorClasses = {
  *   announceChanges={true}
  * />
  * ```
- * 
+ *
  * @example
  * ```tsx
  * // Minimal usage with decorative icon
@@ -96,7 +97,7 @@ export function StatCard({
     >
       <div className="flex items-center justify-between mb-4">
         <div
-          role={iconLabel ? 'img' : undefined}
+          role={iconLabel ? "img" : undefined}
           className={`p-3 rounded-lg ${colorClasses[color]}`}
           aria-label={iconLabel}
           aria-hidden={!iconLabel}
@@ -104,17 +105,19 @@ export function StatCard({
           {icon}
         </div>
         <div
-          className={`flex items-center gap-1 ${trend === 'up' ? 'text-lime-800 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}
+          className={`flex items-center gap-1 ${trend === "up" ? "text-lime-800 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}
           id={`${id}-change`}
-          aria-live={announceChanges ? 'polite' : undefined}
+          aria-live={announceChanges ? "polite" : undefined}
         >
-          {trend === 'up' ? (
+          {trend === "up" ? (
             <TrendingUp className="w-4 h-4" aria-hidden="true" />
           ) : (
             <TrendingDown className="w-4 h-4" aria-hidden="true" />
           )}
           <span className="text-sm">{change}</span>
-          <span className="sr-only">{trend === 'up' ? 'Increasing' : 'Decreasing'} trend</span>
+          <span className="sr-only">
+            {trend === "up" ? "Increasing" : "Decreasing"} trend
+          </span>
         </div>
       </div>
       <div>

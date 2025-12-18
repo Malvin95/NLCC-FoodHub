@@ -1,6 +1,6 @@
 /**
  * StatCardSkeleton component displays a loading placeholder matching StatCard's layout
- * 
+ *
  * Features:
  * - Matches StatCard dimensions and structure
  * - Animated pulse effect using Tailwind's animate-pulse
@@ -9,10 +9,10 @@
  * - Accessible with proper ARIA attributes
  * - Full dark mode support with theme-aware colors and shadows
  * - Smooth color transitions when switching themes
- * 
+ *
  * @component
  * @returns {JSX.Element} The rendered skeleton loader
- * 
+ *
  * @example
  * ```tsx
  * // In a loading.tsx file
@@ -20,7 +20,7 @@
  *   return <StatCardSkeleton />;
  * }
  * ```
- * 
+ *
  * @example
  * ```tsx
  * // With Suspense boundary
@@ -28,7 +28,7 @@
  *   <AsyncStatCard />
  * </Suspense>
  * ```
- * 
+ *
  * @example
  * ```tsx
  * // Multiple cards in a grid

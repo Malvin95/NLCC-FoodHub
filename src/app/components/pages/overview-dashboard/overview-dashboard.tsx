@@ -5,7 +5,6 @@ import UpcomingEvents from "../../molecules/upcoming-events/upcoming-events";
 import InventoryStatusBar from "../../molecules/inventory-status-bar/inventory-status-bar";
 import { mockInventoryItems, mockStatCards } from "./_mock-data_";
 
-
 /**
  * OverviewDashboard composes key dashboard widgets into the shared page template.
  *
@@ -26,39 +25,37 @@ import { mockInventoryItems, mockStatCards } from "./_mock-data_";
 export default function OverviewDashboard() {
   return (
     <DashboardPageTemplate
-        title="Overview"
-        description="A summary of key metrics and recent activities."
+      title="Overview"
+      description="A summary of key metrics and recent activities."
     >
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            {mockStatCards.map((card) => (
-                <StatCard
-                    key={card.title}
-                    title={card.title}
-                    value={card.value}
-                    change={card.change}
-                    trend={card.trend}
-                    icon={<card.icon className="w-6 h-6" />}
-                    color={card.color}
-                    iconLabel={card.iconLabel}
-                />
-            ))}
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        {mockStatCards.map((card) => (
+          <StatCard
+            key={card.title}
+            title={card.title}
+            value={card.value}
+            change={card.change}
+            trend={card.trend}
+            icon={<card.icon className="w-6 h-6" />}
+            color={card.color}
+            iconLabel={card.iconLabel}
+          />
+        ))}
+      </div>
 
-        {/* Chart */}
-        <div className="mb-8">
-            <TrendChart />
-        </div>
+      {/* Chart */}
+      <div className="mb-8">
+        <TrendChart />
+      </div>
 
-        {/* Two Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-            <UpcomingEvents />
-            <div>
-                detailed Content Feed will go here
-            </div>
-        </div>
+      {/* Two Column Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <UpcomingEvents />
+        <div>detailed Content Feed will go here</div>
+      </div>
 
-        {/* Inventory Status Bar */}
-        <InventoryStatusBar items={mockInventoryItems}/>
+      {/* Inventory Status Bar */}
+      <InventoryStatusBar items={mockInventoryItems} />
     </DashboardPageTemplate>
   );
 }

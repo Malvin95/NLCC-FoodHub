@@ -1,13 +1,13 @@
-import type { Preview, ReactRenderer } from '@storybook/nextjs-vite';
-import { withThemeByClassName } from '@storybook/addon-themes';
-import '../src/app/globals.css';
+import type { Preview, ReactRenderer } from "@storybook/nextjs-vite";
+import { withThemeByClassName } from "@storybook/addon-themes";
+import "../src/app/globals.css";
 
 const preview: Preview = {
   parameters: {
     controls: {
       matchers: {
-       color: /(background|color)$/i,
-       date: /Date$/i,
+        color: /(background|color)$/i,
+        date: /Date$/i,
       },
     },
 
@@ -15,18 +15,18 @@ const preview: Preview = {
       // 'todo' - show a11y violations in the test UI only
       // 'error' - fail CI on a11y violations
       // 'off' - skip a11y checks entirely
-      test: 'todo'
-    }
+      test: "todo",
+    },
   },
   decorators: [
     withThemeByClassName<ReactRenderer>({
       themes: {
-        light: '',
-        dark: 'dark',
+        light: "",
+        dark: "dark",
       },
-      defaultTheme: 'light',
+      defaultTheme: "light",
     }),
-  ]
+  ],
 };
 
 export default preview;

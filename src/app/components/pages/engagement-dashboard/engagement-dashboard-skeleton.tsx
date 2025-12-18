@@ -27,7 +27,11 @@ export default function EngagementDashboardSkeleton() {
         </div>
       </div>
 
-      <div className="space-y-4" aria-label="Loading engagement requests" role="status">
+      <div
+        className="space-y-4"
+        aria-label="Loading engagement requests"
+        role="status"
+      >
         <EngagementCardSkeleton />
         <EngagementCardSkeleton />
         <EngagementCardSkeleton />

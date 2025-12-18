@@ -5,18 +5,15 @@ about: "Use this template when fixing a defect or regression."
 
 # 🐛 Bugfix Pull Request Checklist
 
+## ❓ What?
 
-## ❓ What? 
-*What's changed?*
-
+_What's changed?_
 
 ## ❓ Why?
-*Why was the change implemented?*
 
+_Why was the change implemented?_
 
 ---
-
-
 
 Before merging a bugfix, please ensure the issue is properly understood, resolved, and verified.
 
@@ -37,7 +34,6 @@ Before merging a bugfix, please ensure the issue is properly understood, resolve
 - [ ] Code passes **linting** and **build checks** without errors.
 - [ ] Relevant **manual testing** has been performed (steps documented below).
 
-
 ## 🧪 Testing & Verification
 
 - [ ] A **unit test** reproducing the bug has been added (and now passes).
@@ -45,13 +41,12 @@ Before merging a bugfix, please ensure the issue is properly understood, resolve
 - [ ] Existing tests are unaffected and **all tests pass**.
 - [ ] The bug no longer occurs in the latest environment build.
 
-
-
 > 🧾 **Manual test steps:**  
 > _List steps to reproduce and confirm the fix here:_
-> 1.  
-> 2.  
-> 3.  
+>
+> 1.
+> 2.
+> 3.
 
 ---
 

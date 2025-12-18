@@ -6,17 +6,21 @@ about: "Use this template when adding a new feature or enhancement."
 # 🚀 Feature Pull Request Checklist
 
 ## 📝 Summary
+
 <!-- Provide a concise summary of the changes in this PR -->
-- Related Issue(s): #  
+
+- Related Issue(s): #
 - Type of Change: (Feature, Refactor, Docs update, etc.)
 
-## ❓ What? 
-*What's changed?*
+## ❓ What?
+
+_What's changed?_
 
 ---
 
 ## ❓ Why?
-*Why was the change implemented?*
+
+_Why was the change implemented?_
 
 ---
 

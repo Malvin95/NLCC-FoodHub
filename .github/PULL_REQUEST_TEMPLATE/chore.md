@@ -5,17 +5,17 @@ about: "Use this template for maintenance, refactors, dependency updates, or con
 
 # ⚙️ Chore Pull Request Checklist
 
+## ❓ What?
 
-## ❓ What? 
-*What's changed?*
+_What's changed?_
 
 ---
 
 ## ❓ Why?
-*Why was the change implemented?*
+
+_Why was the change implemented?_
 
 ---
-
 
 For refactors, dependency updates, CI/CD changes, or non-feature tasks — ensure the following before merging.
 
@@ -30,9 +30,9 @@ For refactors, dependency updates, CI/CD changes, or non-feature tasks — ensur
 
 ## 🧩 Chore Type (select one)
 
-- [ ] 🔧 **Refactor** — improving structure without changing behavior.  
-- [ ] 🧱 **Dependency update** — upgrading or adding packages.  
-- [ ] 🧰 **Build / CI/CD** — pipeline, config, or tooling changes.  
+- [ ] 🔧 **Refactor** — improving structure without changing behavior.
+- [ ] 🧱 **Dependency update** — upgrading or adding packages.
+- [ ] 🧰 **Build / CI/CD** — pipeline, config, or tooling changes.
 - [ ] 📚 **Documentation / Cleanup** — README, comments, or housekeeping.
 
 ## 🧪 Verification

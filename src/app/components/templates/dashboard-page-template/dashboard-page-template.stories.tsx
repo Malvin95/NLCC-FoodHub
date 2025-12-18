@@ -1,20 +1,21 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from 'storybook/test';
-import DashboardPageTemplate from './dashboard-page-template';
-import DashboardPageTemplateSkeleton from './dashboard-page-template-skeleton';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, expect } from "storybook/test";
+import DashboardPageTemplate from "./dashboard-page-template";
+import DashboardPageTemplateSkeleton from "./dashboard-page-template-skeleton";
 
 const meta: Meta<typeof DashboardPageTemplate> = {
-  title: 'Templates/DashboardPageTemplate',
+  title: "Templates/DashboardPageTemplate",
   component: DashboardPageTemplate,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
     docs: {
       description: {
-        component: 'Template component providing consistent layout structure for dashboard pages with title, description, and content areas. Features full dark mode support with theme-aware colors and smooth transitions.'
-      }
-    }
+        component:
+          "Template component providing consistent layout structure for dashboard pages with title, description, and content areas. Features full dark mode support with theme-aware colors and smooth transitions.",
+      },
+    },
   },
-  tags: ['autodocs']
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -27,20 +28,26 @@ type SkeletonStory = StoryObj<typeof DashboardPageTemplateSkeleton>;
  */
 export const Default: Story = {
   render: () => (
-    <DashboardPageTemplate 
+    <DashboardPageTemplate
       title="Dashboard Overview"
       description="Monitor key metrics and inventory status at a glance"
     >
       <div className="bg-card dark:bg-slate-950 p-6 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 transition-colors">
-        <h2 className="text-lg font-semibold text-foreground mb-4">Section 1</h2>
-        <p className="text-muted-foreground">Sample dashboard content goes here.</p>
+        <h2 className="text-lg font-semibold text-foreground mb-4">
+          Section 1
+        </h2>
+        <p className="text-muted-foreground">
+          Sample dashboard content goes here.
+        </p>
       </div>
       <div className="bg-card dark:bg-slate-950 p-6 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 transition-colors">
-        <h2 className="text-lg font-semibold text-foreground mb-4">Section 2</h2>
+        <h2 className="text-lg font-semibold text-foreground mb-4">
+          Section 2
+        </h2>
         <p className="text-muted-foreground">More dashboard content.</p>
       </div>
     </DashboardPageTemplate>
-  )
+  ),
 };
 
 /**
@@ -48,7 +55,7 @@ export const Default: Story = {
  */
 export const SingleSection: Story = {
   render: () => (
-    <DashboardPageTemplate 
+    <DashboardPageTemplate
       title="Simple Dashboard"
       description="A dashboard with minimal content"
     >
@@ -56,7 +63,7 @@ export const SingleSection: Story = {
         <p className="text-muted-foreground">Single content section.</p>
       </div>
     </DashboardPageTemplate>
-  )
+  ),
 };
 
 /**
@@ -64,18 +71,25 @@ export const SingleSection: Story = {
  */
 export const MultipleSections: Story = {
   render: () => (
-    <DashboardPageTemplate 
+    <DashboardPageTemplate
       title="Comprehensive Dashboard"
       description="A full dashboard with multiple content sections"
     >
       {Array.from({ length: 4 }).map((_, idx) => (
-        <div key={idx} className="bg-card dark:bg-slate-950 p-6 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 transition-colors">
-          <h2 className="text-lg font-semibold text-foreground mb-4">Section {idx + 1}</h2>
-          <p className="text-muted-foreground">Content for section {idx + 1}.</p>
+        <div
+          key={idx}
+          className="bg-card dark:bg-slate-950 p-6 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 transition-colors"
+        >
+          <h2 className="text-lg font-semibold text-foreground mb-4">
+            Section {idx + 1}
+          </h2>
+          <p className="text-muted-foreground">
+            Content for section {idx + 1}.
+          </p>
         </div>
       ))}
     </DashboardPageTemplate>
-  )
+  ),
 };
 
 /**
@@ -83,7 +97,7 @@ export const MultipleSections: Story = {
  */
 export const LongContent: Story = {
   render: () => (
-    <DashboardPageTemplate 
+    <DashboardPageTemplate
       title="Food Bank Inventory Management and Distribution Coordination Dashboard"
       description="Comprehensive overview of inventory levels, distribution schedules, volunteer coordination, and real-time tracking of food supplies across all locations in the network"
     >
@@ -91,7 +105,7 @@ export const LongContent: Story = {
         <p className="text-muted-foreground">Dashboard content.</p>
       </div>
     </DashboardPageTemplate>
-  )
+  ),
 };
 
 /**
@@ -99,7 +113,7 @@ export const LongContent: Story = {
  */
 export const StructureTest: Story = {
   render: () => (
-    <DashboardPageTemplate 
+    <DashboardPageTemplate
       title="Test Dashboard"
       description="Testing the template structure"
     >
@@ -111,18 +125,18 @@ export const StructureTest: Story = {
     const canvas = within(canvasElement);
 
     // Title should be h1
-    const title = canvas.getByText('Test Dashboard');
+    const title = canvas.getByText("Test Dashboard");
     await expect(title).toBeInTheDocument();
-    await expect(title.tagName).toBe('H1');
+    await expect(title.tagName).toBe("H1");
 
     // Description should be present
-    const description = canvas.getByText('Testing the template structure');
+    const description = canvas.getByText("Testing the template structure");
     await expect(description).toBeInTheDocument();
 
     // Check container has max-width class
-    const container = canvasElement.querySelector('.max-w-7xl');
+    const container = canvasElement.querySelector(".max-w-7xl");
     await expect(container).toBeInTheDocument();
-  }
+  },
 };
 
 /**
@@ -130,7 +144,7 @@ export const StructureTest: Story = {
  */
 export const ResponsiveLayoutTest: Story = {
   render: () => (
-    <DashboardPageTemplate 
+    <DashboardPageTemplate
       title="Responsive Test"
       description="Testing responsive layout"
     >
@@ -138,13 +152,13 @@ export const ResponsiveLayoutTest: Story = {
     </DashboardPageTemplate>
   ),
   play: async ({ canvasElement }) => {
-    const container = canvasElement.querySelector('.max-w-7xl');
-    
+    const container = canvasElement.querySelector(".max-w-7xl");
+
     // Check responsive padding classes
-    await expect(container?.className).toContain('px-4');
-    await expect(container?.className).toContain('sm:px-6');
-    await expect(container?.className).toContain('lg:px-8');
-  }
+    await expect(container?.className).toContain("px-4");
+    await expect(container?.className).toContain("sm:px-6");
+    await expect(container?.className).toContain("lg:px-8");
+  },
 };
 
 /**
@@ -152,7 +166,7 @@ export const ResponsiveLayoutTest: Story = {
  */
 export const ContentSpacingTest: Story = {
   render: () => (
-    <DashboardPageTemplate 
+    <DashboardPageTemplate
       title="Spacing Test"
       description="Testing content spacing"
     >
@@ -162,9 +176,9 @@ export const ContentSpacingTest: Story = {
   ),
   play: async ({ canvasElement }) => {
     // Content wrapper should have space-y-8
-    const contentWrapper = canvasElement.querySelector('.space-y-8');
+    const contentWrapper = canvasElement.querySelector(".space-y-8");
     await expect(contentWrapper).toBeInTheDocument();
-  }
+  },
 };
 
 /**
@@ -172,7 +186,7 @@ export const ContentSpacingTest: Story = {
  */
 export const ChildrenRenderTest: Story = {
   render: () => (
-    <DashboardPageTemplate 
+    <DashboardPageTemplate
       title="Children Test"
       description="Testing children rendering"
     >
@@ -185,10 +199,10 @@ export const ChildrenRenderTest: Story = {
     const canvas = within(canvasElement);
 
     // All children should be rendered
-    await expect(canvas.getByTestId('child-1')).toBeInTheDocument();
-    await expect(canvas.getByTestId('child-2')).toBeInTheDocument();
-    await expect(canvas.getByTestId('child-3')).toBeInTheDocument();
-  }
+    await expect(canvas.getByTestId("child-1")).toBeInTheDocument();
+    await expect(canvas.getByTestId("child-2")).toBeInTheDocument();
+    await expect(canvas.getByTestId("child-3")).toBeInTheDocument();
+  },
 };
 
 /**
@@ -196,12 +210,11 @@ export const ChildrenRenderTest: Story = {
  */
 export const EmptyState: Story = {
   render: () => (
-    <DashboardPageTemplate 
+    <DashboardPageTemplate
       title="Empty Dashboard"
       description="This dashboard has no content sections"
-    >
-    </DashboardPageTemplate>
-  )
+    ></DashboardPageTemplate>
+  ),
 };
 
 /**
@@ -209,29 +222,27 @@ export const EmptyState: Story = {
  */
 export const EmptyStateTest: Story = {
   render: () => (
-    <DashboardPageTemplate 
+    <DashboardPageTemplate
       title="Empty Test"
       description="Testing empty state"
-    >
-    </DashboardPageTemplate>
+    ></DashboardPageTemplate>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
     // Title and description should still be present
-    await expect(canvas.getByText('Empty Test')).toBeInTheDocument();
-    await expect(canvas.getByText('Testing empty state')).toBeInTheDocument();
-
+    await expect(canvas.getByText("Empty Test")).toBeInTheDocument();
+    await expect(canvas.getByText("Testing empty state")).toBeInTheDocument();
 
     // Empty state message should be displayed
-    const emptyTextElement = canvas.getByText('No content available');
+    const emptyTextElement = canvas.getByText("No content available");
     await expect(emptyTextElement).toBeInTheDocument();
 
     // Message should be centered with proper styling
-    await expect(emptyTextElement).toHaveClass('text-center');
-    await expect(emptyTextElement).toHaveClass('text-muted-foreground');
-    await expect(emptyTextElement).toHaveClass('py-12');
-  }
+    await expect(emptyTextElement).toHaveClass("text-center");
+    await expect(emptyTextElement).toHaveClass("text-muted-foreground");
+    await expect(emptyTextElement).toHaveClass("py-12");
+  },
 };
 
 /**
@@ -239,12 +250,11 @@ export const EmptyStateTest: Story = {
  */
 export const EmptyStateWithLongContent: Story = {
   render: () => (
-    <DashboardPageTemplate 
+    <DashboardPageTemplate
       title="Food Bank Inventory Management and Distribution Coordination Dashboard"
       description="Comprehensive overview of inventory levels, distribution schedules, volunteer coordination, and real-time tracking of food supplies across all locations in the network"
-    >
-    </DashboardPageTemplate>
-  )
+    ></DashboardPageTemplate>
+  ),
 };
 
 /**
@@ -252,7 +262,7 @@ export const EmptyStateWithLongContent: Story = {
  */
 export const AccessibilityTest: Story = {
   render: () => (
-    <DashboardPageTemplate 
+    <DashboardPageTemplate
       title="Accessible Dashboard"
       description="Testing accessibility features"
     >
@@ -263,18 +273,20 @@ export const AccessibilityTest: Story = {
     const canvas = within(canvasElement);
 
     // Title should be h1
-    const title = canvas.getByRole('heading', { level: 1 });
+    const title = canvas.getByRole("heading", { level: 1 });
     await expect(title).toBeInTheDocument();
-    await expect(title?.textContent).toBe('Accessible Dashboard');
+    await expect(title?.textContent).toBe("Accessible Dashboard");
 
     // Verify semantic paragraph
-    const description = canvasElement.querySelector('h2');
+    const description = canvasElement.querySelector("h2");
     await expect(description).toBeInTheDocument();
-    await expect(description?.textContent).toBe('Testing accessibility features');
+    await expect(description?.textContent).toBe(
+      "Testing accessibility features",
+    );
 
     // Verify content is rendered
-    await expect(canvas.getByText('Content section')).toBeInTheDocument();
-  }
+    await expect(canvas.getByText("Content section")).toBeInTheDocument();
+  },
 };
 
 // Skeleton Loading States
@@ -287,10 +299,11 @@ export const Skeleton: SkeletonStory = {
   parameters: {
     docs: {
       description: {
-        story: 'Loading skeleton mirroring the DashboardPageTemplate layout with 2 content block placeholders.'
-      }
-    }
-  }
+        story:
+          "Loading skeleton mirroring the DashboardPageTemplate layout with 2 content block placeholders.",
+      },
+    },
+  },
 };
 
 /**
@@ -301,10 +314,10 @@ export const SkeletonMultipleBlocks: SkeletonStory = {
   parameters: {
     docs: {
       description: {
-        story: 'Loading skeleton with 4 content block placeholders.'
-      }
-    }
-  }
+        story: "Loading skeleton with 4 content block placeholders.",
+      },
+    },
+  },
 };
 
 /**
@@ -313,7 +326,7 @@ export const SkeletonMultipleBlocks: SkeletonStory = {
 export const SkeletonStructureTest: SkeletonStory = {
   render: () => <DashboardPageTemplateSkeleton />,
   parameters: {
-    layout: 'padded'
+    layout: "padded",
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -321,25 +334,28 @@ export const SkeletonStructureTest: SkeletonStory = {
     // Check for role and aria-label
     const skeleton = canvasElement.querySelector('[role="status"]');
     await expect(skeleton).toBeInTheDocument();
-    await expect(skeleton).toHaveAttribute('aria-label', 'Loading dashboard page');
+    await expect(skeleton).toHaveAttribute(
+      "aria-label",
+      "Loading dashboard page",
+    );
 
     // Check for screen reader text
-    const srText = canvas.getByText('Loading dashboard page...');
+    const srText = canvas.getByText("Loading dashboard page...");
     await expect(srText).toBeInTheDocument();
-    await expect(srText.className).toContain('sr-only');
+    await expect(srText.className).toContain("sr-only");
 
     // Title skeleton should be present
-    const titleSkeleton = canvasElement.querySelector('.h-8.w-64');
+    const titleSkeleton = canvasElement.querySelector(".h-8.w-64");
     await expect(titleSkeleton).toBeInTheDocument();
 
     // Description skeleton should be present
-    const descSkeleton = canvasElement.querySelector('.h-4.w-96');
+    const descSkeleton = canvasElement.querySelector(".h-4.w-96");
     await expect(descSkeleton).toBeInTheDocument();
 
     // Should have default 2 content blocks
-    const contentBlocks = canvasElement.querySelectorAll('.space-y-8 > div');
+    const contentBlocks = canvasElement.querySelectorAll(".space-y-8 > div");
     await expect(contentBlocks.length).toBe(2);
-  }
+  },
 };
 
 /**
@@ -348,13 +364,13 @@ export const SkeletonStructureTest: SkeletonStory = {
 export const SkeletonCustomCountTest: SkeletonStory = {
   render: () => <DashboardPageTemplateSkeleton contentBlocks={5} />,
   parameters: {
-    layout: 'padded'
+    layout: "padded",
   },
   play: async ({ canvasElement }) => {
     // Should render 5 content block placeholders
-    const contentBlocks = canvasElement.querySelectorAll('.space-y-8 > div');
+    const contentBlocks = canvasElement.querySelectorAll(".space-y-8 > div");
     await expect(contentBlocks.length).toBe(5);
-  }
+  },
 };
 
 /**
@@ -364,12 +380,16 @@ export const TemplateVsSkeleton: Story = {
   render: () => (
     <div className="flex gap-8 flex-wrap">
       <div className="flex-1 min-w-[500px]">
-        <DashboardPageTemplate 
+        <DashboardPageTemplate
           title="Loaded State"
           description="Sample dashboard page"
         >
-          <div className="bg-card dark:bg-slate-950 p-6 rounded-lg shadow-sm dark:shadow-md border dark:border-slate-800 transition-colors">Content 1</div>
-          <div className="bg-card dark:bg-slate-950 p-6 rounded-lg shadow-sm dark:shadow-md border dark:border-slate-800 transition-colors">Content 2</div>
+          <div className="bg-card dark:bg-slate-950 p-6 rounded-lg shadow-sm dark:shadow-md border dark:border-slate-800 transition-colors">
+            Content 1
+          </div>
+          <div className="bg-card dark:bg-slate-950 p-6 rounded-lg shadow-sm dark:shadow-md border dark:border-slate-800 transition-colors">
+            Content 2
+          </div>
         </DashboardPageTemplate>
       </div>
       <div className="flex-1 min-w-[500px]">
@@ -378,11 +398,12 @@ export const TemplateVsSkeleton: Story = {
     </div>
   ),
   parameters: {
-    layout: 'padded',
+    layout: "padded",
     docs: {
       description: {
-        story: 'Side-by-side comparison of the loaded template and its loading skeleton.'
-      }
-    }
-  }
+        story:
+          "Side-by-side comparison of the loaded template and its loading skeleton.",
+      },
+    },
+  },
 };
