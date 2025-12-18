@@ -32,7 +32,6 @@ export default function EventsDashboard() {
                 <UpcomingEvents />
                 <section
                     id="events-placeholder"
-                    role="region"
                     aria-labelledby={calendarHeadingId}
                     aria-describedby={calendarStatusId}
                     aria-live="polite"
@@ -46,7 +45,6 @@ export default function EventsDashboard() {
                         id={calendarStatusId}
                         className="text-center py-8 text-muted-foreground"
                         role="status"
-                        aria-live="polite"
                     >
                         Calendar view coming soon!
                         <span className="sr-only">Calendar feature is planned and not yet available.</span>

@@ -136,7 +136,7 @@ export const LoadingSkeleton: SkeletonStory = {
         await expect(skeletonItems.length).toBeGreaterThan(0);
 
         // Verify calendar skeleton is visible
-        const calendarSkeleton = canvas.getByRole('group', { name: /Event Calendar \(loading\)/i });
+        const calendarSkeleton = canvas.getByRole('region', { name: /Event Calendar \(loading\)/i });
         await expect(calendarSkeleton).toBeInTheDocument();
     },
 };

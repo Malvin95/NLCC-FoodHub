@@ -34,7 +34,6 @@ export default function EventsDashboardSkeleton() {
 
         <section
             aria-label="Event Calendar (loading)"
-            role="group"
             aria-describedby={calendarStatusId}
             aria-busy="true"
             className="bg-card dark:bg-slate-950 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 p-6 transition-colors animate-pulse"
