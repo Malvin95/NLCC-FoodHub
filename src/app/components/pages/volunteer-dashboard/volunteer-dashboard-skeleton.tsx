@@ -63,9 +63,8 @@ export default function VolunteerDashboardSkeleton() {
       </div>
 
       <section
-        role="status"
+        aria-label="Volunteer list loading"
         className="bg-card dark:bg-slate-950 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 p-6 transition-colors animate-pulse"
-        aria-labelledby="volunteer-list-skeleton-heading"
         aria-busy="true"
       >
         <div

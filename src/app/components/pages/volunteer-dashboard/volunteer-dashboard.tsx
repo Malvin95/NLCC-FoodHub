@@ -59,12 +59,7 @@ export default function VolunteerDashboard() {
         {mockStatCardData.map((stat, index) => (
           <StatCard
             key={index}
-            title={stat.title}
-            value={stat.value}
-            change={stat.change}
-            trend={stat.trend}
-            icon={stat.icon}
-            color={stat.color}
+            {...stat}
             announceChanges={true}
           />
         ))}

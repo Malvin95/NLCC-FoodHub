@@ -67,8 +67,9 @@ export const SkeletonStructureTest: SkeletonStory = {
     await expect(statGrid).toHaveAttribute("aria-busy", "true");
 
     // Check for volunteer list section landmark
-    const volunteerListSection = canvasElement.querySelector(
-      "section[aria-labelledby='volunteer-list-skeleton-heading']"
+    const volunteerListSection = canvas.getByRole(
+      "region",
+      { name: "Volunteer list loading", hidden: true },
     );
     await expect(volunteerListSection).toBeInTheDocument();
     await expect(volunteerListSection).toHaveAttribute("aria-busy", "true");

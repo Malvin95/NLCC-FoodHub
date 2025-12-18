@@ -9,6 +9,7 @@ export const mockStatCardData: StatCardProps[] = [
         change: "+23",
         trend: "up",
         icon: Users,
+        iconLabel: "Volunteers icon",
         color: "green",
     },
     {   
@@ -17,6 +18,7 @@ export const mockStatCardData: StatCardProps[] = [
         change: "+15%",
         trend: "up",
         icon: TrendingUp,
+        iconLabel: "Trending up icon",
         color: "blue",
     },
     {
@@ -25,6 +27,7 @@ export const mockStatCardData: StatCardProps[] = [
         change: "+8",
         trend: "up",
         icon: Users,
+        iconLabel: "New signups icon",
         color: "purple",
     }
 ]
