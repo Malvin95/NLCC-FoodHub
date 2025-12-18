@@ -1,9 +1,18 @@
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { mockChartData } from './mock-chart-data';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+import { mockChartData } from "./mock-chart-data";
 
 /**
  * Props for the `TrendChart` component.
- * 
+ *
  * @interface TrendChartProps
  * @property {string} [chartTitle='Trends (Last 6 Months)'] The title displayed at the top of the chart.
  * @property {string} [firstLineName='Series A'] The display name for the first line (first data series). Must match a key in `data` rows.
@@ -23,7 +32,7 @@ interface TrendChartProps {
 
 /**
  * TrendChart displays data trends using a responsive, accessible line chart.
- * 
+ *
  * Features:
  * - Displays two data series over a 6-month period
  * - Two-line comparison with color-coded lines (rose and blue)
@@ -33,24 +42,24 @@ interface TrendChartProps {
  * - Customizable title and line names for any data type
  * - Full dark mode support with theme-aware colors and shadows
  * - Smooth color transitions when switching themes
- * 
+ *
  * Accessibility:
  * - Renders the container with `role="figure"` and an `aria-label` using `chartTitle`
  * - Tooltip content is visual; consider providing summarized values elsewhere for screen readers if critical
- * 
+ *
  * @component
  * @since 1.0.0
  * @param {TrendChartProps} props Component props.
  * @returns {JSX.Element} Rendered line chart component.
  * @see TrendChartSkeleton for loading UI.
  * @see https://recharts.org/en-US/api/LineChart Recharts LineChart API.
- * 
+ *
  * @example
  * ```tsx
  * // Basic usage with default labels
  * <TrendChart />
  * ```
- * 
+ *
  * @example
  * ```tsx
  * // With custom title and line names for attendance tracking
@@ -64,7 +73,7 @@ interface TrendChartProps {
  *   ]}
  * />
  * ```
- * 
+ *
  * @example
  * ```tsx
  * // For donation tracking
@@ -78,7 +87,7 @@ interface TrendChartProps {
  *   ]}
  * />
  * ```
- * 
+ *
  * @example
  * ```tsx
  * // With Suspense boundary for async loading
@@ -88,31 +97,47 @@ interface TrendChartProps {
  * ```
  */
 export function TrendChart({
-  chartTitle = 'Trends (Last 6 Months)',
-  firstLineName = 'Series A',
-  secondLineName = 'Series B',
+  chartTitle = "Trends (Last 6 Months)",
+  firstLineName = "Series A",
+  secondLineName = "Series B",
   data = mockChartData,
 }: TrendChartProps = {}) {
   return (
-    <div role="figure" aria-label={chartTitle} className="bg-card dark:bg-slate-950 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 p-6 transition-colors">
+    <div
+      role="figure"
+      aria-label={chartTitle}
+      className="bg-card dark:bg-slate-950 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 p-6 transition-colors"
+    >
       <h2 className="text-foreground font-medium mb-6">{chartTitle}</h2>
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="month" />
           <YAxis width="auto" />
-          <Tooltip 
+          <Tooltip
             formatter={(value) => `${value.toLocaleString()}`}
-            contentStyle={{ 
-              borderRadius: '8px', 
-              border: '1px solid var(--color-border)',
-              backgroundColor: 'var(--background)',
-              color: 'var(--foreground)'
+            contentStyle={{
+              borderRadius: "8px",
+              border: "1px solid var(--color-border)",
+              backgroundColor: "var(--background)",
+              color: "var(--foreground)",
             }}
           />
           <Legend />
-          <Line type="monotone" stroke="#f43f5e" dataKey={firstLineName} name={firstLineName} activeDot={{ r: 8 }} />
-          <Line type="monotone" stroke="#3b82f6" dataKey={secondLineName} name={secondLineName} activeDot={{ r: 8 }} />
+          <Line
+            type="monotone"
+            stroke="#f43f5e"
+            dataKey={firstLineName}
+            name={firstLineName}
+            activeDot={{ r: 8 }}
+          />
+          <Line
+            type="monotone"
+            stroke="#3b82f6"
+            dataKey={secondLineName}
+            name={secondLineName}
+            activeDot={{ r: 8 }}
+          />
         </LineChart>
       </ResponsiveContainer>
     </div>

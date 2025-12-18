@@ -16,41 +16,46 @@ import DashboardPageTemplate from "../../templates/dashboard-page-template/dashb
 import { useId } from "react";
 
 export default function EventsDashboard() {
-    const calendarHeadingId = useId();
-    const calendarStatusId = useId();
+  const calendarHeadingId = useId();
+  const calendarStatusId = useId();
 
-    return (
-        <DashboardPageTemplate
-            title={"Events & Programs"}
-            description={"Overview of upcoming and past events"}
+  return (
+    <DashboardPageTemplate
+      title={"Events & Programs"}
+      description={"Overview of upcoming and past events"}
+    >
+      <div
+        className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8"
+        role="group"
+        aria-label="Events and calendar layout"
+      >
+        <UpcomingEvents />
+        <section
+          id="events-placeholder"
+          aria-labelledby={calendarHeadingId}
+          aria-describedby={calendarStatusId}
+          aria-live="polite"
+          aria-atomic="false"
+          className="bg-card dark:bg-slate-950 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 p-6 transition-colors"
         >
-            <div
-                className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8"
-                role="group"
-                aria-label="Events and calendar layout"
-            >
-                <UpcomingEvents />
-                <section
-                    id="events-placeholder"
-                    aria-labelledby={calendarHeadingId}
-                    aria-describedby={calendarStatusId}
-                    aria-live="polite"
-                    aria-atomic="false"
-                    className="bg-card dark:bg-slate-950 rounded-lg shadow-sm dark:shadow-md border border-border dark:border-slate-800 p-6 transition-colors"
-                >
-                    <h2 id={calendarHeadingId} className="text-foreground font-medium mb-6">
-                        Event Calendar
-                    </h2>
-                    <div
-                        id={calendarStatusId}
-                        className="text-center py-8 text-muted-foreground"
-                        role="status"
-                    >
-                        Calendar view coming soon!
-                        <span className="sr-only">Calendar feature is planned and not yet available.</span>
-                    </div>
-                </section>
-            </div>
-        </DashboardPageTemplate>
-    );
+          <h2
+            id={calendarHeadingId}
+            className="text-foreground font-medium mb-6"
+          >
+            Event Calendar
+          </h2>
+          <div
+            id={calendarStatusId}
+            className="text-center py-8 text-muted-foreground"
+            role="status"
+          >
+            Calendar view coming soon!
+            <span className="sr-only">
+              Calendar feature is planned and not yet available.
+            </span>
+          </div>
+        </section>
+      </div>
+    </DashboardPageTemplate>
+  );
 }

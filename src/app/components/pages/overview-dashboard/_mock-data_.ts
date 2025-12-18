@@ -5,7 +5,7 @@ import type { Event } from "@/app/shared/types";
 
 /**
  * Represents the structure of a mock statistical card component.
- * 
+ *
  * @typedef {Object} StatCardMock
  * @property {string} title - The title or label displayed on the stat card
  * @property {string} value - The primary numerical or text value to display
@@ -71,10 +71,38 @@ export const mockStatCards: StatCardMock[] = [
  * Mock data for inventory items displayed in the inventory status bar.
  */
 export const mockInventoryItems: InventoryItem[] = [
-  { id: 1, category: "Canned Goods", current: 240, target: 300, unit: "kg", status: StatusLevels.MEDIUM },
-  { id: 2, category: "Proteins", current: 156, target: 200, unit: "kg", status: StatusLevels.LOW },
-  { id: 3, category: "Grains & Pasta", current: 89, target: 150, unit: "kg", status: StatusLevels.LOW },
-  { id: 4, category: "Dairy Products", current: 45, target: 100, unit: "liters", status: StatusLevels.MEDIUM },
+  {
+    id: 1,
+    category: "Canned Goods",
+    current: 240,
+    target: 300,
+    unit: "kg",
+    status: StatusLevels.MEDIUM,
+  },
+  {
+    id: 2,
+    category: "Proteins",
+    current: 156,
+    target: 200,
+    unit: "kg",
+    status: StatusLevels.LOW,
+  },
+  {
+    id: 3,
+    category: "Grains & Pasta",
+    current: 89,
+    target: 150,
+    unit: "kg",
+    status: StatusLevels.LOW,
+  },
+  {
+    id: 4,
+    category: "Dairy Products",
+    current: 45,
+    target: 100,
+    unit: "liters",
+    status: StatusLevels.MEDIUM,
+  },
 ];
 
 /**

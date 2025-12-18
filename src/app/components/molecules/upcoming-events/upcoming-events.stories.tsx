@@ -1,22 +1,23 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from 'storybook/test';
-import UpcomingEvents from './upcoming-events';
-import { UpcomingEventsSkeleton } from './upcoming-events-skeleton';
-import type { Event } from '@/app/shared/types';
-import { mockEvents } from '../../pages/overview-dashboard/_mock-data_';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, expect } from "storybook/test";
+import UpcomingEvents from "./upcoming-events";
+import { UpcomingEventsSkeleton } from "./upcoming-events-skeleton";
+import type { Event } from "@/app/shared/types";
+import { mockEvents } from "../../pages/overview-dashboard/_mock-data_";
 
 const meta: Meta<typeof UpcomingEvents> = {
-  title: 'Molecules/UpcomingEvents',
+  title: "Molecules/UpcomingEvents",
   component: UpcomingEvents,
   parameters: {
-    layout: 'padded',
+    layout: "padded",
     docs: {
       description: {
-        component: 'A section component displaying a list of upcoming volunteer events. Shows multiple EventCards in a container with loading skeleton support. Features full dark mode support with theme-aware colors, shadows, and smooth transitions.'
-      }
-    }
+        component:
+          "A section component displaying a list of upcoming volunteer events. Shows multiple EventCards in a container with loading skeleton support. Features full dark mode support with theme-aware colors, shadows, and smooth transitions.",
+      },
+    },
   },
-  tags: ['autodocs']
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -30,7 +31,7 @@ const mockEventsForStories: Event[] = mockEvents.slice(0, 3);
  * Default upcoming events list with mock data
  */
 export const Default: Story = {
-  render: () => <UpcomingEvents />
+  render: () => <UpcomingEvents />,
 };
 
 /**
@@ -41,25 +42,25 @@ export const CustomEvents: Story = {
     <UpcomingEvents
       events={[
         {
-          id: 'custom-1',
-          title: 'Special Community Outreach',
-          date: '2025-12-10T13:00:00.000Z',
-          time: '1:00 PM - 5:00 PM',
-          location: 'Downtown Plaza',
+          id: "custom-1",
+          title: "Special Community Outreach",
+          date: "2025-12-10T13:00:00.000Z",
+          time: "1:00 PM - 5:00 PM",
+          location: "Downtown Plaza",
           volunteers: 30,
         },
         {
-          id: 'custom-2',
-          title: 'Fundraising Gala',
-          date: '2025-12-20T18:00:00.000Z',
-          time: '6:00 PM - 9:00 PM',
-          location: 'Grand Ballroom',
+          id: "custom-2",
+          title: "Fundraising Gala",
+          date: "2025-12-20T18:00:00.000Z",
+          time: "6:00 PM - 9:00 PM",
+          location: "Grand Ballroom",
           volunteers: 100,
-          electedVolunteer: 'Sarah Johnson',
+          electedVolunteer: "Sarah Johnson",
         },
       ]}
     />
-  )
+  ),
 };
 
 /**
@@ -70,16 +71,16 @@ export const SingleEvent: Story = {
     <UpcomingEvents
       events={[
         {
-          id: '1',
-          title: 'Quick Volunteer Signup',
-          date: '2025-12-06T15:00:00.000Z',
-          time: '3:00 PM - 4:00 PM',
-          location: 'Local Office',
+          id: "1",
+          title: "Quick Volunteer Signup",
+          date: "2025-12-06T15:00:00.000Z",
+          time: "3:00 PM - 4:00 PM",
+          location: "Local Office",
           volunteers: 5,
         },
       ]}
     />
-  )
+  ),
 };
 
 /**
@@ -89,18 +90,22 @@ export const NoEvents: Story = {
   render: () => <UpcomingEvents events={[]} />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Heading should be present
-    await expect(canvas.getByText('Upcoming Events')).toBeInTheDocument();
-    
+    await expect(canvas.getByText("Upcoming Events")).toBeInTheDocument();
+
     // Empty state message should be displayed
-    await expect(canvas.getByText('No upcoming events scheduled at this time.')).toBeInTheDocument();
-    await expect(canvas.getByText('Check back soon for new volunteer opportunities.')).toBeInTheDocument();
-    
+    await expect(
+      canvas.getByText("No upcoming events scheduled at this time."),
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByText("Check back soon for new volunteer opportunities."),
+    ).toBeInTheDocument();
+
     // No list items should exist
-    const listItems = canvasElement.querySelectorAll('li');
+    const listItems = canvasElement.querySelectorAll("li");
     await expect(listItems.length).toBe(0);
-  }
+  },
 };
 
 /**
@@ -110,28 +115,28 @@ export const SectionStructureTest: Story = {
   render: () => <UpcomingEvents />,
   play: async ({ canvasElement }) => {
     // Check for section element
-    const section = canvasElement.querySelector('section');
+    const section = canvasElement.querySelector("section");
     await expect(section).toBeInTheDocument();
-    
+
     // Check for landmark attributes with unique aria-label
-    await expect(section).toHaveAttribute('aria-label', 'Upcoming Events');
-    await expect(section).toHaveAttribute('aria-live', 'polite');
-    await expect(section).toHaveAttribute('aria-atomic', 'false');
-    
+    await expect(section).toHaveAttribute("aria-label", "Upcoming Events");
+    await expect(section).toHaveAttribute("aria-live", "polite");
+    await expect(section).toHaveAttribute("aria-atomic", "false");
+
     // Verify section has a unique ID (generated by useId)
-    await expect(section).toHaveAttribute('id');
-    const sectionId = section?.getAttribute('id');
+    await expect(section).toHaveAttribute("id");
+    const sectionId = section?.getAttribute("id");
     await expect(sectionId).toBeTruthy();
-    
+
     // Check container styling with dark mode support
-    const container = canvasElement.querySelector('section');
-    await expect(container?.className).toContain('bg-card');
-    await expect(container?.className).toContain('dark:bg-slate-950');
-    await expect(container?.className).toContain('rounded-lg');
-    await expect(container?.className).toContain('shadow-sm');
-    await expect(container?.className).toContain('dark:shadow-md');
-    await expect(container?.className).toContain('border');
-  }
+    const container = canvasElement.querySelector("section");
+    await expect(container?.className).toContain("bg-card");
+    await expect(container?.className).toContain("dark:bg-slate-950");
+    await expect(container?.className).toContain("rounded-lg");
+    await expect(container?.className).toContain("shadow-sm");
+    await expect(container?.className).toContain("dark:shadow-md");
+    await expect(container?.className).toContain("border");
+  },
 };
 
 /**
@@ -141,12 +146,16 @@ export const AllEventsRenderTest: Story = {
   render: () => <UpcomingEvents events={mockEventsForStories} />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Check each event title is rendered
-    await expect(canvas.getByText('Community Food Drive')).toBeInTheDocument();
-    await expect(canvas.getByText('Holiday Meal Distribution')).toBeInTheDocument();
-    await expect(canvas.getByText('Mobile Pantry - North District')).toBeInTheDocument();
-  }
+    await expect(canvas.getByText("Community Food Drive")).toBeInTheDocument();
+    await expect(
+      canvas.getByText("Holiday Meal Distribution"),
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByText("Mobile Pantry - North District"),
+    ).toBeInTheDocument();
+  },
 };
 
 /**
@@ -156,20 +165,20 @@ export const AccessibilityTest: Story = {
   render: () => <UpcomingEvents />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Check section has unique aria-label for landmark uniqueness
-    const section = canvasElement.querySelector('section');
-    await expect(section).toHaveAttribute('aria-label', 'Upcoming Events');
-    
+    const section = canvasElement.querySelector("section");
+    await expect(section).toHaveAttribute("aria-label", "Upcoming Events");
+
     // Check heading is present with correct text
-    const heading = canvas.getByText('Upcoming Events');
+    const heading = canvas.getByText("Upcoming Events");
     await expect(heading).toBeInTheDocument();
-    await expect(heading.tagName).toBe('H2');
-    
+    await expect(heading.tagName).toBe("H2");
+
     // Check for live region attributes
-    await expect(section).toHaveAttribute('aria-live', 'polite');
-    await expect(section).toHaveAttribute('aria-atomic', 'false');
-  }
+    await expect(section).toHaveAttribute("aria-live", "polite");
+    await expect(section).toHaveAttribute("aria-atomic", "false");
+  },
 };
 
 /**
@@ -179,16 +188,20 @@ export const EventCountAnnouncementTest: Story = {
   render: () => <UpcomingEvents events={mockEventsForStories} />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Check sr-only event count text is present in heading
-    const countText = canvas.getByText(new RegExp(`\\(${mockEventsForStories.length} events available\\)`));
+    const countText = canvas.getByText(
+      new RegExp(`\\(${mockEventsForStories.length} events available\\)`),
+    );
     await expect(countText).toBeInTheDocument();
-    await expect(countText.className).toContain('sr-only');
-    
+    await expect(countText.className).toContain("sr-only");
+
     // Verify it's within the h2 heading
-    const heading = canvasElement.querySelector('h2');
-    await expect(heading?.textContent).toContain(`(${mockEventsForStories.length} events available)`);
-  }
+    const heading = canvasElement.querySelector("h2");
+    await expect(heading?.textContent).toContain(
+      `(${mockEventsForStories.length} events available)`,
+    );
+  },
 };
 
 /**
@@ -198,17 +211,17 @@ export const EventCardSpacingTest: Story = {
   render: () => <UpcomingEvents events={mockEventsForStories} />,
   play: async ({ canvasElement }) => {
     // Check for list element
-    const list = canvasElement.querySelector('ul');
+    const list = canvasElement.querySelector("ul");
     await expect(list).toBeInTheDocument();
-    await expect(list?.className).toContain('space-y-4');
-    
+    await expect(list?.className).toContain("space-y-4");
+
     // Check list has aria-label
-    await expect(list).toHaveAttribute('aria-label');
-    
+    await expect(list).toHaveAttribute("aria-label");
+
     // Check number of list items matches events array
-    const listItems = canvasElement.querySelectorAll('li');
+    const listItems = canvasElement.querySelectorAll("li");
     await expect(listItems.length).toBe(mockEventsForStories.length);
-  }
+  },
 };
 
 // Skeleton Loading States
@@ -221,10 +234,11 @@ export const LoadingSkeleton: SkeletonStory = {
   parameters: {
     docs: {
       description: {
-        story: 'Loading skeleton that matches the UpcomingEvents layout with animated pulse effects for heading and 5 event placeholders.'
-      }
-    }
-  }
+        story:
+          "Loading skeleton that matches the UpcomingEvents layout with animated pulse effects for heading and 5 event placeholders.",
+      },
+    },
+  },
 };
 
 /**
@@ -234,29 +248,32 @@ export const SkeletonStructureTest: SkeletonStory = {
   render: () => <UpcomingEventsSkeleton />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Check role and aria-label
-    const section = canvas.getByRole('status');
-    await expect(section).toHaveAttribute('aria-label', 'Loading upcoming events');
-    await expect(section).toHaveAttribute('aria-live', 'polite');
-    await expect(section).toHaveAttribute('aria-atomic', 'false');
-    
+    const section = canvas.getByRole("status");
+    await expect(section).toHaveAttribute(
+      "aria-label",
+      "Loading upcoming events",
+    );
+    await expect(section).toHaveAttribute("aria-live", "polite");
+    await expect(section).toHaveAttribute("aria-atomic", "false");
+
     // Check heading skeleton exists with dark mode support
-    const headingSkeleton = canvasElement.querySelector('.w-40.h-7');
+    const headingSkeleton = canvasElement.querySelector(".w-40.h-7");
     await expect(headingSkeleton).toBeInTheDocument();
-    await expect(headingSkeleton?.className).toContain('bg-gray-200');
-    await expect(headingSkeleton?.className).toContain('dark:bg-slate-700');
-    await expect(headingSkeleton?.className).toContain('animate-pulse');
-    
+    await expect(headingSkeleton?.className).toContain("bg-gray-200");
+    await expect(headingSkeleton?.className).toContain("dark:bg-slate-700");
+    await expect(headingSkeleton?.className).toContain("animate-pulse");
+
     // Check event card skeletons
-    const eventSkeletons = canvasElement.querySelectorAll('.space-y-4 > li');
+    const eventSkeletons = canvasElement.querySelectorAll(".space-y-4 > li");
     await expect(eventSkeletons.length).toBe(5);
-    
+
     // Check for screen reader text
-    const srText = canvas.getByText('Loading upcoming events...');
+    const srText = canvas.getByText("Loading upcoming events...");
     await expect(srText).toBeInTheDocument();
-    await expect(srText.className).toContain('sr-only');
-  }
+    await expect(srText.className).toContain("sr-only");
+  },
 };
 
 /**
@@ -266,13 +283,13 @@ export const SkeletonEventCountTest: SkeletonStory = {
   render: () => <UpcomingEventsSkeleton />,
   play: async ({ canvasElement }) => {
     // Should have 5 event card skeletons (matching default mock data count)
-    const eventPlaceholders = canvasElement.querySelectorAll('.space-y-4 > li');
+    const eventPlaceholders = canvasElement.querySelectorAll(".space-y-4 > li");
     await expect(eventPlaceholders.length).toBe(5);
-    
+
     // Each should have animating elements
-    const pulseElements = canvasElement.querySelectorAll('.animate-pulse');
+    const pulseElements = canvasElement.querySelectorAll(".animate-pulse");
     await expect(pulseElements.length).toBeGreaterThan(5); // At least heading + event skeletons
-  }
+  },
 };
 
 /**
@@ -286,19 +303,22 @@ export const EventsVsSkeleton: Story = {
         <UpcomingEvents events={mockEventsForStories} />
       </div>
       <div className="flex-1 min-w-[400px]">
-        <h3 className="text-sm font-medium mb-4 text-gray-700">Loading State</h3>
+        <h3 className="text-sm font-medium mb-4 text-gray-700">
+          Loading State
+        </h3>
         <UpcomingEventsSkeleton />
       </div>
     </div>
   ),
   parameters: {
-    layout: 'padded',
+    layout: "padded",
     docs: {
       description: {
-        story: 'Side-by-side comparison of the loaded events list and its loading skeleton.'
-      }
-    }
-  }
+        story:
+          "Side-by-side comparison of the loaded events list and its loading skeleton.",
+      },
+    },
+  },
 };
 
 /**
@@ -308,50 +328,56 @@ export const LandmarkUniquenessTest: Story = {
   render: () => (
     <div className="space-y-8">
       <div>
-        <UpcomingEvents sectionTitle='Upcoming Events - Default State'/>
+        <UpcomingEvents sectionTitle="Upcoming Events - Default State" />
       </div>
       <div>
         <UpcomingEvents
-          sectionTitle='Upcoming Events - Single Event'
+          sectionTitle="Upcoming Events - Single Event"
           events={[
             {
-              id: '1',
-              title: 'Single Event Demo',
-              date: '2025-12-05T14:00:00.000Z',
-              time: '2:00 PM',
-              location: 'Demo Location',
+              id: "1",
+              title: "Single Event Demo",
+              date: "2025-12-05T14:00:00.000Z",
+              time: "2:00 PM",
+              location: "Demo Location",
               volunteers: 5,
             },
           ]}
         />
       </div>
       <div>
-        <UpcomingEvents sectionTitle='Upcoming Events - Empty State' events={[]} />
+        <UpcomingEvents
+          sectionTitle="Upcoming Events - Empty State"
+          events={[]}
+        />
       </div>
     </div>
   ),
   play: async ({ canvasElement }) => {
     // Check that all sections are present
-    const sections = canvasElement.querySelectorAll('section');
+    const sections = canvasElement.querySelectorAll("section");
     await expect(sections.length).toBe(3);
-    
+
     // Verify each section has a unique aria-label
-    const ariaLabels = Array.from(sections).map(s => s.getAttribute('aria-label'));
+    const ariaLabels = Array.from(sections).map((s) =>
+      s.getAttribute("aria-label"),
+    );
     const uniqueLabels = new Set(ariaLabels);
     await expect(uniqueLabels.size).toBe(3); // All labels should be unique
-    
+
     // Verify each aria-label is correct
-    await expect(ariaLabels).toContain('Upcoming Events - Default State');
-    await expect(ariaLabels).toContain('Upcoming Events - Single Event');
-    await expect(ariaLabels).toContain('Upcoming Events - Empty State');
+    await expect(ariaLabels).toContain("Upcoming Events - Default State");
+    await expect(ariaLabels).toContain("Upcoming Events - Single Event");
+    await expect(ariaLabels).toContain("Upcoming Events - Empty State");
   },
   parameters: {
     docs: {
       description: {
-        story: 'Demonstrates landmark uniqueness when rendering multiple UpcomingEvents sections. Each section should have a unique aria-label for proper accessibility.'
-      }
-    }
-  }
+        story:
+          "Demonstrates landmark uniqueness when rendering multiple UpcomingEvents sections. Each section should have a unique aria-label for proper accessibility.",
+      },
+    },
+  },
 };
 
 /**
@@ -361,34 +387,38 @@ export const MultipleStates: Story = {
   render: () => (
     <div className="space-y-8">
       <div>
-        <UpcomingEvents sectionTitle='Upcoming Events - Default State'/>
+        <UpcomingEvents sectionTitle="Upcoming Events - Default State" />
       </div>
       <div>
         <UpcomingEvents
-          sectionTitle='Upcoming Events - Single Event'
+          sectionTitle="Upcoming Events - Single Event"
           events={[
             {
-              id: '1',
-              title: 'Single Event Demo',
-              date: '2025-12-05T14:00:00.000Z',
-              time: '2:00 PM',
-              location: 'Demo Location',
+              id: "1",
+              title: "Single Event Demo",
+              date: "2025-12-05T14:00:00.000Z",
+              time: "2:00 PM",
+              location: "Demo Location",
               volunteers: 5,
             },
           ]}
         />
       </div>
       <div>
-        <UpcomingEvents sectionTitle='Upcoming Events - Empty State' events={[]} />
+        <UpcomingEvents
+          sectionTitle="Upcoming Events - Empty State"
+          events={[]}
+        />
       </div>
     </div>
   ),
   parameters: {
-    layout: 'padded',
+    layout: "padded",
     docs: {
       description: {
-        story: 'Multiple UpcomingEvents sections demonstrating different states and content.'
-      }
-    }
-  }
+        story:
+          "Multiple UpcomingEvents sections demonstrating different states and content.",
+      },
+    },
+  },
 };

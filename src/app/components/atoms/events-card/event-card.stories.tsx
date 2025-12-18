@@ -1,20 +1,21 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from 'storybook/test';
-import EventCard from './event-card';
-import { EventCardSkeleton } from './event-card-skeleton';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, expect } from "storybook/test";
+import EventCard from "./event-card";
+import { EventCardSkeleton } from "./event-card-skeleton";
 
 const meta: Meta<typeof EventCard> = {
-  title: 'Atoms/EventCard',
+  title: "Atoms/EventCard",
   component: EventCard,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
     docs: {
       description: {
-        component: 'A card component that displays event information including date, time, location, and volunteer count. Features full dark mode support with theme-aware colors, shadows, and smooth transitions. Includes a matching skeleton for loading states.'
-      }
-    }
+        component:
+          "A card component that displays event information including date, time, location, and volunteer count. Features full dark mode support with theme-aware colors, shadows, and smooth transitions. Includes a matching skeleton for loading states.",
+      },
+    },
   },
-  tags: ['autodocs']
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -23,20 +24,20 @@ type Story = StoryObj<typeof EventCard>;
 type SkeletonStory = StoryObj<typeof EventCardSkeleton>;
 
 const mockEvent = {
-  id: '1',
-  title: 'Food Drive',
-  date: '2025-12-15',  // ISO 8601 date string
-  time: '10:00 AM',
-  location: '123 Main St, Downtown',
+  id: "1",
+  title: "Food Drive",
+  date: "2025-12-15", // ISO 8601 date string
+  time: "10:00 AM",
+  location: "123 Main St, Downtown",
   volunteers: 12,
-  electedVolunteer: 'John Smith',
+  electedVolunteer: "John Smith",
 };
 
 /**
  * Default event card displaying sample event data
  */
 export const Default: Story = {
-  render: () => <EventCard event={mockEvent} />
+  render: () => <EventCard event={mockEvent} />,
 };
 
 /**
@@ -47,12 +48,12 @@ export const VolunteerCountOnly: Story = {
     <EventCard
       event={{
         ...mockEvent,
-        title: 'Data Entry Help',
+        title: "Data Entry Help",
         volunteers: 8,
         electedVolunteer: undefined,
       }}
     />
-  )
+  ),
 };
 
 /**
@@ -63,12 +64,12 @@ export const ElectedVolunteerOnly: Story = {
     <EventCard
       event={{
         ...mockEvent,
-        title: 'Special Project',
+        title: "Special Project",
         volunteers: undefined,
-        electedVolunteer: 'Sarah Johnson',
+        electedVolunteer: "Sarah Johnson",
       }}
     />
-  )
+  ),
 };
 
 /**
@@ -79,14 +80,14 @@ export const HighVolunteerCount: Story = {
     <EventCard
       event={{
         ...mockEvent,
-        title: 'Annual Gala',
-        date: '2025-12-20',
-        time: '6:00 PM',
-        location: 'Grand Ballroom, 456 Park Ave',
+        title: "Annual Gala",
+        date: "2025-12-20",
+        time: "6:00 PM",
+        location: "Grand Ballroom, 456 Park Ave",
         volunteers: 250,
       }}
     />
-  )
+  ),
 };
 
 /**
@@ -97,11 +98,11 @@ export const LowVolunteerCount: Story = {
     <EventCard
       event={{
         ...mockEvent,
-        title: 'Team Lunch',
+        title: "Team Lunch",
         volunteers: 1,
       }}
     />
-  )
+  ),
 };
 
 /**
@@ -112,11 +113,12 @@ export const LongContent: Story = {
     <EventCard
       event={{
         ...mockEvent,
-        title: 'Community Outreach and Educational Workshop Series',
-        location: 'The Community Center Building East Wing, Room 315, Downtown District',
+        title: "Community Outreach and Educational Workshop Series",
+        location:
+          "The Community Center Building East Wing, Room 315, Downtown District",
       }}
     />
-  )
+  ),
 };
 
 /**
@@ -126,16 +128,19 @@ export const CardStructureTest: Story = {
   render: () => <EventCard event={mockEvent} />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Check article element with proper ARIA attributes
-    const article = canvasElement.querySelector('article');
+    const article = canvasElement.querySelector("article");
     await expect(article).toBeInTheDocument();
-    await expect(article).toHaveAttribute('aria-labelledby', `event-title-${mockEvent.id}`);
-    
+    await expect(article).toHaveAttribute(
+      "aria-labelledby",
+      `event-title-${mockEvent.id}`,
+    );
+
     // Check title is rendered
     const title = canvas.getByText(mockEvent.title);
     await expect(title).toBeInTheDocument();
-  }
+  },
 };
 
 /**
@@ -145,32 +150,42 @@ export const AllDetailsRenderedTest: Story = {
   render: () => <EventCard event={mockEvent} />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Check title
     await expect(canvas.getByText(mockEvent.title)).toBeInTheDocument();
-    
+
     // Check date is rendered (formatted from ISO string)
     // The ISO date '2025-12-15' should be displayed as 'Dec 15, 2025'
-    const timeElement = canvasElement.querySelector('time');
+    const timeElement = canvasElement.querySelector("time");
     await expect(timeElement).toBeInTheDocument();
-    await expect(timeElement).toHaveAttribute('dateTime', mockEvent.date);
-    
+    await expect(timeElement).toHaveAttribute("dateTime", mockEvent.date);
+
     // Check time
-    await expect(canvas.getByText(new RegExp(mockEvent.time))).toBeInTheDocument();
-    
+    await expect(
+      canvas.getByText(new RegExp(mockEvent.time)),
+    ).toBeInTheDocument();
+
     // Check location
     await expect(canvas.getByText(mockEvent.location)).toBeInTheDocument();
-    
+
     // Check volunteer count (since mockEvent includes it)
     if (mockEvent.volunteers) {
-      await expect(canvas.getByText(new RegExp(`${mockEvent.volunteers} volunteers registered`))).toBeInTheDocument();
+      await expect(
+        canvas.getByText(
+          new RegExp(`${mockEvent.volunteers} volunteers registered`),
+        ),
+      ).toBeInTheDocument();
     }
-    
+
     // Check elected volunteer (since mockEvent includes it)
     if (mockEvent.electedVolunteer) {
-      await expect(canvas.getByText(new RegExp(`Elected Volunteer: ${mockEvent.electedVolunteer}`))).toBeInTheDocument();
+      await expect(
+        canvas.getByText(
+          new RegExp(`Elected Volunteer: ${mockEvent.electedVolunteer}`),
+        ),
+      ).toBeInTheDocument();
     }
-  }
+  },
 };
 
 /**
@@ -180,17 +195,25 @@ export const OptionalVolunteerDetailsTest: Story = {
   render: () => <EventCard event={mockEvent} />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // If event has volunteers count, it should be displayed
     if (mockEvent.volunteers) {
-      await expect(canvas.getByText(new RegExp(`${mockEvent.volunteers} volunteers registered`))).toBeInTheDocument();
+      await expect(
+        canvas.getByText(
+          new RegExp(`${mockEvent.volunteers} volunteers registered`),
+        ),
+      ).toBeInTheDocument();
     }
-    
+
     // If event has elected volunteer, it should be displayed
     if (mockEvent.electedVolunteer) {
-      await expect(canvas.getByText(new RegExp(`Elected Volunteer: ${mockEvent.electedVolunteer}`))).toBeInTheDocument();
+      await expect(
+        canvas.getByText(
+          new RegExp(`Elected Volunteer: ${mockEvent.electedVolunteer}`),
+        ),
+      ).toBeInTheDocument();
     }
-  }
+  },
 };
 
 /**
@@ -200,14 +223,14 @@ export const IconsTest: Story = {
   render: () => <EventCard event={mockEvent} />,
   play: async ({ canvasElement }) => {
     // Check for icon SVGs (Lucide icons render as SVG)
-    const svgElements = canvasElement.querySelectorAll('svg');
-    
+    const svgElements = canvasElement.querySelectorAll("svg");
+
     // Should have at least 3 icons:
     // 1 Calendar icon for date/time
     // 1 MapPin icon for location
     // 1 or 2 Users icons (one for elected volunteer, one for volunteer count)
     await expect(svgElements.length).toBeGreaterThanOrEqual(3);
-  }
+  },
 };
 
 /**
@@ -217,18 +240,18 @@ export const SemanticStructureTest: Story = {
   render: () => <EventCard event={mockEvent} />,
   play: async ({ canvasElement }) => {
     // Check for heading (event title)
-    const heading = canvasElement.querySelector('h3');
+    const heading = canvasElement.querySelector("h3");
     await expect(heading).toBeInTheDocument();
     await expect(heading?.textContent).toContain(mockEvent.title);
-    
+
     // Check for description lists (dl elements)
-    const descriptionLists = canvasElement.querySelectorAll('dl');
+    const descriptionLists = canvasElement.querySelectorAll("dl");
     await expect(descriptionLists.length).toBeGreaterThan(0);
-    
+
     // Check for structured details container
-    const detailsContainer = canvasElement.querySelector('.space-y-2');
+    const detailsContainer = canvasElement.querySelector(".space-y-2");
     await expect(detailsContainer).toBeInTheDocument();
-  }
+  },
 };
 
 // Skeleton Loading States
@@ -241,10 +264,11 @@ export const LoadingSkeleton: SkeletonStory = {
   parameters: {
     docs: {
       description: {
-        story: 'Loading skeleton that matches the EventCard layout with animated pulse effects.'
-      }
-    }
-  }
+        story:
+          "Loading skeleton that matches the EventCard layout with animated pulse effects.",
+      },
+    },
+  },
 };
 
 /**
@@ -254,20 +278,23 @@ export const SkeletonStructureTest: SkeletonStory = {
   render: () => <EventCardSkeleton />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Check role and aria-label
-    const container = canvas.getByRole('status');
-    await expect(container).toHaveAttribute('aria-label', 'Loading event details');
-    
+    const container = canvas.getByRole("status");
+    await expect(container).toHaveAttribute(
+      "aria-label",
+      "Loading event details",
+    );
+
     // Check skeleton elements exist
-    const pulsingElements = canvasElement.querySelectorAll('.animate-pulse');
+    const pulsingElements = canvasElement.querySelectorAll(".animate-pulse");
     await expect(pulsingElements.length).toBeGreaterThan(0);
-    
+
     // Check for screen reader text
-    const srText = canvas.getByText('Loading event details...');
+    const srText = canvas.getByText("Loading event details...");
     await expect(srText).toBeInTheDocument();
-    await expect(srText.className).toContain('sr-only');
-  }
+    await expect(srText.className).toContain("sr-only");
+  },
 };
 
 /**
@@ -277,11 +304,13 @@ export const SkeletonTitleTest: SkeletonStory = {
   render: () => <EventCardSkeleton />,
   play: async ({ canvasElement }) => {
     // Check title skeleton exists (with theme-aware classes)
-    const titleSkeleton = canvasElement.querySelector('.w-48.h-6');
+    const titleSkeleton = canvasElement.querySelector(".w-48.h-6");
     await expect(titleSkeleton).toBeInTheDocument();
-    await expect(titleSkeleton?.className).toContain('animate-pulse');
-    await expect(titleSkeleton?.className).toMatch(/bg-gray-200|dark:bg-slate-700/);
-  }
+    await expect(titleSkeleton?.className).toContain("animate-pulse");
+    await expect(titleSkeleton?.className).toMatch(
+      /bg-gray-200|dark:bg-slate-700/,
+    );
+  },
 };
 
 /**
@@ -291,13 +320,15 @@ export const SkeletonDetailsTest: SkeletonStory = {
   render: () => <EventCardSkeleton />,
   play: async ({ canvasElement }) => {
     // Check for detail rows (date/time, location, volunteers)
-    const detailsContainer = canvasElement.querySelector('.space-y-2');
+    const detailsContainer = canvasElement.querySelector(".space-y-2");
     await expect(detailsContainer).toBeInTheDocument();
-    
+
     // Should have 3 detail rows (each with icon placeholder and text placeholder)
-    const detailRows = detailsContainer?.querySelectorAll('.flex.items-center.gap-2');
+    const detailRows = detailsContainer?.querySelectorAll(
+      ".flex.items-center.gap-2",
+    );
     await expect(detailRows?.length).toBe(3);
-  }
+  },
 };
 
 /**
@@ -311,19 +342,22 @@ export const CardVsSkeleton: Story = {
         <EventCard event={mockEvent} />
       </div>
       <div className="flex-1 min-w-[320px]">
-        <h3 className="text-sm font-medium mb-2 text-gray-700">Loading State</h3>
+        <h3 className="text-sm font-medium mb-2 text-gray-700">
+          Loading State
+        </h3>
         <EventCardSkeleton />
       </div>
     </div>
   ),
   parameters: {
-    layout: 'padded',
+    layout: "padded",
     docs: {
       description: {
-        story: 'Side-by-side comparison of the loaded card and its loading skeleton.'
-      }
-    }
-  }
+        story:
+          "Side-by-side comparison of the loaded card and its loading skeleton.",
+      },
+    },
+  },
 };
 
 /**
@@ -335,32 +369,33 @@ export const EventListDemo: Story = {
       <EventCard event={mockEvent} />
       <EventCard
         event={{
-          id: '2',
-          title: 'Beach Cleanup',
-          date: '2025-12-17',
-          time: '8:00 AM',
-          location: 'Sunset Beach',
+          id: "2",
+          title: "Beach Cleanup",
+          date: "2025-12-17",
+          time: "8:00 AM",
+          location: "Sunset Beach",
           volunteers: 45,
         }}
       />
       <EventCard
         event={{
-          id: '3',
-          title: 'Workshop: JavaScript Basics',
-          date: '2025-12-22',
-          time: '2:00 PM',
-          location: 'Tech Center, Room 201',
+          id: "3",
+          title: "Workshop: JavaScript Basics",
+          date: "2025-12-22",
+          time: "2:00 PM",
+          location: "Tech Center, Room 201",
           volunteers: 8,
         }}
       />
     </div>
   ),
   parameters: {
-    layout: 'padded',
+    layout: "padded",
     docs: {
       description: {
-        story: 'Multiple event cards displayed as they would appear in a list view.'
-      }
-    }
-  }
+        story:
+          "Multiple event cards displayed as they would appear in a list view.",
+      },
+    },
+  },
 };

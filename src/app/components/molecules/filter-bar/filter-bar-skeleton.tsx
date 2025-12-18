@@ -1,6 +1,6 @@
 /**
  * FilterBarSkeleton component displays a loading placeholder matching FilterBar's button-group layout
- * 
+ *
  * Features:
  * - Matches FilterBar dimensions and horizontal button layout
  * - Renders five placeholder pill buttons to match default filters
@@ -9,21 +9,21 @@
  * - Follows Next.js loading UI conventions
  * - Can be used with React Suspense boundaries
  * - Accessible with proper ARIA status attributes and sr-only text
- * 
+ *
  * Styling:
  * - Matches FilterBar container styling (gap, rounded pills, secondary palette)
  * - Dark mode colors aligned with FilterBar theme
  * - Responsive and adapts to parent container
- * 
+ *
  * Accessibility:
  * - role="status" for proper status announcement
  * - aria-label describing the loading state
  * - sr-only text for additional context to screen readers
- * 
+ *
  * @component
  * @since 1.0.0
  * @returns {JSX.Element} The rendered skeleton loader
- * 
+ *
  * @example
  * ```tsx
  * // In a loading.tsx file
@@ -31,7 +31,7 @@
  *   return <FilterBarSkeleton />;
  * }
  * ```
- * 
+ *
  * @example
  * ```tsx
  * // With Suspense boundary
@@ -39,7 +39,7 @@
  *   <AsyncFilterBar />
  * </Suspense>
  * ```
- * 
+ *
  * @example
  * ```tsx
  * // Multiple skeletons in a layout
@@ -48,7 +48,7 @@
  *   <FilterBarSkeleton />
  * </div>
  * ```
- * 
+ *
  * @see {@link FilterBar} for the actual component
  */
 export function FilterBarSkeleton() {

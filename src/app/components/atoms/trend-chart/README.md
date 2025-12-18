@@ -17,7 +17,7 @@ A reusable two-series line chart built with Recharts. Suitable for visualizing a
 ## Usage
 
 ```tsx
-import { TrendChart } from './trend-chart';
+import { TrendChart } from "./trend-chart";
 
 export default function DashboardSection() {
   return (
@@ -35,9 +35,9 @@ export default function DashboardSection() {
 ### With Suspense (Next.js App Router)
 
 ```tsx
-import { Suspense } from 'react';
-import { TrendChart } from './trend-chart';
-import { TrendChartSkeleton } from './trend-chart-skeleton';
+import { Suspense } from "react";
+import { TrendChart } from "./trend-chart";
+import { TrendChartSkeleton } from "./trend-chart-skeleton";
 
 export default function Section() {
   return (
@@ -51,6 +51,7 @@ export default function Section() {
 ## Storybook
 
 Stories are available under `Atoms/TrendChart`:
+
 - Default chart
 - Structure and data rendering tests
 - Skeleton accessibility and layout tests

@@ -1,10 +1,9 @@
 import { View } from "./enums";
 
-
 export type MenuItem = {
-    id: View;
-    label: string;
-    icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  id: View;
+  label: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 };
 
 export type EngagementConfig = {
@@ -20,7 +19,7 @@ export type EngagementStatusConfig = {
 
 /**
  * Represents a single event with details for volunteer coordination.
- * 
+ *
  * @interface Event
  * @property {string} id - Unique identifier for the event.
  * @property {string} title - Title or name of the event.
