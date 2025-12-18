@@ -58,7 +58,7 @@ export default function VolunteerDashboard() {
       >
         {mockStatCardData.map((stat, index) => (
           <StatCard
-            key={index}
+            key={`${stat.title}-${index}`}
             {...stat}
             announceChanges={true}
           />

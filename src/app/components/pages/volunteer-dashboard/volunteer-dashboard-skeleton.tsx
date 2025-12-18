@@ -8,7 +8,7 @@
  * Accessibility:
  * - Skeleton heading maintains h1/h2 hierarchy from template
  * - Stat cards grid uses semantic region landmark with aria-label and aria-busy
- * - Volunteer list uses semantic section with aria-labelledby for heading linkage
+ * - Volunteer list uses semantic section with aria-label to describe loading state
  * - Animated pulse effect provides visual feedback for ongoing data fetch
  * - Screen reader text (sr-only) clarifies page is loading for assistive tech
  * - Matches expected grid structure (3 stat cards by default) for familiar loading UX
@@ -58,7 +58,7 @@ export default function VolunteerDashboardSkeleton() {
         aria-busy="true"
       >
         {Array.from({ length: 3 }).map((_, idx) => (
-          <StatCardSkeleton key={idx} />
+          <StatCardSkeleton key={`skeleton-${idx}`} />
         ))}
       </div>
 
@@ -68,7 +68,6 @@ export default function VolunteerDashboardSkeleton() {
         aria-busy="true"
       >
         <div
-          id="volunteer-list-skeleton-heading"
           className="w-32 h-6 bg-gray-200 dark:bg-slate-700 rounded mb-4"
           aria-hidden="true"
         />

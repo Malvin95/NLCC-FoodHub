@@ -67,10 +67,10 @@ export const SkeletonStructureTest: SkeletonStory = {
     await expect(statGrid).toHaveAttribute("aria-busy", "true");
 
     // Check for volunteer list section landmark
-    const volunteerListSection = canvas.getByRole(
-      "region",
-      { name: "Volunteer list loading", hidden: true },
-    );
+    const volunteerListSection = canvas.getByRole("region", {
+      name: "Volunteer list loading",
+      hidden: true,
+    });
     await expect(volunteerListSection).toBeInTheDocument();
     await expect(volunteerListSection).toHaveAttribute("aria-busy", "true");
     await expect(volunteerListSection?.className).toContain("animate-pulse");
