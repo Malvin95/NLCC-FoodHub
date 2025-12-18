@@ -77,7 +77,7 @@ export const mockInventoryItems: InventoryItem[] = [
     current: 240,
     target: 300,
     unit: "kg",
-    status: StatusLevels.MEDIUM,
+    status: StatusLevels.GOOD,
   },
   {
     id: 2,
@@ -85,7 +85,7 @@ export const mockInventoryItems: InventoryItem[] = [
     current: 156,
     target: 200,
     unit: "kg",
-    status: StatusLevels.LOW,
+    status: StatusLevels.GOOD,
   },
   {
     id: 3,
@@ -93,7 +93,7 @@ export const mockInventoryItems: InventoryItem[] = [
     current: 89,
     target: 150,
     unit: "kg",
-    status: StatusLevels.LOW,
+    status: StatusLevels.MEDIUM,
   },
   {
     id: 4,
@@ -101,7 +101,7 @@ export const mockInventoryItems: InventoryItem[] = [
     current: 45,
     target: 100,
     unit: "liters",
-    status: StatusLevels.MEDIUM,
+    status: StatusLevels.LOW,
   },
 ];
 
