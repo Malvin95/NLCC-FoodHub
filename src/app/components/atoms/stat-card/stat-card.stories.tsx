@@ -58,7 +58,7 @@ const baseArgs = {
   change: "+12%",
   trend: "up" as const,
   color: "rose" as const,
-  icon: <Users className="w-6 h-6" />,
+  icon: Users,
   iconLabel: "Volunteers Icon",
 };
 
@@ -72,7 +72,7 @@ export const UpTrend: Story = {
     trend: "up",
     change: "+5%",
     color: "green",
-    icon: <TrendingUp className="w-6 h-6" />,
+    icon: TrendingUp,
   },
 };
 
@@ -82,24 +82,24 @@ export const DownTrend: Story = {
     trend: "down",
     change: "-3%",
     color: "purple",
-    icon: <TrendingDown className="w-6 h-6" />,
+    icon: TrendingDown,
   },
 };
 
 export const Rose: Story = {
-  args: { ...baseArgs, color: "rose", icon: <Heart className="w-6 h-6" /> },
+  args: { ...baseArgs, color: "rose", icon: Heart },
 };
 
 export const Blue: Story = {
-  args: { ...baseArgs, color: "blue", icon: <Calendar className="w-6 h-6" /> },
+  args: { ...baseArgs, color: "blue", icon: Calendar },
 };
 
 export const Green: Story = {
-  args: { ...baseArgs, color: "green", icon: <Package className="w-6 h-6" /> },
+  args: { ...baseArgs, color: "green", icon: Package },
 };
 
 export const Purple: Story = {
-  args: { ...baseArgs, color: "purple", icon: <Users className="w-6 h-6" /> },
+  args: { ...baseArgs, color: "purple", icon: Users },
 };
 
 // Interactive test stories

@@ -36,7 +36,7 @@ export default function OverviewDashboard() {
             value={card.value}
             change={card.change}
             trend={card.trend}
-            icon={<card.icon className="w-6 h-6" />}
+            icon={card.icon}
             color={card.color}
             iconLabel={card.iconLabel}
           />

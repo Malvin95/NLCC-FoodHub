@@ -1,7 +1,7 @@
 import { TrendingUp, TrendingDown } from "lucide-react";
 import { useId } from "react";
 
-interface StatCardProps {
+export interface StatCardProps {
   /** Visible label describing the statistic */
   title: string;
   /** The main numeric or textual value */
@@ -11,7 +11,7 @@ interface StatCardProps {
   /** Direction of change used for trend icon */
   trend: "up" | "down";
   /** Icon displayed in the colored circle – treated as decorative unless iconLabel provided */
-  icon: React.ReactNode;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   /** Accent color theme */
   color: "rose" | "blue" | "green" | "purple";
   /** Optional accessible label describing the icon if it conveys meaning */
@@ -87,6 +87,7 @@ export function StatCard({
   announceChanges = false,
 }: StatCardProps) {
   const id = useId();
+  const Icon = icon;
 
   return (
     <div
@@ -102,7 +103,7 @@ export function StatCard({
           aria-label={iconLabel}
           aria-hidden={!iconLabel}
         >
-          {icon}
+          <Icon className="w-6 h-6" aria-hidden="true" />
         </div>
         <div
           className={`flex items-center gap-1 ${trend === "up" ? "text-lime-800 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}
