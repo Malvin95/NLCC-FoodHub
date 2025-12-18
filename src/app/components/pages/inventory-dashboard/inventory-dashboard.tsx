@@ -45,8 +45,8 @@ import { mockInventoryItems } from "../overview-dashboard/_mock-data_";
 export default function InventoryDashboard() {
   return (
     <DashboardPageTemplate
-      title={"Inventory Management"}
-      description={"Overview of current inventory status and metrics"}
+      title="Inventory Management"
+      description="Overview of current inventory status and metrics"
     >
       <InventoryStatusBar items={mockInventoryItems} />
     </DashboardPageTemplate>

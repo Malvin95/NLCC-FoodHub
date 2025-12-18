@@ -10,7 +10,7 @@
  * - Loading state announced via InventoryStatusBarSkeleton with role="status" and aria-label
  * - Animated pulse effect provides visual feedback for ongoing data fetch
  * - Screen reader text (sr-only) clarifies page is loading for assistive tech
- * - Matches expected grid structure (4 columns by default) for familiar loading UX
+ * - Matches expected grid structure with 4 item placeholders for familiar loading UX
  * - Live region attributes inherited from child skeleton components
  * - Maintains dark mode contrast during loading state
  *
