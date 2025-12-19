@@ -83,7 +83,7 @@ export default function HistoryDashboard() {
                     <div className="flex items-center mt-3" id="calendar-legend" aria-label="Calendar legend">
                         <p className="sr-only">Legend: Highlighted dates indicate volunteer days.</p>
                         <div className="flex items-center gap-2" role="list" aria-label="Legend items">
-                            <div className="w-4 h-4 bg-rose-50 border border-rose-200 rounded" aria-hidden="true" />
+                            <div className="w-4 h-4 bg-(--highlight) border border-(--highlight-border) rounded" aria-hidden="true" />
                             <span className="text-sm text-muted-foreground" role="listitem">Volunteer Day</span>
                         </div>
                     </div>
@@ -136,8 +136,8 @@ export default function HistoryDashboard() {
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-rose-100 rounded-lg" aria-hidden="true">
-                    <TrendingUp className="w-5 h-5 text-rose-600" aria-hidden="true" />
+                  <div className="p-2 bg-(--highlight) rounded-lg" aria-hidden="true">
+                    <TrendingUp className="w-5 h-5 text-(--highlight-foreground)" aria-hidden="true" />
                   </div>
                   <div>
                     <dt className="text-muted-foreground text-sm">Families Served</dt>

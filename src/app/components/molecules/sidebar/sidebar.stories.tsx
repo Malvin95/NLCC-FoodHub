@@ -288,8 +288,8 @@ export const VerifyActiveState: Story = {
     });
 
     // Verify it has the active styling classes
-    await expect(activeButton).toHaveClass(/bg-rose-50/);
-    await expect(activeButton).toHaveClass(/text-rose-600/);
+    await expect(activeButton).toHaveClass(/bg-\(--highlight\)/);
+    await expect(activeButton).toHaveClass(/text-\(--highlight-foreground\)/);
   },
 };
 
