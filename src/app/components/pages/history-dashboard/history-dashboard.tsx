@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState } from "react";
 import { Calendar } from "../../atoms/ui/calendar";
@@ -47,63 +47,96 @@ export interface DayMetrics {
  * ```
  */
 export default function HistoryDashboard() {
-    const [date, setDate] = useState<Date | undefined>(new Date());
-    const [selectedDay, setSelectedDay] = useState<DayMetrics | null>(null);
-    const metrics: {[key: string]: DayMetrics} = CalendarMockData;
+  const [date, setDate] = useState<Date | undefined>(new Date());
+  const [selectedDay, setSelectedDay] = useState<DayMetrics | null>(null);
+  const metrics: { [key: string]: DayMetrics } = CalendarMockData;
 
-    // Extract dates that have data for highlighting
-    const highlightedDates = Object.keys(metrics).map(dateStr => new Date(dateStr));
+  // Extract dates that have data for highlighting
+  const highlightedDates = Object.keys(metrics).map(
+    (dateStr) => new Date(dateStr),
+  );
 
-    const handleDateSelect = (selectedDate: Date | undefined) => {
-        setDate(selectedDate);
-        const recordedMetrics = metrics[selectedDate?.toISOString().split('T')[0] || ''];
-        if (recordedMetrics) {
-            setSelectedDay(recordedMetrics);
-        } else {
-            setSelectedDay(null);
-        }
+  const handleDateSelect = (selectedDate: Date | undefined) => {
+    setDate(selectedDate);
+    const recordedMetrics =
+      metrics[selectedDate?.toISOString().split("T")[0] || ""];
+    if (recordedMetrics) {
+      setSelectedDay(recordedMetrics);
+    } else {
+      setSelectedDay(null);
     }
+  };
 
-
-    return (
-    <DashboardPageTemplate title="History Dashboard" description="View historical data and logs">
-        {/* History dashboard content goes here */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
-            <div className="col-span-1 lg:col-span-2">
-                <div className="w-full h-full">
-                    {/* Calendar & Legend component */}
-                    <Calendar 
-                        mode="single"
-                        selected={date}
-                        onSelect={handleDateSelect}
-                        highlightedDates={highlightedDates}
-                        aria-label="History calendar"
-                        aria-describedby="calendar-legend"
-                        className="w-auto rounded-md border border-border bg-card p-3 shadow-sm dark:bg-slate-950 dark:border-slate-800 dark:shadow-md [--cell-size:auto] pt-10"
-                    />
-                    <div className="flex items-center mt-3" id="calendar-legend" role="group" aria-label="Calendar legend">
-                        <p className="sr-only">Legend: Highlighted dates indicate volunteer days.</p>
-                        <div className="flex items-center gap-2">
-                            <div className="w-4 h-4 bg-(--highlight) border border-(--highlight-border) rounded" aria-hidden="true" />
-                            <span className="text-sm text-muted-foreground">Volunteer Day</span>
-                        </div>
-                    </div>
-                </div>
-                
+  return (
+    <DashboardPageTemplate
+      title="History Dashboard"
+      description="View historical data and logs"
+    >
+      {/* History dashboard content goes here */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+        <div className="col-span-1 lg:col-span-2">
+          <div className="w-full h-full">
+            {/* Calendar & Legend component */}
+            <Calendar
+              mode="single"
+              selected={date}
+              onSelect={handleDateSelect}
+              highlightedDates={highlightedDates}
+              aria-label="History calendar"
+              aria-describedby="calendar-legend"
+              className="w-auto rounded-md border border-border bg-card p-3 shadow-sm dark:bg-slate-950 dark:border-slate-800 dark:shadow-md [--cell-size:auto] pt-10"
+            />
+            <div
+              className="flex items-center mt-3"
+              id="calendar-legend"
+              role="group"
+              aria-label="Calendar legend"
+            >
+              <p className="sr-only">
+                Legend: Highlighted dates indicate volunteer days.
+              </p>
+              <div className="flex items-center gap-2">
+                <div
+                  className="w-4 h-4 bg-(--highlight) border border-(--highlight-border) rounded"
+                  aria-hidden="true"
+                />
+                <span className="text-sm text-muted-foreground">
+                  Volunteer Day
+                </span>
+              </div>
             </div>
-
-            {/* Day Metrics Panel */}
-            <div className="bg-card rounded-lg shadow-sm border border-border dark:border-slate-800 dark:bg-slate-950 p-6 col-span-1 lg:col-span-1 dark:shadow-md" role="region" aria-labelledby={selectedDay ? "day-metrics-heading" : "day-metrics-empty"} aria-live="polite">
-                {selectedDay ? (
-                <MetricsDisplay {...selectedDay} />
-            ) : (
-                <div className="flex flex-col items-center justify-center h-64 text-center" aria-live="polite" role="status" id="day-metrics-empty">
-                    <Users className="w-12 h-12 text-muted-foreground mb-3" aria-hidden="true" />
-                    <p className="text-muted-foreground">Select a highlighted day to view metrics</p>
-                </div>
-            )}
-            </div>
+          </div>
         </div>
+
+        {/* Day Metrics Panel */}
+        <div
+          className="bg-card rounded-lg shadow-sm border border-border dark:border-slate-800 dark:bg-slate-950 p-6 col-span-1 lg:col-span-1 dark:shadow-md"
+          role="region"
+          aria-labelledby={
+            selectedDay ? "day-metrics-heading" : "day-metrics-empty"
+          }
+          aria-live="polite"
+        >
+          {selectedDay ? (
+            <MetricsDisplay {...selectedDay} />
+          ) : (
+            <div
+              className="flex flex-col items-center justify-center h-64 text-center"
+              aria-live="polite"
+              role="status"
+              id="day-metrics-empty"
+            >
+              <Users
+                className="w-12 h-12 text-muted-foreground mb-3"
+                aria-hidden="true"
+              />
+              <p className="text-muted-foreground">
+                Select a highlighted day to view metrics
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
     </DashboardPageTemplate>
-    );
+  );
 }

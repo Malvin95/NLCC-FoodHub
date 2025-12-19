@@ -21,7 +21,12 @@
  */
 export function MetricsDisplaySkeleton() {
   return (
-    <div role="status" aria-live="polite" aria-busy="true" aria-label="Loading metrics data">
+    <div
+      role="status"
+      aria-live="polite"
+      aria-busy="true"
+      aria-label="Loading metrics data"
+    >
       <span className="sr-only">Loading daily metrics. Please wait.</span>
       {/* Date heading skeleton */}
       <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-48 mb-4 animate-pulse" />

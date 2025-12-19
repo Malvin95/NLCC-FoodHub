@@ -46,11 +46,16 @@ export const Default: Story = {
     const canvas = within(canvasElement);
 
     // Verify page title
-    const pageTitle = canvas.getByRole("heading", { level: 1, name: /history dashboard/i });
+    const pageTitle = canvas.getByRole("heading", {
+      level: 1,
+      name: /history dashboard/i,
+    });
     await expect(pageTitle).toBeInTheDocument();
 
     // Verify calendar is rendered
-    const calendar = canvas.getByRole("application", { name: /history calendar/i });
+    const calendar = canvas.getByRole("application", {
+      name: /history calendar/i,
+    });
     await expect(calendar).toBeInTheDocument();
 
     // Verify legend is displayed
@@ -58,7 +63,9 @@ export const Default: Story = {
     await expect(legend).toBeInTheDocument();
 
     // Verify empty state message is displayed initially
-    const emptyState = canvas.getByText(/select a highlighted day to view metrics/i);
+    const emptyState = canvas.getByText(
+      /select a highlighted day to view metrics/i,
+    );
     await expect(emptyState).toBeInTheDocument();
   },
 };
@@ -89,13 +96,17 @@ export const InteractiveSelection: Story = {
 
     // Find and click a date button (looking for any date with data)
     const dateButtons = canvas.getAllByRole("button");
-    
+
     // Filter for actual date buttons (they have a number as content)
     let dateSelected = false;
     for (const button of dateButtons) {
       const buttonText = button.textContent?.trim();
       // Try to select dates that are likely to have data (avoid 1st of month)
-      if (buttonText && /^\d{1,2}$/.test(buttonText) && parseInt(buttonText) > 10) {
+      if (
+        buttonText &&
+        /^\d{1,2}$/.test(buttonText) &&
+        parseInt(buttonText) > 10
+      ) {
         try {
           await userEvent.click(button);
           dateSelected = true;
@@ -110,8 +121,8 @@ export const InteractiveSelection: Story = {
     // If a date was selected, verify metrics panel updates
     if (dateSelected) {
       // Wait a moment for state update
-      await new Promise(resolve => setTimeout(resolve, 100));
-      
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
       // Verify metrics panel has updated (contains either metrics or empty state)
       const metricsPanel = canvasElement.querySelector('[role="region"]');
       await expect(metricsPanel).toBeInTheDocument();
@@ -125,7 +136,9 @@ export const InteractiveSelection: Story = {
 export const VerifyCalendarAccessibility: Story = {
   play: async ({ canvasElement }) => {
     // Verify calendar has proper ARIA attributes
-    const calendar = canvasElement.querySelector('[aria-label="History calendar"]');
+    const calendar = canvasElement.querySelector(
+      '[aria-label="History calendar"]',
+    );
     await expect(calendar).toBeInTheDocument();
 
     // Verify legend has proper group role
@@ -157,9 +170,7 @@ export const VerifyLegend: Story = {
 
     // Verify legend color indicator has highlight styling
     // Alternative check for the highlight color indicator
-    const legendBox = canvasElement.querySelector(
-      '#calendar-legend .rounded'
-    );
+    const legendBox = canvasElement.querySelector("#calendar-legend .rounded");
     await expect(legendBox).toBeInTheDocument();
   },
 };
@@ -187,24 +198,6 @@ export const VerifyPageStructure: Story = {
     const gridChildren = grid?.children;
     await expect(gridChildren?.length).toBe(2);
   },
-};
-
-/**
- * Dark mode preview
- */
-export const DarkMode: Story = {
-  parameters: {
-    backgrounds: { default: "dark" },
-  },
-  decorators: [
-    (Story) => (
-      <div className="dark">
-        <div className="bg-slate-950 min-h-screen">
-          <Story />
-        </div>
-      </div>
-    ),
-  ],
 };
 
 /**
