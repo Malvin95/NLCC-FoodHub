@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { Calendar } from "../../atoms/ui/calendar";
 import DashboardPageTemplate from "../../templates/dashboard-page-template/dashboard-page-template";
-import { Clock, Package, TrendingUp, Users } from "lucide-react";
 import { CalendarMockData } from "./_mock-data_";
+import { Users } from "lucide-react";
+import MetricsDisplay from "../../molecules/metrics-display/metricsDisplay";
 
 /**
  * Represents daily metrics tracked in the history dashboard.
@@ -94,73 +95,7 @@ export default function HistoryDashboard() {
             {/* Day Metrics Panel */}
             <div className="bg-card rounded-lg shadow-sm border border-border dark:border-slate-800 dark:bg-slate-950 p-6 col-span-1 lg:col-span-1 dark:shadow-md" role="region" aria-labelledby={selectedDay ? "day-metrics-heading" : "day-metrics-empty"}>
                 {selectedDay ? (
-            <>
-              <h2 id="day-metrics-heading" className="text-foreground mb-4">
-                {new Date(selectedDay.date).toLocaleDateString('en-US', { 
-                  month: 'long', 
-                  day: 'numeric', 
-                  year: 'numeric' 
-                })}
-              </h2>
-
-              {/* Metrics */}
-              <dl className="space-y-4 mb-6">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-green-100 rounded-lg" aria-hidden="true">
-                    <Users className="w-5 h-5 text-green-600" aria-hidden="true" />
-                  </div>
-                  <div>
-                    <dt className="text-muted-foreground text-sm">Volunteers</dt>
-                    <dd className="text-foreground">{selectedDay.volunteers}</dd>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-blue-100 rounded-lg" aria-hidden="true">
-                    <Clock className="w-5 h-5 text-blue-600" aria-hidden="true" />
-                  </div>
-                  <div>
-                    <dt className="text-muted-foreground text-sm">Total Hours</dt>
-                    <dd className="text-foreground">{selectedDay.hours}</dd>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-purple-100 rounded-lg" aria-hidden="true">
-                    <Package className="w-5 h-5 text-purple-600" aria-hidden="true" />
-                  </div>
-                  <div>
-                    <dt className="text-muted-foreground text-sm">Meals Distributed</dt>
-                    <dd className="text-foreground">{selectedDay.mealsDistributed}</dd>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-(--highlight) rounded-lg" aria-hidden="true">
-                    <TrendingUp className="w-5 h-5 text-(--highlight-foreground)" aria-hidden="true" />
-                  </div>
-                  <div>
-                    <dt className="text-muted-foreground text-sm">Families Served</dt>
-                    <dd className="text-foreground">{selectedDay.familiesServed}</dd>
-                  </div>
-                </div>
-              </dl>
-
-              {/* Activities */}
-              <div className="pt-6 border-t border-border">
-                <p className="text-muted-foreground text-sm mb-2">Activities</p>
-                <ul className="flex flex-wrap gap-2" aria-label="Activities list">
-                  {selectedDay.activities.map((activity, index) => (
-                    <li
-                      key={index}
-                      className="px-3 py-1 bg-accent text-foreground/90 rounded-full text-sm"
-                    >
-                      {activity}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </>
+                <MetricsDisplay {...selectedDay} />
             ) : (
                 <div className="flex flex-col items-center justify-center h-64 text-center" aria-live="polite" role="status" id="day-metrics-empty">
                     <Users className="w-12 h-12 text-muted-foreground mb-3" aria-hidden="true" />
