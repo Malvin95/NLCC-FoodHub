@@ -1,9 +1,10 @@
 import { View } from "./enums";
 
 export type MenuItem = {
-  id: View;
+  view: View;
   label: string;
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  href: string;
 };
 
 export type EngagementConfig = {
