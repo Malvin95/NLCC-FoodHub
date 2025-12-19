@@ -73,7 +73,7 @@ export default function DashboardPageTemplate({
   description,
 }: DashboardPageTemplateProps) {
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 transition-colors">
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:ml-16 xl:ml-20 2xl:mx-auto py-6 transition-colors">
       <h1 className="text-2xl font-semibold text-foreground mb-6">{title}</h1>
       <h2 className="text-muted-foreground mb-8">{description}</h2>
       <div className="space-y-8">

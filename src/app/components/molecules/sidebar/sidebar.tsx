@@ -11,6 +11,7 @@ import {
   ChevronLeft,
   ChevronRight,
   History,
+  Menu,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -128,10 +129,19 @@ export function Sidebar({
         />
       )}
 
+      {/* Mobile open menu Button */}
+      <button
+        onClick={() => setIsOpen(true)}
+        className="sticky top-5 left-2 lg:hidden p-4 text-foreground rounded bg-white hover:bg-rose-50 dark:hover:bg-slate-800 transition-colors"
+        aria-label="Open menu"
+      >
+        <Menu className="w-6 h-6" />
+      </button>
+
       {/* Sidebar */}
       <aside
         className={`
-          fixed lg:sticky top-0 h-screen bg-card dark:bg-slate-950 border-r border-border dark:border-slate-800 z-50 shadow-sm dark:shadow-md
+          fixed top-0 h-screen bg-card dark:bg-slate-950 border-r border-border dark:border-slate-800 z-50 shadow-sm dark:shadow-md
           overflow-hidden transition-all duration-300 ease-in-out
           ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
           ${isCollapsed ? "lg:w-20" : "lg:w-64"}
