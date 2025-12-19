@@ -81,11 +81,11 @@ export default function HistoryDashboard() {
                         aria-describedby="calendar-legend"
                         className="w-auto rounded-md border border-border bg-card p-3 shadow-sm dark:bg-slate-950 dark:border-slate-800 dark:shadow-md [--cell-size:auto] pt-10"
                     />
-                    <div className="flex items-center mt-3" id="calendar-legend" aria-label="Calendar legend">
+                    <div className="flex items-center mt-3" id="calendar-legend" role="group" aria-label="Calendar legend">
                         <p className="sr-only">Legend: Highlighted dates indicate volunteer days.</p>
-                        <div className="flex items-center gap-2" role="list" aria-label="Legend items">
+                        <div className="flex items-center gap-2">
                             <div className="w-4 h-4 bg-(--highlight) border border-(--highlight-border) rounded" aria-hidden="true" />
-                            <span className="text-sm text-muted-foreground" role="listitem">Volunteer Day</span>
+                            <span className="text-sm text-muted-foreground">Volunteer Day</span>
                         </div>
                     </div>
                 </div>
@@ -93,7 +93,7 @@ export default function HistoryDashboard() {
             </div>
 
             {/* Day Metrics Panel */}
-            <div className="bg-card rounded-lg shadow-sm border border-border dark:border-slate-800 dark:bg-slate-950 p-6 col-span-1 lg:col-span-1 dark:shadow-md" role="region" aria-labelledby={selectedDay ? "day-metrics-heading" : "day-metrics-empty"}>
+            <div className="bg-card rounded-lg shadow-sm border border-border dark:border-slate-800 dark:bg-slate-950 p-6 col-span-1 lg:col-span-1 dark:shadow-md" role="region" aria-labelledby={selectedDay ? "day-metrics-heading" : "day-metrics-empty"} aria-live="polite">
                 {selectedDay ? (
                 <MetricsDisplay {...selectedDay} />
             ) : (

@@ -21,12 +21,13 @@
  */
 export function MetricsDisplaySkeleton() {
   return (
-    <>
+    <div role="status" aria-live="polite" aria-busy="true" aria-label="Loading metrics data">
+      <span className="sr-only">Loading daily metrics. Please wait.</span>
       {/* Date heading skeleton */}
       <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-48 mb-4 animate-pulse" />
 
       {/* Metrics skeleton */}
-      <dl className="space-y-4 mb-6">
+      <div className="space-y-4 mb-6">
         {Array.from({ length: 4 }).map((_, index) => (
           <div key={index} className="flex items-center gap-3 animate-pulse">
             <div className="w-9 h-9 bg-gray-200 dark:bg-gray-700 rounded-lg shrink-0" />
@@ -36,7 +37,7 @@ export function MetricsDisplaySkeleton() {
             </div>
           </div>
         ))}
-      </dl>
+      </div>
 
       {/* Activities skeleton */}
       <div className="pt-6 border-t border-border">
@@ -51,6 +52,6 @@ export function MetricsDisplaySkeleton() {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }

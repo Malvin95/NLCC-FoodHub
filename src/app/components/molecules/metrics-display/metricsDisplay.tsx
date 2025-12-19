@@ -40,47 +40,47 @@ export default function MetricsDisplay(data: DayMetrics) {
             </h2>
 
             {/* Metrics */}
-            <dl className="space-y-4 mb-6">
-            <div className="flex items-center gap-3">
-                <div className="p-2 bg-green-100 rounded-lg" aria-hidden="true">
-                <Users className="w-5 h-5 text-green-600" aria-hidden="true" />
+            <div className="space-y-4 mb-6" role="list" aria-label="Daily metrics">
+                <div className="flex items-center gap-3" role="listitem">
+                    <div className="p-2 bg-green-100 dark:bg-green-950 rounded-lg" aria-hidden="true">
+                        <Users className="w-5 h-5 text-green-600 dark:text-green-400" aria-hidden="true" />
+                    </div>
+                    <dl>
+                        <dt className="text-muted-foreground text-sm">Volunteers</dt>
+                        <dd className="text-foreground" aria-label={`${data.volunteers} volunteers`}>{data.volunteers}</dd>
+                    </dl>
                 </div>
-                <div>
-                <dt className="text-muted-foreground text-sm">Volunteers</dt>
-                <dd className="text-foreground">{data.volunteers}</dd>
-                </div>
-            </div>
 
-            <div className="flex items-center gap-3">
-                <div className="p-2 bg-blue-100 rounded-lg" aria-hidden="true">
-                <Clock className="w-5 h-5 text-blue-600" aria-hidden="true" />
+                <div className="flex items-center gap-3" role="listitem">
+                    <div className="p-2 bg-blue-100 dark:bg-blue-950 rounded-lg" aria-hidden="true">
+                        <Clock className="w-5 h-5 text-blue-600 dark:text-blue-400" aria-hidden="true" />
+                    </div>
+                    <dl>
+                        <dt className="text-muted-foreground text-sm">Total Hours</dt>
+                        <dd className="text-foreground" aria-label={`${data.hours} total hours`}>{data.hours}</dd>
+                    </dl>
                 </div>
-                <div>
-                <dt className="text-muted-foreground text-sm">Total Hours</dt>
-                <dd className="text-foreground">{data.hours}</dd>
-                </div>
-            </div>
 
-            <div className="flex items-center gap-3">
-                <div className="p-2 bg-purple-100 rounded-lg" aria-hidden="true">
-                <Package className="w-5 h-5 text-purple-600" aria-hidden="true" />
+                <div className="flex items-center gap-3" role="listitem">
+                    <div className="p-2 bg-purple-100 dark:bg-purple-950 rounded-lg" aria-hidden="true">
+                        <Package className="w-5 h-5 text-purple-600 dark:text-purple-400" aria-hidden="true" />
+                    </div>
+                    <dl>
+                        <dt className="text-muted-foreground text-sm">Meals Distributed</dt>
+                        <dd className="text-foreground" aria-label={`${data.mealsDistributed} meals distributed`}>{data.mealsDistributed}</dd>
+                    </dl>
                 </div>
-                <div>
-                <dt className="text-muted-foreground text-sm">Meals Distributed</dt>
-                <dd className="text-foreground">{data.mealsDistributed}</dd>
-                </div>
-            </div>
 
-            <div className="flex items-center gap-3">
-                <div className="p-2 bg-(--highlight) rounded-lg" aria-hidden="true">
-                <TrendingUp className="w-5 h-5 text-(--highlight-foreground)" aria-hidden="true" />
-                </div>
-                <div>
-                <dt className="text-muted-foreground text-sm">Families Served</dt>
-                <dd className="text-foreground">{data.familiesServed}</dd>
+                <div className="flex items-center gap-3" role="listitem">
+                    <div className="p-2 bg-(--highlight) rounded-lg" aria-hidden="true">
+                        <TrendingUp className="w-5 h-5 text-(--highlight-foreground)" aria-hidden="true" />
+                    </div>
+                    <dl>
+                        <dt className="text-muted-foreground text-sm">Families Served</dt>
+                        <dd className="text-foreground" aria-label={`${data.familiesServed} families served`}>{data.familiesServed}</dd>
+                    </dl>
                 </div>
             </div>
-            </dl>
 
             {/* Activities */}
             <div className="pt-6 border-t border-border">
