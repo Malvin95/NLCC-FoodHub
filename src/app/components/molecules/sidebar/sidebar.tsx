@@ -171,7 +171,7 @@ export function Sidebar({
                       disabled={isPending}
                       className={`
                       w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors
-                      ${isActive ? "bg-rose-50 dark:bg-rose-950/20 text-rose-800 dark:text-rose-600" : "text-foreground hover:bg-accent dark:hover:bg-slate-800"}
+                      ${isActive ? "bg-(--highlight) dark:bg-(--highlight) text-(--highlight-foreground) dark:text-(--highlight-foreground)" : "text-foreground hover:bg-accent dark:hover:bg-slate-800"}
                       ${isCollapsed ? "lg:justify-center" : ""}
                       ${isPending ? "opacity-50 cursor-wait" : ""}
                       disabled:opacity-50 disabled:cursor-not-allowed
