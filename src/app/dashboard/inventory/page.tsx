@@ -1,9 +1,7 @@
-'use client';
+"use client";
 
 import InventoryDashboard from "@/app/components/pages/inventory-dashboard/inventory-dashboard";
 
 export default function InventoryPage() {
-  return (
-    <InventoryDashboard />
-  );
+  return <InventoryDashboard />;
 }

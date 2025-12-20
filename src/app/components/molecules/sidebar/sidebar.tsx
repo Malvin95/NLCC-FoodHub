@@ -44,32 +44,37 @@ const defaultMenuItems: MenuItem[] = [
     view: View.DASHBOARD,
     label: "Dashboard",
     icon: LayoutDashboard,
-    href: "/overview",
+    href: "/dashboard",
   },
   {
     view: View.ENGAGEMENT,
     label: "Engagement Board",
     icon: MessageSquare,
-    href: "/engagement",
+    href: "/dashboard/engagement",
   },
   {
     view: View.INVENTORY,
     label: "Inventory",
     icon: Package,
-    href: "/inventory",
+    href: "/dashboard/inventory",
   },
-  { view: View.EVENTS, label: "Events", icon: Calendar, href: "/events" },
+  {
+    view: View.EVENTS,
+    label: "Events",
+    icon: Calendar,
+    href: "/dashboard/events",
+  },
   {
     view: View.VOLUNTEERS,
     label: "Volunteers",
     icon: Users,
-    href: "/volunteers",
+    href: "/dashboard/volunteers",
   },
   {
     view: View.HISTORY,
     label: "Volunteer History",
     icon: History,
-    href: "/history",
+    href: "/dashboard/history",
   },
 ];
 
