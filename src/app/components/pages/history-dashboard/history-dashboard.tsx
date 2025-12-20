@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Calendar } from "../../atoms/ui/calendar";
 import DashboardPageTemplate from "../../templates/dashboard-page-template/dashboard-page-template";
-import { CalendarMockData } from "./_mock-data_";
+import { CalendarMockData, getRelativeKeyForDate } from "./_mock-data_";
 import { Users } from "lucide-react";
 import MetricsDisplay from "../../molecules/metrics-display/metricsDisplay";
 
@@ -52,14 +52,16 @@ export default function HistoryDashboard() {
   const metrics: { [key: string]: DayMetrics } = CalendarMockData;
 
   // Extract dates that have data for highlighting
-  const highlightedDates = Object.keys(metrics).map(
-    (dateStr) => new Date(dateStr),
-  );
+  const highlightedDates = Object.values(metrics).map(({ date }) => new Date(date));
+
+  const getDateKey = (value: Date): string => {
+    return getRelativeKeyForDate(value);
+  };
 
   const handleDateSelect = (selectedDate: Date | undefined) => {
     setDate(selectedDate);
     const recordedMetrics =
-      metrics[selectedDate?.toISOString().split("T")[0] || ""];
+      metrics[getDateKey(selectedDate || new Date())];
     if (recordedMetrics) {
       setSelectedDay(recordedMetrics);
     } else {
@@ -122,8 +124,6 @@ export default function HistoryDashboard() {
           ) : (
             <div
               className="flex flex-col items-center justify-center h-64 text-center"
-              aria-live="polite"
-              role="status"
               id="day-metrics-empty"
             >
               <Users

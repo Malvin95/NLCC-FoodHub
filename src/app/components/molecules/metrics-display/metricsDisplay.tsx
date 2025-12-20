@@ -40,8 +40,8 @@ export default function MetricsDisplay(data: DayMetrics) {
       </h2>
 
       {/* Metrics */}
-      <div className="space-y-4 mb-6" role="list" aria-label="Daily metrics">
-        <div className="flex items-center gap-3" role="listitem">
+      <ul className="space-y-4 mb-6" aria-label="Daily metrics">
+        <li className="flex items-center gap-3" role="listitem">
           <div
             className="p-2 bg-green-100 dark:bg-green-950 rounded-lg"
             aria-hidden="true"
@@ -60,9 +60,9 @@ export default function MetricsDisplay(data: DayMetrics) {
               {data.volunteers}
             </dd>
           </dl>
-        </div>
+        </li>
 
-        <div className="flex items-center gap-3" role="listitem">
+        <li className="flex items-center gap-3" role="listitem">
           <div
             className="p-2 bg-blue-100 dark:bg-blue-950 rounded-lg"
             aria-hidden="true"
@@ -81,9 +81,9 @@ export default function MetricsDisplay(data: DayMetrics) {
               {data.hours}
             </dd>
           </dl>
-        </div>
+        </li>
 
-        <div className="flex items-center gap-3" role="listitem">
+        <li className="flex items-center gap-3" role="listitem">
           <div
             className="p-2 bg-purple-100 dark:bg-purple-950 rounded-lg"
             aria-hidden="true"
@@ -102,9 +102,9 @@ export default function MetricsDisplay(data: DayMetrics) {
               {data.mealsDistributed}
             </dd>
           </dl>
-        </div>
+        </li>
 
-        <div className="flex items-center gap-3" role="listitem">
+        <li className="flex items-center gap-3" role="listitem">
           <div className="p-2 bg-(--highlight) rounded-lg" aria-hidden="true">
             <TrendingUp
               className="w-5 h-5 text-(--highlight-foreground)"
@@ -120,16 +120,16 @@ export default function MetricsDisplay(data: DayMetrics) {
               {data.familiesServed}
             </dd>
           </dl>
-        </div>
-      </div>
+        </li>
+      </ul>
 
       {/* Activities */}
       <div className="pt-6 border-t border-border">
         <p className="text-muted-foreground text-sm mb-2">Activities</p>
         <ul className="flex flex-wrap gap-2" aria-label="Activities list">
-          {data.activities.map((activity, index) => (
+          {data.activities.map((activity) => (
             <li
-              key={index}
+              key={activity}
               className="px-3 py-1 bg-accent text-foreground/90 rounded-full text-sm"
             >
               {activity}

@@ -1,108 +1,146 @@
 import { DayMetrics } from "./history-dashboard";
 
-export const CalendarMockData: { [key: string]: DayMetrics } = {
-  "2025-11-01": {
-    date: "2025-11-01",
+const MS_PER_DAY = 86_400_000;
+
+const startOfDay = (date: Date) => {
+  const normalized = new Date(date);
+  normalized.setHours(0, 0, 0, 0);
+  return normalized;
+};
+
+const referenceToday = startOfDay(new Date());
+
+const addDays = (date: Date, days: number): Date => {
+  return new Date(date.getTime() + days * MS_PER_DAY);
+};
+
+const formatISODateLocal = (date: Date): string => {
+  return startOfDay(date).toLocaleDateString("en-CA");
+};
+// Relative day offsets (in days) for each mock entry,
+// keeping dates near the current day across weeks.
+const offsets: number[] = [
+  0, -1, -7, -8, -14, -15, -21, -22, -28, -29, -35, -36, -42,
+];
+
+// Base metrics for each entry; dates are applied dynamically.
+const baseMetrics: Array<Omit<DayMetrics, "date">> = [
+  {
     volunteers: 12,
     hours: 48,
     mealsDistributed: 320,
     familiesServed: 85,
     activities: ["Food Drive", "Distribution"],
   },
-  "2025-11-05": {
-    date: "2025-11-05",
+  {
     volunteers: 18,
     hours: 72,
     mealsDistributed: 450,
     familiesServed: 120,
     activities: ["Community Event", "Sorting"],
   },
-  "2025-11-08": {
-    date: "2025-11-08",
+  {
     volunteers: 8,
     hours: 32,
     mealsDistributed: 210,
     familiesServed: 62,
     activities: ["Inventory Count"],
   },
-  "2025-11-12": {
-    date: "2025-11-12",
+  {
     volunteers: 24,
     hours: 96,
     mealsDistributed: 580,
     familiesServed: 145,
     activities: ["Mobile Pantry", "Distribution"],
   },
-  "2025-11-15": {
-    date: "2025-11-15",
+  {
     volunteers: 15,
     hours: 60,
     mealsDistributed: 380,
     familiesServed: 95,
     activities: ["Food Sorting", "Delivery"],
   },
-  "2025-11-19": {
-    date: "2025-11-19",
+  {
     volunteers: 20,
     hours: 80,
     mealsDistributed: 490,
     familiesServed: 128,
     activities: ["Distribution", "Donation Pickup"],
   },
-  "2025-11-22": {
-    date: "2025-11-22",
+  {
     volunteers: 32,
     hours: 128,
     mealsDistributed: 720,
     familiesServed: 185,
     activities: ["Thanksgiving Prep", "Distribution"],
   },
-  "2025-11-26": {
-    date: "2025-11-26",
+  {
     volunteers: 10,
     hours: 40,
     mealsDistributed: 260,
     familiesServed: 70,
     activities: ["Food Sorting"],
   },
-  "2025-10-03": {
-    date: "2025-10-03",
+  {
     volunteers: 14,
     hours: 56,
     mealsDistributed: 350,
     familiesServed: 92,
     activities: ["Food Drive"],
   },
-  "2025-10-10": {
-    date: "2025-10-10",
+  {
     volunteers: 22,
     hours: 88,
     mealsDistributed: 520,
     familiesServed: 138,
     activities: ["Distribution", "Community Event"],
   },
-  "2025-10-17": {
-    date: "2025-10-17",
+  {
     volunteers: 16,
     hours: 64,
     mealsDistributed: 410,
     familiesServed: 108,
     activities: ["Mobile Pantry"],
   },
-  "2025-10-24": {
-    date: "2025-10-24",
+  {
     volunteers: 19,
     hours: 76,
     mealsDistributed: 470,
     familiesServed: 122,
     activities: ["Distribution", "Sorting"],
   },
-  "2025-10-31": {
-    date: "2025-10-31",
+  {
     volunteers: 28,
     hours: 112,
     mealsDistributed: 640,
     familiesServed: 168,
-    activities: ["Halloween Event", "Distribution"],
+    activities: ["Distribution"],
   },
+] ;
+
+const calendarEntries: DayMetrics[] = baseMetrics.map((metrics, idx) => ({
+  date: formatISODateLocal(addDays(referenceToday, offsets[idx])),
+  ...metrics,
+}));
+
+const dateToRelativeKeyInternal = (dateStr: string): string => {
+  const target = startOfDay(new Date(dateStr));
+  const diffDays = Math.round(
+    (target.getTime() - referenceToday.getTime()) / MS_PER_DAY,
+  );
+  return diffDays.toString();
 };
+
+export const getRelativeKeyForDate = (date: Date): string => {
+  const target = startOfDay(date);
+  const diffDays = Math.round(
+    (target.getTime() - referenceToday.getTime()) / MS_PER_DAY,
+  );
+  return diffDays.toString();
+};
+
+export const CalendarMockData: { [key: string]: DayMetrics } = Object.fromEntries(
+  calendarEntries.map((entry) => [dateToRelativeKeyInternal(entry.date), entry]),
+);
+
+export const CalendarEntries = calendarEntries;

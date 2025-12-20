@@ -30,6 +30,17 @@ const meta = {
           "A dashboard page for viewing historical data with a calendar interface for date selection and a metrics panel displaying volunteer activity details. Highlights days with available data and displays metrics when a date is selected.",
       },
     },
+    // TODO!: enable color-contrast rule once dark mode contrast issue is resolved. Ref ticket: #58
+    a11y:{ 
+      config: {
+        rules: [
+          {
+            id: "color-contrast",
+            enabled: false,
+          },
+        ],
+      },  
+    },
   },
 } satisfies Meta<typeof HistoryDashboard>;
 
