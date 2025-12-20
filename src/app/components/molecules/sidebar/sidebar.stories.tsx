@@ -24,7 +24,7 @@ const meta = {
     layout: "fullscreen",
     nextjs: {
       appDirectory: true,
-      navigation: { pathname: "/overview" },
+      navigation: { pathname: "/dashboard" },
     },
     docs: {
       description: {
@@ -53,7 +53,7 @@ type Story = StoryObj<typeof Sidebar>;
  */
 export const Default: Story = {
   args: {
-    currentPathname: "/overview",
+    currentPathname: "/dashboard",
   },
 };
 
@@ -62,7 +62,7 @@ export const Default: Story = {
  */
 export const EngagementActive: Story = {
   args: {
-    currentPathname: "/engagement",
+    currentPathname: "/dashboard/engagement",
   },
 };
 
@@ -71,7 +71,7 @@ export const EngagementActive: Story = {
  */
 export const InventoryActive: Story = {
   args: {
-    currentPathname: "/inventory",
+    currentPathname: "/dashboard/inventory",
   },
 };
 
@@ -80,7 +80,7 @@ export const InventoryActive: Story = {
  */
 export const EventsActive: Story = {
   args: {
-    currentPathname: "/events",
+    currentPathname: "/dashboard/events",
   },
 };
 
@@ -89,7 +89,7 @@ export const EventsActive: Story = {
  */
 export const VolunteersActive: Story = {
   args: {
-    currentPathname: "/volunteers",
+    currentPathname: "/dashboard/volunteers",
   },
 };
 
@@ -98,7 +98,17 @@ export const VolunteersActive: Story = {
  */
 export const HistoryActive: Story = {
   args: {
-    currentPathname: "/history",
+    currentPathname: "/dashboard/history",
+  },
+};
+
+/**
+ * Loading state with skeleton placeholders.
+ */
+export const Loading: Story = {
+  args: {
+    isLoading: true,
+    currentPathname: "/dashboard",
   },
 };
 

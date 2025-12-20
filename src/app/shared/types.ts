@@ -1,7 +1,5 @@
-import { View } from "./enums";
 
 export type MenuItem = {
-  view: View;
   label: string;
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   href: string;

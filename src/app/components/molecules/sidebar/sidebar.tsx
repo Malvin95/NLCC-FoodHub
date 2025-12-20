@@ -15,8 +15,9 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SidebarSkeleton } from "./sidebar.skeleton";
+import { useMediaQuery } from "usehooks-ts";
 
 /**
  * Props for the `Sidebar` component.
@@ -41,38 +42,32 @@ interface SidebarProps {
  */
 const defaultMenuItems: MenuItem[] = [
   {
-    view: View.DASHBOARD,
     label: "Dashboard",
     icon: LayoutDashboard,
     href: "/dashboard",
     exactMatch: true,
   },
   {
-    view: View.ENGAGEMENT,
     label: "Engagement Board",
     icon: MessageSquare,
     href: "/dashboard/engagement",
   },
   {
-    view: View.INVENTORY,
     label: "Inventory",
     icon: Package,
     href: "/dashboard/inventory",
   },
   {
-    view: View.EVENTS,
     label: "Events",
     icon: Calendar,
     href: "/dashboard/events",
   },
   {
-    view: View.VOLUNTEERS,
     label: "Volunteers",
     icon: Users,
     href: "/dashboard/volunteers",
   },
   {
-    view: View.HISTORY,
     label: "Volunteer History",
     icon: History,
     href: "/dashboard/history",
@@ -114,10 +109,17 @@ export function Sidebar({
   items,
   disableNavigation = false,
 }: SidebarProps) {
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
   const [isCollapsed, setIsCollapsed] = useState(false);
   const pathFromRouter = usePathname();
   const pathname = currentPathname ?? pathFromRouter;
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(isDesktop);
+
+  // Sync a shared CSS custom property so layouts can offset content when the sidebar collapses/expands on desktop
+  useEffect(() => {
+    const width = isCollapsed ? "5rem" : "16rem"; // matches lg:w-20 vs lg:w-64
+    document.documentElement.style.setProperty("--sidebar-width", width);
+  }, [isCollapsed]);
 
   const onClose = () => setIsOpen(false);
   const menuItems = items ?? defaultMenuItems;
@@ -167,17 +169,19 @@ export function Sidebar({
         `}
       >
         {/* Mobile Close Button */}
-        <div
-          className={`lg:hidden flex justify-end p-4 transition-opacity duration-300 delay-100 ${isOpen ? "opacity-100" : "opacity-0"}`}
-        >
-          <button
-            onClick={onClose}
-            className="p-2 rounded-lg hover:bg-accent dark:hover:bg-slate-800 text-muted-foreground transition-colors"
-            aria-label="Close menu"
+        {!isOpen && (
+          <div
+            className={`lg:hidden flex justify-end p-4 transition-opacity duration-300 delay-100 ${isOpen ? "opacity-100" : "opacity-0"}`}
           >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
+            <button
+              onClick={onClose}
+              className="p-2 rounded-lg hover:bg-accent dark:hover:bg-slate-800 text-muted-foreground transition-colors"
+              aria-label="Close menu"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+        )}
 
         {/* Desktop Collapse Toggle */}
         <div
@@ -197,7 +201,7 @@ export function Sidebar({
         </div>
 
         {/* Navigation */}
-        <nav className="px-4 pb-4">
+        <nav className="relative px-4 pb-4 top-16 lg:top-0">
           <div
             className={`space-y-1 transition-opacity duration-300 delay-100 ${isOpen ? "opacity-100" : "opacity-0"}`}
             aria-hidden={!isOpen}
@@ -212,7 +216,7 @@ export function Sidebar({
                   <Link
                     key={item.href}
                     href={item.href}
-                    prefetch
+                    prefetch={true}
                     onClick={(event) => {
                       if (disableNavigation) {
                         event.preventDefault();

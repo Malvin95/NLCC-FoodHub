@@ -52,9 +52,8 @@ export default function HistoryDashboard() {
   const metrics: { [key: string]: DayMetrics } = CalendarMockData;
 
   // Extract dates that have data for highlighting
-  const highlightedDates = useMemo(
-    () => Object.values(metrics).map(({ date }) => new Date(date)),
-    [metrics],
+  const highlightedDates = Object.values(metrics).map(
+    ({ date }) => new Date(date)
   );
 
   const getDateKey = (value: Date): string => {

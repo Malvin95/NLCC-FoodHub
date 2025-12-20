@@ -1,4 +1,4 @@
-// src/app/(dashboard)/layout.tsx
+// src/app/dashboard/layout.tsx
 import { ReactNode } from "react";
 import { Sidebar } from "../components/molecules/sidebar/sidebar";
 
