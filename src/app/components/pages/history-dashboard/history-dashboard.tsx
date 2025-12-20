@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Calendar } from "../../atoms/ui/calendar";
 import DashboardPageTemplate from "../../templates/dashboard-page-template/dashboard-page-template";
 import { CalendarMockData, getRelativeKeyForDate } from "./_mock-data_";
@@ -52,8 +52,9 @@ export default function HistoryDashboard() {
   const metrics: { [key: string]: DayMetrics } = CalendarMockData;
 
   // Extract dates that have data for highlighting
-  const highlightedDates = Object.values(metrics).map(
-    ({ date }) => new Date(date),
+  const highlightedDates = useMemo(
+    () => Object.values(metrics).map(({ date }) => new Date(date)),
+    [metrics],
   );
 
   const getDateKey = (value: Date): string => {

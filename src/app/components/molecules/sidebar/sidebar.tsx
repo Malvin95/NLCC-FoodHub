@@ -45,6 +45,7 @@ const defaultMenuItems: MenuItem[] = [
     label: "Dashboard",
     icon: LayoutDashboard,
     href: "/dashboard",
+    exactMatch: true,
   },
   {
     view: View.ENGAGEMENT,
@@ -124,6 +125,18 @@ export function Sidebar({
   // External loading state only; navigation handled by Next Link
   const showLoadingState = isLoading;
 
+  const isActivePathname = (href: string, exactMatch?: boolean) => {
+    try {
+      if (exactMatch) {
+        return pathname === href;
+      }
+      return pathname === href || pathname.startsWith(`${href}/`);
+    } catch (error) {
+      console.error("Failed to determine active route", error);
+      return false;
+    }
+  };
+
   return (
     <>
       {/* Mobile Overlay */}
@@ -194,9 +207,7 @@ export function Sidebar({
             ) : (
               menuItems.map((item: MenuItem) => {
                 const Icon = item.icon;
-                const isActive =
-                  pathname === item.href ||
-                  pathname?.startsWith(item.href + "/dashboard/");
+                const isActive = isActivePathname(item.href, item.exactMatch);
                 return (
                   <Link
                     key={item.href}
