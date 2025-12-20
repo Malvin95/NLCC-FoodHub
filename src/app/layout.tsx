@@ -14,7 +14,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "NLCC Food Hub Dashboard",
-  description: "The Solution for Food Inventory Management",
+  description:
+    "The Solution for FoodHub Distribution and Organisation Management",
 };
 
 export default function RootLayout({

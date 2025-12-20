@@ -1,3 +1,4 @@
+"use client";
 import { View } from "@/app/shared/enums";
 import { MenuItem } from "@/app/shared/types";
 import {
@@ -10,91 +11,133 @@ import {
   ChevronLeft,
   ChevronRight,
   History,
+  Menu,
 } from "lucide-react";
-import { useState, useTransition } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { SidebarSkeleton } from "./sidebar.skeleton";
+import { useMediaQuery } from "usehooks-ts";
 
 /**
- * Props for the Sidebar component
- * @interface SidebarProps
+ * Props for the `Sidebar` component.
+ *
+ * The sidebar supports responsive behaviors (mobile overlay, desktop collapse),
+ * active-state highlighting based on the current pathname, optional loading skeletons,
+ * and optional custom menu configuration for different contexts (e.g., tests or demos).
  */
 interface SidebarProps {
-  /** The currently active view */
-  currentView: View;
-  /** Callback function triggered when a different view is selected */
-  onViewChange: (view: View) => void;
-  /** Whether the sidebar is open (primarily for mobile) */
-  isOpen: boolean;
-  /** Callback function to close the sidebar */
-  onClose: () => void;
-  /** Whether the sidebar is in a loading state */
   isLoading?: boolean;
+  /** Optional pathname override (useful for Storybook active-state showcases) */
+  currentPathname?: string;
+  /** Optional override for the menu items; falls back to defaults */
+  items?: MenuItem[];
+  /** When true, clicking a menu item will not navigate (useful for Storybook/tests) */
+  disableNavigation?: boolean;
 }
 
 /**
- * Array of menu items displayed in the sidebar navigation
- * @constant
+ * Default menu items displayed in the sidebar navigation.
+ * Consumers can provide `items` via props to override or extend these.
  */
-const menuItems: MenuItem[] = [
-  { id: View.DASHBOARD, label: "Dashboard", icon: LayoutDashboard },
-  { id: View.ENGAGEMENT, label: "Engagement Board", icon: MessageSquare },
-  { id: View.INVENTORY, label: "Inventory", icon: Package },
-  { id: View.EVENTS, label: "Events", icon: Calendar },
-  { id: View.VOLUNTEERS, label: "Volunteers", icon: Users },
-  { id: View.HISTORY, label: "Volunteer History", icon: History },
+const defaultMenuItems: MenuItem[] = [
+  {
+    label: "Dashboard",
+    icon: LayoutDashboard,
+    href: "/dashboard",
+    exactMatch: true,
+  },
+  {
+    label: "Engagement Board",
+    icon: MessageSquare,
+    href: "/dashboard/engagement",
+  },
+  {
+    label: "Inventory",
+    icon: Package,
+    href: "/dashboard/inventory",
+  },
+  {
+    label: "Events",
+    icon: Calendar,
+    href: "/dashboard/events",
+  },
+  {
+    label: "Volunteers",
+    icon: Users,
+    href: "/dashboard/volunteers",
+  },
+  {
+    label: "Volunteer History",
+    icon: History,
+    href: "/dashboard/history",
+  },
 ];
 
 /**
- * Sidebar component that provides navigation for the application
+ * Sidebar component that provides application navigation.
  *
  * Features:
- * - Responsive design with mobile overlay and desktop collapse functionality
- * - Displays navigation menu items with icons and labels
- * - Highlights the currently active view
- * - Can be toggled open/closed on mobile devices
- * - Can be collapsed/expanded on desktop devices
- * - Loading state with skeleton placeholders
- * - Non-blocking transitions using React's useTransition for smooth navigation
- * - Prevents UI freezes during view changes
- * - Full dark mode support with theme-aware colors and shadows
- * - Smooth color transitions when switching themes
+ * - Responsive: mobile overlay + desktop collapse/expand toggle.
+ * - Link-based navigation with active-state derived from pathname.
+ * - Optional loading skeleton via `isLoading`.
+ * - Optional custom menu items via `items`.
+ * - Optional `disableNavigation` to block link navigation under test conditions.
+ * - Dark mode-friendly styles and smooth transitions.
  *
- * @component
- * @param {SidebarProps} props - Component props
- * @returns {JSX.Element} The rendered sidebar component
+ * @param props Component props.
+ * @returns The rendered sidebar component.
  *
  * @example
- * ```tsx
+ * // Basic usage
+ * <Sidebar isLoading={false} />
+ *
+ * @example
+ * // With custom menu and non-navigating links (e.g., Storybook)
  * <Sidebar
- *   currentView={View.DASHBOARD}
- *   onViewChange={(view) => setCurrentView(view)}
- *   isOpen={isSidebarOpen}
- *   onClose={() => setIsSidebarOpen(false)}
- *   isLoading={false}
+ *   currentPathname="/team"
+ *   items={[
+ *     { view: View.DASHBOARD, label: "Home", icon: LayoutDashboard, href: "/home" },
+ *     { view: View.VOLUNTEERS, label: "Team", icon: Users, href: "/team" },
+ *   ]}
+ *   disableNavigation
  * />
- * ```
  */
 export function Sidebar({
-  currentView,
-  onViewChange,
-  isOpen,
-  onClose,
   isLoading = false,
+  currentPathname,
+  items,
+  disableNavigation = false,
 }: SidebarProps) {
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [isPending, startTransition] = useTransition();
+  const pathFromRouter = usePathname();
+  const pathname = currentPathname ?? pathFromRouter;
+  const [isOpen, setIsOpen] = useState(isDesktop);
 
-  /**
-   * Handles view change with transition to prevent blocking UI updates
-   * @param view - The view to navigate to
-   */
-  const handleViewChange = (view: View) => {
-    startTransition(() => {
-      onViewChange(view);
-    });
+  // Sync a shared CSS custom property so layouts can offset content when the sidebar collapses/expands on desktop
+  useEffect(() => {
+    const width = isCollapsed ? "5rem" : "16rem"; // matches lg:w-20 vs lg:w-64
+    document.documentElement.style.setProperty("--sidebar-width", width);
+  }, [isCollapsed]);
+
+  const onClose = () => setIsOpen(false);
+  const menuItems = items ?? defaultMenuItems;
+
+  // External loading state only; navigation handled by Next Link
+  const showLoadingState = isLoading;
+
+  const isActivePathname = (href: string, exactMatch?: boolean) => {
+    try {
+      if (exactMatch) {
+        return pathname === href;
+      }
+      return pathname === href || pathname.startsWith(`${href}/`);
+    } catch (error) {
+      console.error("Failed to determine active route", error);
+      return false;
+    }
   };
-
-  // Combine external loading state with internal transition state
-  const showLoadingState = isLoading || isPending;
 
   return (
     <>
@@ -106,29 +149,44 @@ export function Sidebar({
         />
       )}
 
+      {/* Mobile open menu Button */}
+      <button
+        onClick={() => setIsOpen(true)}
+        className="sticky top-5 left-2 lg:hidden p-4 text-foreground rounded bg-white hover:bg-rose-50 dark:hover:bg-slate-800 transition-colors"
+        aria-label="Open menu"
+      >
+        <Menu className="w-6 h-6" />
+      </button>
+
       {/* Sidebar */}
       <aside
         className={`
-          fixed lg:sticky top-0 h-screen bg-card dark:bg-slate-950 border-r border-border dark:border-slate-800 z-50 shadow-sm dark:shadow-md
-          transition-all duration-300 ease-in-out
+          fixed top-0 h-screen bg-card dark:bg-slate-950 border-r border-border dark:border-slate-800 z-50 shadow-sm dark:shadow-md
+          overflow-hidden transition-all duration-300 ease-in-out
           ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
           ${isCollapsed ? "lg:w-20" : "lg:w-64"}
           w-64
         `}
       >
         {/* Mobile Close Button */}
-        <div className="lg:hidden flex justify-end p-4">
-          <button
-            onClick={onClose}
-            className="p-2 rounded-lg hover:bg-accent dark:hover:bg-slate-800 text-muted-foreground transition-colors"
-            aria-label="Close menu"
+        {!isOpen && (
+          <div
+            className={`lg:hidden flex justify-end p-4 transition-opacity duration-300 delay-100 ${isOpen ? "opacity-100" : "opacity-0"}`}
           >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
+            <button
+              onClick={onClose}
+              className="p-2 rounded-lg hover:bg-accent dark:hover:bg-slate-800 text-muted-foreground transition-colors"
+              aria-label="Close menu"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+        )}
 
         {/* Desktop Collapse Toggle */}
-        <div className="hidden lg:flex justify-end p-4">
+        <div
+          className={`hidden lg:flex justify-end p-4 transition-opacity duration-300 delay-100 ${isOpen ? "opacity-100" : "opacity-0"}`}
+        >
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
             className="p-2 rounded-lg hover:bg-accent dark:hover:bg-slate-800 text-muted-foreground transition-colors"
@@ -143,48 +201,44 @@ export function Sidebar({
         </div>
 
         {/* Navigation */}
-        <nav className="px-4 pb-4">
-          <div className="space-y-1">
-            {showLoadingState
-              ? // Loading skeleton
-                Array.from({ length: 6 }).map((_, index) => (
-                  <div
-                    key={`skeleton-${index}`}
+        <nav className="relative px-4 pb-4 top-16 lg:top-0">
+          <div
+            className={`space-y-1 transition-opacity duration-300 delay-100 ${isOpen ? "opacity-100" : "opacity-0"}`}
+            aria-hidden={!isOpen}
+          >
+            {showLoadingState ? (
+              <SidebarSkeleton isCollapsed={isCollapsed} />
+            ) : (
+              menuItems.map((item: MenuItem) => {
+                const Icon = item.icon;
+                const isActive = isActivePathname(item.href, item.exactMatch);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    prefetch={true}
+                    onClick={(event) => {
+                      if (disableNavigation) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                      }
+                    }}
+                    aria-current={isActive ? "page" : undefined}
                     className={`
-                    w-full flex items-center gap-3 px-4 py-3 rounded-lg
-                    ${isCollapsed ? "lg:justify-center" : ""}
-                  `}
+                        w-full flex text-nowrap items-center gap-3 px-4 py-3 rounded-lg transition-colors
+                        ${isActive ? "bg-(--highlight) dark:bg-(--highlight) text-(--highlight-foreground) dark:text-(--highlight-foreground)" : "text-foreground hover:bg-accent dark:hover:bg-slate-800"}
+                        ${isCollapsed ? "lg:justify-center" : ""}
+                      `}
+                    title={isCollapsed ? item.label : undefined}
                   >
-                    <div className="w-5 h-5 bg-gray-200 dark:bg-slate-700 rounded animate-pulse shrink-0" />
-                    <div
-                      className={`h-4 bg-gray-200 dark:bg-slate-700 rounded animate-pulse flex-1 ${isCollapsed ? "lg:hidden" : ""}`}
-                    />
-                  </div>
-                ))
-              : menuItems.map((item: MenuItem) => {
-                  const Icon = item.icon;
-                  const isActive = currentView === item.id;
-                  return (
-                    <button
-                      key={item.id}
-                      onClick={() => handleViewChange(item.id)}
-                      disabled={isPending}
-                      className={`
-                      w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors
-                      ${isActive ? "bg-(--highlight) dark:bg-(--highlight) text-(--highlight-foreground) dark:text-(--highlight-foreground)" : "text-foreground hover:bg-accent dark:hover:bg-slate-800"}
-                      ${isCollapsed ? "lg:justify-center" : ""}
-                      ${isPending ? "opacity-50 cursor-wait" : ""}
-                      disabled:opacity-50 disabled:cursor-not-allowed
-                    `}
-                      title={isCollapsed ? item.label : undefined}
-                    >
-                      <Icon className="w-5 h-5 shrink-0" />
-                      <span className={`${isCollapsed ? "lg:hidden" : ""}`}>
-                        {item.label}
-                      </span>
-                    </button>
-                  );
-                })}
+                    <Icon className="w-5 h-5 shrink-0" />
+                    <span className={`${isCollapsed ? "lg:hidden" : ""}`}>
+                      {item.label}
+                    </span>
+                  </Link>
+                );
+              })
+            )}
           </div>
         </nav>
       </aside>

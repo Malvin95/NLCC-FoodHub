@@ -1,9 +1,10 @@
-import { View } from "./enums";
 
 export type MenuItem = {
-  id: View;
   label: string;
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  href: string;
+  /** When true, the menu item is only active if the pathname exactly matches the href */
+  exactMatch?: boolean;
 };
 
 export type EngagementConfig = {
