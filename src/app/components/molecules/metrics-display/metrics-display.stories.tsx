@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, within } from "storybook/test";
-import MetricsDisplay from "./metricsDisplay";
-import { MetricsDisplaySkeleton } from "./metricsDisplay.skeleton";
+import MetricsDisplay from "./metrics-display";
+import { MetricsDisplaySkeleton } from "./metrics-display.skeleton";
 import { DayMetrics } from "../../pages/history-dashboard/history-dashboard";
 
 /**

@@ -31,7 +31,7 @@ const meta = {
       },
     },
     // TODO!: enable color-contrast rule once dark mode contrast issue is resolved. Ref ticket: #58
-    a11y:{ 
+    a11y: {
       config: {
         rules: [
           {
@@ -39,7 +39,7 @@ const meta = {
             enabled: false,
           },
         ],
-      },  
+      },
     },
   },
 } satisfies Meta<typeof HistoryDashboard>;

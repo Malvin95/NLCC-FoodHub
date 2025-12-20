@@ -5,7 +5,7 @@ import { Calendar } from "../../atoms/ui/calendar";
 import DashboardPageTemplate from "../../templates/dashboard-page-template/dashboard-page-template";
 import { CalendarMockData, getRelativeKeyForDate } from "./_mock-data_";
 import { Users } from "lucide-react";
-import MetricsDisplay from "../../molecules/metrics-display/metricsDisplay";
+import MetricsDisplay from "../../molecules/metrics-display/metrics-display";
 
 /**
  * Represents daily metrics tracked in the history dashboard.
@@ -52,7 +52,9 @@ export default function HistoryDashboard() {
   const metrics: { [key: string]: DayMetrics } = CalendarMockData;
 
   // Extract dates that have data for highlighting
-  const highlightedDates = Object.values(metrics).map(({ date }) => new Date(date));
+  const highlightedDates = Object.values(metrics).map(
+    ({ date }) => new Date(date),
+  );
 
   const getDateKey = (value: Date): string => {
     return getRelativeKeyForDate(value);
@@ -60,8 +62,7 @@ export default function HistoryDashboard() {
 
   const handleDateSelect = (selectedDate: Date | undefined) => {
     setDate(selectedDate);
-    const recordedMetrics =
-      metrics[getDateKey(selectedDate || new Date())];
+    const recordedMetrics = metrics[getDateKey(selectedDate || new Date())];
     if (recordedMetrics) {
       setSelectedDay(recordedMetrics);
     } else {

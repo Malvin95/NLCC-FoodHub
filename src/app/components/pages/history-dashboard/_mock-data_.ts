@@ -116,7 +116,7 @@ const baseMetrics: Array<Omit<DayMetrics, "date">> = [
     familiesServed: 168,
     activities: ["Distribution"],
   },
-] ;
+];
 
 const calendarEntries: DayMetrics[] = baseMetrics.map((metrics, idx) => ({
   date: formatISODateLocal(addDays(referenceToday, offsets[idx])),
@@ -139,8 +139,12 @@ export const getRelativeKeyForDate = (date: Date): string => {
   return diffDays.toString();
 };
 
-export const CalendarMockData: { [key: string]: DayMetrics } = Object.fromEntries(
-  calendarEntries.map((entry) => [dateToRelativeKeyInternal(entry.date), entry]),
-);
+export const CalendarMockData: { [key: string]: DayMetrics } =
+  Object.fromEntries(
+    calendarEntries.map((entry) => [
+      dateToRelativeKeyInternal(entry.date),
+      entry,
+    ]),
+  );
 
 export const CalendarEntries = calendarEntries;

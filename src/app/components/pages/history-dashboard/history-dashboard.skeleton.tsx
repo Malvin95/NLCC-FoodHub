@@ -1,3 +1,5 @@
+import DashboardPageTemplate from "../../templates/dashboard-page-template/dashboard-page-template";
+
 /**
  * Loading skeleton for the History Dashboard component.
  *
@@ -7,49 +9,48 @@
 
 export function HistoryDashboardSkeleton() {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      {/* Calendar skeleton */}
-      <div className="rounded-md border bg-white p-3 shadow-md dark:bg-gray-800 animate-pulse">
-        <div className="space-y-2">
-          {/* Header */}
-          <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-32"></div>
-          {/* Calendar grid */}
-          <div className="grid grid-cols-7 gap-1">
-            {Array.from({ length: 42 }).map((_, i) => (
-              <div
-                key={i}
-                className="h-8 bg-gray-100 dark:bg-gray-600 rounded"
-              ></div>
+    <DashboardPageTemplate
+      title="History Dashboard"
+      description="View historical data and logs"
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 animate-pulse">
+        <div className="col-span-1 lg:col-span-2 space-y-3">
+          <div className="w-full h-full rounded-md border border-border bg-card p-3 shadow-sm dark:bg-slate-950 dark:border-slate-800 dark:shadow-md [--cell-size:auto] pt-10">
+            <div className="space-y-3">
+              <div className="h-7 w-32 rounded bg-muted" />
+              <div className="grid grid-cols-7 gap-1">
+                {Array.from({ length: 42 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="h-8 rounded bg-muted"
+                    aria-hidden="true"
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2" aria-hidden="true">
+            <div className="w-4 h-4 rounded bg-muted" />
+            <span className="h-4 w-24 rounded bg-muted" />
+          </div>
+        </div>
+
+        <div className="bg-card rounded-lg shadow-sm border border-border dark:border-slate-800 dark:bg-slate-950 p-6 col-span-1 lg:col-span-1 dark:shadow-md">
+          <div className="space-y-4">
+            <div className="h-5 w-40 rounded bg-muted" />
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-muted" />
+                <div className="flex-1 space-y-2">
+                  <div className="h-4 w-20 rounded bg-muted" />
+                  <div className="h-5 w-12 rounded bg-muted" />
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </div>
-
-      {/* Legend skeleton */}
-      <div className="flex items-center gap-4 mt-6 pt-6 border-t border-gray-200 animate-pulse">
-        <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-gray-200 dark:bg-gray-700 rounded" />
-          <span className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-24"></span>
-        </div>
-      </div>
-
-      {/* Metrics panel skeleton */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 animate-pulse">
-        <div className="space-y-4">
-          {/* Title skeleton */}
-          <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-40"></div>
-          {/* Metrics items */}
-          {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-lg"></div>
-              <div className="flex-1">
-                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-20 mb-2"></div>
-                <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-12"></div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+    </DashboardPageTemplate>
   );
 }

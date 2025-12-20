@@ -32,7 +32,7 @@ export default function MetricsDisplay(data: DayMetrics) {
   return (
     <>
       <h2 id="day-metrics-heading" className="text-foreground mb-4">
-        {new Date(data.date).toLocaleDateString("en-US", {
+        {new Date(data.date).toLocaleDateString(undefined, {
           month: "long",
           day: "numeric",
           year: "numeric",
@@ -41,7 +41,7 @@ export default function MetricsDisplay(data: DayMetrics) {
 
       {/* Metrics */}
       <ul className="space-y-4 mb-6" aria-label="Daily metrics">
-        <li className="flex items-center gap-3" role="listitem">
+        <li className="flex items-center gap-3">
           <div
             className="p-2 bg-green-100 dark:bg-green-950 rounded-lg"
             aria-hidden="true"
@@ -62,7 +62,7 @@ export default function MetricsDisplay(data: DayMetrics) {
           </dl>
         </li>
 
-        <li className="flex items-center gap-3" role="listitem">
+        <li className="flex items-center gap-3">
           <div
             className="p-2 bg-blue-100 dark:bg-blue-950 rounded-lg"
             aria-hidden="true"
@@ -83,7 +83,7 @@ export default function MetricsDisplay(data: DayMetrics) {
           </dl>
         </li>
 
-        <li className="flex items-center gap-3" role="listitem">
+        <li className="flex items-center gap-3">
           <div
             className="p-2 bg-purple-100 dark:bg-purple-950 rounded-lg"
             aria-hidden="true"
@@ -104,7 +104,7 @@ export default function MetricsDisplay(data: DayMetrics) {
           </dl>
         </li>
 
-        <li className="flex items-center gap-3" role="listitem">
+        <li className="flex items-center gap-3">
           <div className="p-2 bg-(--highlight) rounded-lg" aria-hidden="true">
             <TrendingUp
               className="w-5 h-5 text-(--highlight-foreground)"
