@@ -50,7 +50,7 @@ const appleIcon = () => (
   </svg>
 );
 
-export default function FormFields() {
+export default function FormFields({ isLoading = false }: { isLoading?: boolean }) {
   return (
     <div className="w-full">
       <form>
@@ -63,6 +63,7 @@ export default function FormFields() {
               name="email"
               placeholder="your-email@example.com"
               autoComplete="email"
+              disabled={isLoading}
               required
             />
           </div>
@@ -72,6 +73,7 @@ export default function FormFields() {
               <a
                 href="/forgot-password"
                 className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                tabIndex={isLoading ? -1 : 0}
               >
                 Forgot your password?
               </a>
@@ -81,12 +83,13 @@ export default function FormFields() {
               type="password"
               name="password"
               autoComplete="current-password"
+              disabled={isLoading}
               required
             />
           </div>
         </div>
-        <Button type="submit" className="w-full">
-          Login
+        <Button type="submit" className="w-full" disabled={isLoading}>
+          {isLoading ? "Signing in..." : "Login"}
         </Button>
       </form>
       <div className="flex items-center gap-2 my-4" aria-hidden="true">
@@ -99,6 +102,7 @@ export default function FormFields() {
         variant="outline"
         className="w-full mb-4"
         aria-label="Login with Google"
+        disabled={isLoading}
       >
         <span className="mr-2">{googleIcon()}</span>
         Login with Google
@@ -108,6 +112,7 @@ export default function FormFields() {
         variant="outline"
         className="w-full"
         aria-label="Login with Apple"
+        disabled={isLoading}
       >
         <span className="mr-2">{appleIcon()}</span>
         Login with Apple

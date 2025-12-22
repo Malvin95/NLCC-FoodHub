@@ -47,3 +47,12 @@ export const Mobile: Story = {
     },
   },
 };
+
+/**
+ * Loading: Form in loading state with disabled inputs and submit button text changed.
+ */
+export const Loading: Story = {
+  args: {
+    isLoading: true,
+  },
+};
