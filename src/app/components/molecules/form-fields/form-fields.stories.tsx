@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Card } from "../../atoms/ui/card/card";
 import FormFields from "./form-fields";
+import { expect, spyOn } from "storybook/test";
 
 /**
  * Sign-in form component with email, password, and optional OAuth buttons.
@@ -12,9 +13,23 @@ const meta: Meta<typeof FormFields> = {
   parameters: {
     layout: "centered",
   },
+  argTypes: {
+    onSubmit: { description: "Form submit handler" },
+    onGoogleLogin: { description: "OAuth Google click handler" },
+    onAppleLogin: { description: "OAuth Apple click handler" },
+  },
+  args: {
+    isLoading: false,
+    onSubmit: () => console.log("form submitted"),
+    onGoogleLogin: () => console.log("google login"),
+    onAppleLogin: () => console.log("apple login"),
+  },
   decorators: [
     (Story) => (
-      <div className="w-full max-w-sm">
+      <div
+        className="w-full max-w-sm"
+        onSubmitCapture={(e) => e.preventDefault()}
+      >
         <Card>
           <Story />
         </Card>
@@ -54,5 +69,122 @@ export const Mobile: Story = {
 export const Loading: Story = {
   args: {
     isLoading: true,
+  },
+};
+
+/**
+ * WithActions: Logs submit and OAuth button interactions in Storybook Actions.
+ */
+export const WithActions: Story = {
+  args: {
+    isLoading: false,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Interactive variant: triggers Actions panel on form submit and OAuth button clicks.",
+      },
+    },
+  },
+  // Simulate typing and clicks, then verify handlers are called.
+  play: async ({ canvasElement }) => {
+    const consoleSpy = spyOn(console, "log");
+
+    const root = canvasElement as HTMLElement;
+    const email = root.querySelector<HTMLInputElement>("#email");
+    const password = root.querySelector<HTMLInputElement>("#password");
+    const submit = root.querySelector<HTMLButtonElement>(
+      'button[type="submit"]'
+    );
+    const google = root.querySelector<HTMLButtonElement>(
+      'button[aria-label="Login with Google"]'
+    );
+    const apple = root.querySelector<HTMLButtonElement>(
+      'button[aria-label="Login with Apple"]'
+    );
+
+    if (!email || !password || !submit || !google || !apple) {
+      throw new Error("Form elements not found for interaction test");
+    }
+
+    email.focus();
+    email.value = "tester@example.com";
+    email.dispatchEvent(new Event("input", { bubbles: true }));
+
+    password.focus();
+    password.value = "supersecret";
+    password.dispatchEvent(new Event("input", { bubbles: true }));
+
+    submit.click();
+    await expect(consoleSpy).toHaveBeenCalledWith("form submitted");
+
+    google.click();
+    await expect(consoleSpy).toHaveBeenCalledWith("google login");
+
+    apple.click();
+    await expect(consoleSpy).toHaveBeenCalledWith("apple login");
+
+    consoleSpy.mockRestore();
+  },
+};
+
+/**
+ * SubmitOnly: Focused interaction that types credentials and submits the form.
+ */
+export const SubmitOnly: Story = {
+  args: {
+    isLoading: false,
+  },
+  play: async ({ canvasElement }) => {
+    const consoleSpy = spyOn(console, "log");
+
+    const root = canvasElement as HTMLElement;
+    const email = root.querySelector<HTMLInputElement>("#email");
+    const password = root.querySelector<HTMLInputElement>("#password");
+    const submit = root.querySelector<HTMLButtonElement>(
+      'button[type="submit"]'
+    );
+    if (!email || !password || !submit)
+      throw new Error("SubmitOnly: elements missing");
+    
+    email.value = "foo@bar.com";
+    email.dispatchEvent(new Event("input", { bubbles: true }));
+    password.value = "password123";
+    password.dispatchEvent(new Event("input", { bubbles: true }));
+    
+    submit.click();
+    await expect(consoleSpy).toHaveBeenCalledWith("form submitted");
+    
+    consoleSpy.mockRestore();
+  },
+};
+
+/**
+ * OAuthClicks: Validates Google and Apple button click interactions.
+ */
+export const OAuthClicks: Story = {
+  args: {
+    isLoading: false,
+  },
+  play: async ({ canvasElement }) => {
+    const consoleSpy = spyOn(console, "log");
+
+    const root = canvasElement as HTMLElement;
+    const google = root.querySelector<HTMLButtonElement>(
+      'button[aria-label="Login with Google"]'
+    );
+    const apple = root.querySelector<HTMLButtonElement>(
+      'button[aria-label="Login with Apple"]'
+    );
+    if (!google || !apple) throw new Error("OAuthClicks: elements missing");
+    
+    google.click();
+    await expect(consoleSpy).toHaveBeenCalledWith("google login");
+    
+    apple.click();
+    await expect(consoleSpy).toHaveBeenCalledWith("apple login");
+    
+    consoleSpy.mockRestore();
   },
 };

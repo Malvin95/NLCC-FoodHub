@@ -12,7 +12,11 @@ export default function SignInForm() {
     <AuthPageTemplate
       title="Sign In"
       description="Access your FoodHub account"
-      footer={<a className="text-sm underline">Create an account</a>}
+      footer={
+        <a href="/sign-in" className="text-sm underline">
+          Create an account
+        </a>
+      }
     >
       <FormFields />
     </AuthPageTemplate>

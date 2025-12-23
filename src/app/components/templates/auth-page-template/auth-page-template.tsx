@@ -6,7 +6,6 @@ import {
   CardContent,
   CardFooter,
 } from "../../atoms/ui/card/card";
- 
 
 /**
  * Auth page layout template.
@@ -14,19 +13,21 @@ import {
  * Provides a centered card with optional header (title/description),
  * optional logo area, and optional footer. Place your form/content in `children`.
  */
+export interface AuthPageTemplateProps {
+  title?: React.ReactNode;
+  description?: React.ReactNode;
+  logo?: React.ReactNode;
+  children: React.ReactNode;
+  footer?: React.ReactNode;
+}
+
 export function AuthPageTemplate({
   title,
   description,
   logo,
   children,
   footer,
-}: {
-  title?: React.ReactNode;
-  description?: React.ReactNode;
-  logo?: React.ReactNode;
-  children: React.ReactNode;
-  footer?: React.ReactNode;
-}) {
+}: AuthPageTemplateProps) {
   return (
     <main
       className="flex items-center justify-center min-h-screen py-8"
