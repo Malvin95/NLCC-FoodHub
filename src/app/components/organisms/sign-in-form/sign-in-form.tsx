@@ -1,13 +1,23 @@
 import FormFields from "../../molecules/form-fields/form-fields";
 import { AuthPageTemplate } from "../../templates/auth-page-template/auth-page-template";
 
+interface SignInFormProps {
+  onSubmit?: () => void;
+  onGoogleLogin?: () => void;
+  onAppleLogin?: () => void;
+}
+
 /**
  * SignInForm: Auth page organism composing the AuthPageTemplate and FormFields.
  *
  * - Provides page-level framing (title/description/footer)
  * - Embeds the shared form fields molecule for consistency
  */
-export default function SignInForm() {
+export default function SignInForm({
+  onSubmit,
+  onGoogleLogin,
+  onAppleLogin,
+}: SignInFormProps) {
   return (
     <AuthPageTemplate
       title="Sign In"
@@ -18,7 +28,11 @@ export default function SignInForm() {
         </a>
       }
     >
-      <FormFields />
+      <FormFields
+        onSubmit={onSubmit}
+        onGoogleLogin={onGoogleLogin}
+        onAppleLogin={onAppleLogin}
+      />
     </AuthPageTemplate>
   );
 }

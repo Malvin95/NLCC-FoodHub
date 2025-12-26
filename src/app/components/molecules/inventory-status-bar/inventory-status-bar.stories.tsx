@@ -38,7 +38,7 @@ export const DenseGrid: Story = {
       items={[
         ...mockItems,
         {
-          id: 4,
+          id: 5,
           category: "Beverages",
           current: 75,
           target: 120,
@@ -46,7 +46,7 @@ export const DenseGrid: Story = {
           status: StatusLevels.MEDIUM,
         },
         {
-          id: 5,
+          id: 6,
           category: "Snacks",
           current: 150,
           target: 100,
@@ -54,7 +54,7 @@ export const DenseGrid: Story = {
           status: StatusLevels.GOOD,
         },
         {
-          id: 6,
+          id: 7,
           category: "Frozen",
           current: 30,
           target: 60,
@@ -112,7 +112,7 @@ export const SkeletonStructureTest: SkeletonStory = {
     await expect(skeleton).toBeInTheDocument();
     await expect(skeleton).toHaveAttribute(
       "aria-label",
-      "Loading inventory status",
+      "Loading inventory status"
     );
 
     // Check for screen reader text
@@ -149,7 +149,7 @@ export const AccessibilityTest: Story = {
     await expect(section).toBeInTheDocument();
     await expect(section).toHaveAttribute(
       "aria-labelledby",
-      "inventory-status-heading",
+      "inventory-status-heading"
     );
 
     // Heading with matching ID
@@ -169,7 +169,7 @@ export const GridAccessibilityTest: Story = {
     await expect(grid).toBeInTheDocument();
     await expect(grid).toHaveAttribute(
       "aria-label",
-      `Inventory items (${mockItems.length} items)`,
+      `Inventory items (${mockItems.length} items)`
     );
   },
 };
@@ -189,7 +189,7 @@ export const SemanticStructureTest: Story = {
     articles.forEach((article, idx) => {
       expect(article).toHaveAttribute(
         "aria-labelledby",
-        `inventory-item-${mockItems[idx].id}`,
+        `inventory-item-${mockItems[idx].id}`
       );
     });
   },
@@ -218,8 +218,8 @@ export const EmptyStateTest: Story = {
     // Empty state message should be displayed
     await expect(
       canvas.getByText(
-        "There are no inventory items being tracked at the moment",
-      ),
+        "There are no inventory items being tracked at the moment"
+      )
     ).toBeInTheDocument();
 
     // Grid should not be present

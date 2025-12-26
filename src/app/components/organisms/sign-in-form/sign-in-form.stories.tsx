@@ -8,12 +8,17 @@
  * - Mobile responsiveness
  */
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, spyOn } from "storybook/test";
+import { expect, fn } from "storybook/test";
 import SignInForm from "./sign-in-form";
 
 const meta: Meta<typeof SignInForm> = {
   title: "Organisms/SignInForm",
   component: SignInForm,
+  args: {
+    onSubmit: fn().mockName("onSubmit"),
+    onGoogleLogin: fn().mockName("onGoogleLogin"),
+    onAppleLogin: fn().mockName("onAppleLogin"),
+  },
   parameters: {
     layout: "fullscreen",
   },
@@ -61,8 +66,6 @@ export const FullFormFlow: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const consoleSpy = spyOn(console, "log");
-
     const root = canvasElement as HTMLElement;
     const email = root.querySelector<HTMLInputElement>("#email");
     const password = root.querySelector<HTMLInputElement>("#password");
@@ -84,9 +87,7 @@ export const FullFormFlow: Story = {
 
     // Trigger submission and verify
     submit!.click();
-    await expect(consoleSpy).toHaveBeenCalledWith("form submitted");
-
-    consoleSpy.mockRestore();
+    await expect(meta.args?.onSubmit).toHaveBeenCalled();
   },
 };
 
@@ -107,8 +108,6 @@ export const OAuthFlow: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const consoleSpy = spyOn(console, "log");
-
     const root = canvasElement as HTMLElement;
     const google = root.querySelector<HTMLButtonElement>(
       'button[aria-label="Login with Google"]'
@@ -123,13 +122,11 @@ export const OAuthFlow: Story = {
 
     // Click Google OAuth and verify
     google!.click();
-    await expect(consoleSpy).toHaveBeenCalledWith("google login");
+    await expect(meta.args?.onGoogleLogin).toHaveBeenCalled();
 
     // Click Apple OAuth and verify
     apple!.click();
-    await expect(consoleSpy).toHaveBeenCalledWith("apple login");
-
-    consoleSpy.mockRestore();
+    await expect(meta.args?.onAppleLogin).toHaveBeenCalled();
   },
 };
 
@@ -150,8 +147,6 @@ export const MobileFormFlow: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const consoleSpy = spyOn(console, "log");
-
     const root = canvasElement as HTMLElement;
     const email = root.querySelector<HTMLInputElement>("#email");
     const password = root.querySelector<HTMLInputElement>("#password");
@@ -173,9 +168,7 @@ export const MobileFormFlow: Story = {
 
     // Trigger submission and verify
     submit!.click();
-    await expect(consoleSpy).toHaveBeenCalledWith("form submitted");
-
-    consoleSpy.mockRestore();
+    await expect(meta.args?.onSubmit).toHaveBeenCalled();
   },
 };
 

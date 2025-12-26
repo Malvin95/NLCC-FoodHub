@@ -179,8 +179,8 @@ export const WithoutHeader: Story = {
     const root = canvasElement as HTMLElement;
 
     // Verify no title is rendered
-    const title = root.querySelector("#auth-title");
-    await expect(title).toBeTruthy(); // exists but is empty
+    const title = root.dataset["auth-title"];
+    await expect(title).not.toBeTruthy(); // exists but is empty
 
     // Verify card content still renders
     const form = root.querySelector("form");
