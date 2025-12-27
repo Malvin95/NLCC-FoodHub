@@ -65,7 +65,12 @@ export const FullFormFlow: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ args, canvasElement }) => {
+    const form = canvasElement.querySelector("form")!;
+
+    // Prevent actual submission that might navigate/reload
+    form.addEventListener("submit", (e) => e.preventDefault());
+
     const root = canvasElement as HTMLElement;
     const email = root.querySelector<HTMLInputElement>("#email");
     const password = root.querySelector<HTMLInputElement>("#password");
@@ -87,7 +92,7 @@ export const FullFormFlow: Story = {
 
     // Trigger submission and verify
     submit!.click();
-    await expect(meta.args?.onSubmit).toHaveBeenCalled();
+    await expect(args.onSubmit).toHaveBeenCalled();
   },
 };
 
@@ -107,7 +112,7 @@ export const OAuthFlow: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ args, canvasElement }) => {
     const root = canvasElement as HTMLElement;
     const google = root.querySelector<HTMLButtonElement>(
       'button[aria-label="Login with Google"]'
@@ -122,11 +127,11 @@ export const OAuthFlow: Story = {
 
     // Click Google OAuth and verify
     google!.click();
-    await expect(meta.args?.onGoogleLogin).toHaveBeenCalled();
+    await expect(args.onGoogleLogin).toHaveBeenCalled();
 
     // Click Apple OAuth and verify
     apple!.click();
-    await expect(meta.args?.onAppleLogin).toHaveBeenCalled();
+    await expect(args.onAppleLogin).toHaveBeenCalled();
   },
 };
 
@@ -146,7 +151,12 @@ export const MobileFormFlow: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ args, canvasElement }) => {
+    const form = canvasElement.querySelector("form")!;
+
+    // Prevent actual submission that might navigate/reload
+    form.addEventListener("submit", (e) => e.preventDefault());
+
     const root = canvasElement as HTMLElement;
     const email = root.querySelector<HTMLInputElement>("#email");
     const password = root.querySelector<HTMLInputElement>("#password");
@@ -168,7 +178,7 @@ export const MobileFormFlow: Story = {
 
     // Trigger submission and verify
     submit!.click();
-    await expect(meta.args?.onSubmit).toHaveBeenCalled();
+    await expect(args.onSubmit).toHaveBeenCalled();
   },
 };
 
