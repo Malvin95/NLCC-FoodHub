@@ -9,10 +9,9 @@
  */
 
 import { Button } from "../../atoms/button/button";
-import { AppleIcon } from "../../atoms/icons/apple-icon";
-import { GoogleIcon } from "../../atoms/icons/google-icon";
 import { Input } from "../../atoms/ui/input";
 import { Label } from "../../atoms/ui/label";
+import Image from "next/image";
 
 interface FormFieldsProps {
   isLoading?: boolean;
@@ -84,9 +83,16 @@ export default function FormFields({
         disabled={isLoading}
         onClick={onGoogleLogin}
       >
-        <span className="mr-2">
+        {/* <span className="mr-2">
           <GoogleIcon />
-        </span>
+        </span> */}
+        <Image
+          src="/google.svg"
+          alt="Google Icon"
+          width={20}
+          height={20}
+          className="mr-2"
+        />
         Login with Google
       </Button>
       <Button
@@ -97,9 +103,16 @@ export default function FormFields({
         disabled={isLoading}
         onClick={onAppleLogin}
       >
-        <span className="mr-2">
-          <AppleIcon />
-        </span>
+        {/* <span className="mr-2">
+              <AppleIcon />
+            </span> */}
+        <Image
+          src="/apple.svg"
+          alt="Apple Icon"
+          width={20}
+          height={20}
+          className="mr-2"
+        />
         Login with Apple
       </Button>
     </div>
