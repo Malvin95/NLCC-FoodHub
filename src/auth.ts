@@ -1,6 +1,8 @@
 import { type NextAuthOptions } from "next-auth";
 import CognitoProvider from "next-auth/providers/cognito";
 
+const JWT_EXPIRE_TIME = 10 * 60; // 10 minutes in seconds
+
 export const authOptions: NextAuthOptions = {
   providers: [
     CognitoProvider({
@@ -9,10 +11,15 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.COGNITO_CLIENT_SECRET as string,
     }),
   ],
-  session: { strategy: "jwt" },
+  session: { 
+    strategy: "jwt",
+    maxAge: JWT_EXPIRE_TIME, // 10 minutes (600 seconds)
+  },
   callbacks: {
     async jwt({ token, account, user }) {
       if (account) {
+        token.iat = Math.floor(Date.now() / 1000);
+        token.exp = token.iat + JWT_EXPIRE_TIME;
         token.accessToken = account.access_token;
         token.idToken = account.id_token;
       }
