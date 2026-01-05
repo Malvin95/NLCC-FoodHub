@@ -7,9 +7,9 @@ export const proxy = withAuth(
     if (req.nextUrl.pathname.startsWith("/auth") && req.nextauth.token) {
       return NextResponse.redirect(new URL("/dashboard", req.url));
     }
-    // Redirect unauthenticated users to login
+    // Redirect unauthenticated users to landing page instead of auto sign-in
     if (req.nextUrl.pathname.startsWith("/dashboard") && !req.nextauth.token) {
-      return NextResponse.redirect(new URL("/auth/signin", req.url));
+      return NextResponse.redirect(new URL("/", req.url));
     }
   },
   {

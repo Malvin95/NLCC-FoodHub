@@ -1,7 +1,8 @@
 "use client";
 
-import { useSession, signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function RequireAuth({
   children,
@@ -9,13 +10,14 @@ export default function RequireAuth({
   children: React.ReactNode;
 }) {
   const { data: session, status } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
     if (status === "unauthenticated") {
-      // Redirect to Cognito hosted UI
-      signIn("cognito");
+      // Redirect to landing/login page instead of auto-launching Cognito
+      router.replace("/");
     }
-  }, [status]);
+  }, [status, router]);
 
   if (status === "loading") return null;
   if (!session) return null;

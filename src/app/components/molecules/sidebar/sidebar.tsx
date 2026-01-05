@@ -242,7 +242,7 @@ export function Sidebar({
             )}
           </div>
         </nav>
-        <div>
+        <div className="absolute bottom-0 w-full p-4 border-t border-border dark:border-slate-800">
           <AuthButtons />
         </div>
       </aside>
