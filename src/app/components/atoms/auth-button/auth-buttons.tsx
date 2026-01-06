@@ -1,13 +1,24 @@
 "use client";
 
 import { useSession, signIn, signOut } from "next-auth/react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function AuthButtons() {
   const { data: session, status } = useSession();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const router = useRouter();
 
   if (status === "loading") return null;
 
   const handleLogout = async () => {
+    setIsLoggingOut(true);
+
+    // Set logout flag for dashboard to show skeleton
+    localStorage.setItem("isLoggingOut", "true");
+
+    // Show loading page with skeleton
+
     try {
       // Step 1: Call Cognito GlobalSignOut API to revoke tokens
       const logoutResponse = await fetch("/api/auth/cognito-logout", {
@@ -42,6 +53,7 @@ export default function AuthButtons() {
       }
     } catch (error) {
       console.error("Logout error:", error);
+      setIsLoggingOut(false);
       // Fallback: at least clear NextAuth and go home
       await signOut({ callbackUrl: "/" });
     }
@@ -55,10 +67,11 @@ export default function AuthButtons() {
             Signed in as {session.user?.name || session.user?.email || "user"}
           </span>
           <button
-            className="rounded px-3 py-1 bg-zinc-900 text-white dark:bg-zinc-100 dark:text-black"
+            className="rounded px-3 py-1 bg-zinc-900 text-white dark:bg-zinc-100 dark:text-black disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={handleLogout}
+            disabled={isLoggingOut}
           >
-            Sign out
+            {isLoggingOut ? "Signing out..." : "Sign out"}
           </button>
         </>
       ) : (
