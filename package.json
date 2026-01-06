@@ -40,6 +40,7 @@
     "@storybook/addon-styling-webpack": "^3.0.0",
     "@storybook/addon-themes": "^10.1.5",
     "@storybook/addon-vitest": "^10.1.2",
+    "@storybook/addon-webpack5-compiler-babel": "^4.0.0",
     "@storybook/nextjs-vite": "^10.1.2",
     "@tailwindcss/postcss": "^4",
     "@types/jest": "^30.0.0",

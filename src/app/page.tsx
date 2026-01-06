@@ -9,6 +9,7 @@ export default function Home() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
+  // Redirect authenticated users to dashboard on client-side
   useEffect(() => {
     if (status === "authenticated" && session) {
       router.push("/dashboard");

@@ -55,7 +55,7 @@ export const mockAuthOptions: NextAuthOptions = {
         // Mock user for testing - any email/password combo works
         if (credentials?.email && credentials?.password) {
           return {
-            id: `mock-user-${Math.random().toString(36).substr(2, 9)}`,
+            id: `mock-user-${Math.random().toString(36).substring(2, 11)}`,
             email: credentials.email,
             name: credentials.email.split('@')[0],
           };
@@ -84,8 +84,8 @@ export const mockAuthOptions: NextAuthOptions = {
       if (account) {
         token.iat = Math.floor(Date.now() / 1000);
         token.exp = token.iat + JWT_EXPIRE_TIME; // 10 minutes
-        token.accessToken = 'mock-access-token-' + Math.random().toString(36).substr(2, 9);
-        token.idToken = 'mock-id-token-' + Math.random().toString(36).substr(2, 9);
+        token.accessToken = 'mock-access-token-' + Math.random().toString(36).substring(2, 11);
+        token.idToken = 'mock-id-token-' + Math.random().toString(36).substring(2, 11);
       }
       if (user) {
         token.id = user.id;
@@ -108,17 +108,6 @@ export const mockAuthOptions: NextAuthOptions = {
         session.accessToken = token.accessToken as string;
       }
       return session;
-    },
-    /**
-     * Mock redirect callback - redirects to dashboard after sign-in.
-     * 
-     * Identical to production behavior for consistent testing.
-     * 
-     * @param baseUrl - Application base URL
-     * @returns Dashboard URL path
-     */
-    async redirect({ baseUrl }) {
-      return `${baseUrl}/dashboard`;
     },
   },
   secret: 'mock-secret-for-development-only-do-not-use-in-production',

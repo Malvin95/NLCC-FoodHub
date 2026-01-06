@@ -12,8 +12,16 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const region = process.env.COGNITO_REGION;
+    if (!region) {
+      return NextResponse.json(
+        { message: "COGNITO_REGION environment variable is not configured" },
+        { status: 500 }
+      );
+    }
+
     const client = new CognitoIdentityProviderClient({
-      region: process.env.COGNITO_REGION,
+      region,
     });
 
     const command = new GlobalSignOutCommand({
@@ -26,7 +34,7 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error("Cognito GlobalSignOut error:", error);
     return NextResponse.json(
-      { message: "Failed to sign out from Cognito", error: String(error) },
+      { message: "Failed to sign out from Cognito" }, // TODO: improve error handling for server errors
       { status: 500 }
     );
   }

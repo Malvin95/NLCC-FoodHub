@@ -43,7 +43,7 @@ export const authOptions: NextAuthOptions = {
   ],
   session: { 
     strategy: "jwt",
-    maxAge: JWT_EXPIRE_TIME, // 10 minutes (600 seconds)
+    maxAge: JWT_EXPIRE_TIME, // 60 minutes (3600 seconds)
   },
   callbacks: {
     /**
@@ -62,10 +62,32 @@ export const authOptions: NextAuthOptions = {
         token.iat = Math.floor(Date.now() / 1000);
         token.exp = token.iat + JWT_EXPIRE_TIME;
         token.accessToken = account.access_token;
+        token.refreshToken = account.refresh_token;
         token.idToken = account.id_token;
       }
       if (user) {
         token.id = user.id;
+      }
+      
+      // Refresh token if expired
+      if (token.exp && token.exp * 1000 < Date.now()) {
+      try {
+        const response = await fetch(`${process.env.COGNITO_ISSUER}/oauth2/token`, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          client_id: process.env.COGNITO_CLIENT_ID as string,
+          client_secret: process.env.COGNITO_CLIENT_SECRET as string,
+          grant_type: "refresh_token",
+          refresh_token: token.refreshToken as string,
+        }),
+        });
+        const refreshedTokens = await response.json();
+        token.accessToken = refreshedTokens.access_token;
+        token.exp = Math.floor(Date.now() / 1000) + JWT_EXPIRE_TIME;
+      } catch (error) {
+        console.error("Token refresh failed:", error);
+      }
       }
       return token;
     },
@@ -85,18 +107,7 @@ export const authOptions: NextAuthOptions = {
         session.accessToken = token.accessToken as string;
       }
       return session;
-    },
-    /**
-     * Redirect callback - controls where users are redirected after authentication.
-     * 
-     * Redirects all authenticated users to the dashboard after successful sign-in.
-     * 
-     * @param baseUrl - The base URL of the application
-     * @returns URL path to redirect to (always /dashboard)
-     */
-    async redirect({ baseUrl }) {
-      return `${baseUrl}/dashboard`;
-    },
+    }
   },
   secret: process.env.NEXTAUTH_SECRET,
 };

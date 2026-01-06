@@ -19,7 +19,7 @@ export default function RequireAuth({
     }
   }, [status, router]);
 
-  if (status === "loading") return null;
+  if (status !== "authenticated") return null;
   if (!session) return null;
 
   return <>{children}</>;

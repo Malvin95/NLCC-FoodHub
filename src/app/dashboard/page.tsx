@@ -11,20 +11,33 @@ export default function OverviewPage() {
   useEffect(() => {
     // Check if logout is in progress
     const checkLogoutStatus = () => {
-      const loggingOut = localStorage.getItem("isLoggingOut") === "true";
-      setIsLoggingOut(loggingOut);
+      if (typeof window !== "undefined" && window.localStorage) {
+        const loggingOut = localStorage.getItem("isLoggingOut") === "true";
+        setIsLoggingOut(loggingOut);
+      }
     };
 
     // Check initially
     checkLogoutStatus();
 
-    // Set up an interval to check for logout state changes
-    const interval = setInterval(checkLogoutStatus, 100);
+    // Listen for storage changes to update logout state without polling
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === "isLoggingOut") {
+        const loggingOut = event.newValue === "true";
+        setIsLoggingOut(loggingOut);
+      }
+    };
+
+    if (typeof window !== "undefined") {
+      window.addEventListener("storage", handleStorageChange);
+    }
 
     // Cleanup
     return () => {
-      clearInterval(interval);
-      localStorage.removeItem("isLoggingOut");
+      if (typeof window !== "undefined") {
+        window.removeEventListener("storage", handleStorageChange);
+        localStorage.removeItem("isLoggingOut");
+      }
     };
   }, []);
 

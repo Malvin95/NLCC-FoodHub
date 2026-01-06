@@ -5,8 +5,10 @@
  * - Uses Next.js App Router emulation via `parameters.nextjs`.
  * - Sets `disableNavigation: true` by default to prevent link navigation in Storybook.
  * - Demonstrates active-state highlighting via `currentPathname`.
+ * - Wrapped with SessionProvider decorator to support AuthButtons component.
  */
 import type { Meta, StoryObj } from "@storybook/react";
+import { SessionProvider } from "next-auth/react";
 import { Sidebar } from "./sidebar";
 
 /**
@@ -20,6 +22,13 @@ const meta = {
   title: "Molecules/Sidebar",
   component: Sidebar,
   tags: ["autodocs"],
+  decorators: [
+    (Story) => (
+      <SessionProvider session={null}>
+        <Story />
+      </SessionProvider>
+    ),
+  ],
   parameters: {
     layout: "fullscreen",
     nextjs: {
