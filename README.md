@@ -1,36 +1,183 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NLCC Food Hub Dashboard
 
-## Getting Started
+A comprehensive dashboard application for FoodHub distribution and organization management, built with Next.js 16, TypeScript, and AWS Cognito authentication.
 
-First, run the development server:
+## ✨ Features
+
+- 🔐 **Flexible Authentication** - AWS Cognito integration with mock auth for development
+- 📊 **Multi-Section Dashboard** - Engagement, Events, Inventory, History, and Volunteers
+- 🎨 **Component Library** - Built with Atomic Design principles and Storybook
+- 🧪 **Comprehensive Testing** - Jest, Vitest, and Chromatic visual testing
+- 🎯 **Type-Safe** - Full TypeScript support with strict mode
+- 🚀 **Modern Stack** - Next.js 16, React 19, TailwindCSS 4
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js 18.17 or higher
+- npm 9.0+ (or yarn/pnpm)
+
+### 1. Clone and Install
+
+```bash
+git clone https://github.com/Malvin95/NLCC-FoodHub.git
+cd foodhub
+npm install
+```
+
+### 2. Configure Environment
+
+Create a `.env.local` file in the root directory:
+
+**For Development (Recommended for quick start):**
+
+```env
+# Use mock authentication (no AWS account needed)
+USE_MOCK_AUTH=true
+NEXT_PUBLIC_USE_MOCK_AUTH=true
+
+# NextAuth Configuration
+NEXTAUTH_SECRET=dev-secret-not-for-production
+NEXTAUTH_URL=http://localhost:3000
+```
+
+**For Production (AWS Cognito):**
+
+```env
+# AWS Cognito Configuration
+COGNITO_ISSUER=https://cognito-idp.{region}.amazonaws.com/{region}_{poolId}
+COGNITO_CLIENT_ID=your_client_id
+COGNITO_CLIENT_SECRET=your_client_secret
+
+# NextAuth Configuration
+NEXTAUTH_SECRET=your_generated_secret  # Generate with: openssl rand -base64 32
+NEXTAUTH_URL=http://localhost:3000
+```
+
+### 3. Start Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. Start Storybook (Optional)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run storybook
+```
 
-## Learn More
+View component library at [http://localhost:6006](http://localhost:6006)
 
-To learn more about Next.js, take a look at the following resources:
+## 📖 Documentation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+For detailed documentation, see:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **[SETUP.md](SETUP.md)** - Complete installation and configuration guide
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Project structure and technology stack
+- **[AUTHENTICATION.md](AUTHENTICATION.md)** - Auth system and AWS Cognito setup
+- **[COMPONENTS.md](COMPONENTS.md)** - Component development guide
 
-## Deploy on Vercel
+## 🛠️ Available Scripts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm start            # Run production build
+npm test             # Run tests
+npm run lint         # Run ESLint
+npm run storybook    # Start Storybook
+npm run chromatic    # Visual testing with Chromatic
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🏗️ Project Structure
+
+```
+foodhub/
+├── src/
+│   ├── app/                    # Next.js app directory
+│   │   ├── api/               # API routes
+│   │   ├── components/        # React components (Atomic Design)
+│   │   │   ├── atoms/        # Basic UI elements
+│   │   │   ├── molecules/    # Simple combinations
+│   │   │   ├── organisms/    # Complex components
+│   │   │   ├── templates/    # Page layouts
+│   │   │   └── pages/        # Page components
+│   │   ├── dashboard/         # Dashboard pages
+│   │   │   ├── engagement/
+│   │   │   ├── events/
+│   │   │   ├── history/
+│   │   │   ├── inventory/
+│   │   │   └── volunteers/
+│   │   └── shared/            # Shared utilities
+│   ├── auth/                   # Authentication module
+│   │   ├── auth.ts            # Cognito configuration
+│   │   ├── auth.mock.ts       # Mock auth for development
+│   │   └── config.ts          # Feature flags
+│   └── lib/                    # Utility functions
+├── public/                     # Static assets
+└── [config files]             # TypeScript, Jest, ESLint, etc.
+```
+
+## 🔐 Authentication
+
+This project supports two authentication modes:
+
+### Development Mode (Mock Auth)
+- **Use when:** Local development, testing, CI/CD
+- **Setup:** Set `USE_MOCK_AUTH=true` in `.env.local`
+- **Benefits:** No AWS account needed, instant setup
+
+### Production Mode (AWS Cognito)
+- **Use when:** Staging, production environments
+- **Setup:** Configure AWS Cognito credentials in `.env.local`
+- **Benefits:** Enterprise-grade security, real user management
+
+See [AUTHENTICATION.md](AUTHENTICATION.md) for detailed setup instructions.
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+npm test
+
+# Run with coverage
+npm test -- --coverage
+
+# Run in watch mode
+npm test -- --watch
+```
+
+## 📦 Tech Stack
+
+- **Framework:** Next.js 16 with App Router
+- **Language:** TypeScript 5
+- **UI:** React 19, TailwindCSS 4, Radix UI
+- **Auth:** NextAuth.js 4, AWS Cognito
+- **Charts:** Recharts
+- **Testing:** Jest, Vitest, Playwright
+- **Storybook:** Component development & documentation
+- **Code Quality:** ESLint, Prettier
+
+## 🤝 Contributing
+
+1. Create a feature branch: `git checkout -b feature/your-feature`
+2. Make your changes
+3. Run tests: `npm test`
+4. Commit: `git commit -m "feat: your feature description"`
+5. Push: `git push origin feature/your-feature`
+6. Create a Pull Request
+
+## 📝 License
+
+This project is private and proprietary.
+
+## 🔗 Resources
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [NextAuth.js Documentation](https://next-auth.js.org)
+- [AWS Cognito Documentation](https://docs.aws.amazon.com/cognito/)
+- [TailwindCSS Documentation](https://tailwindcss.com/docs)
+- [Storybook Documentation](https://storybook.js.org/docs)
