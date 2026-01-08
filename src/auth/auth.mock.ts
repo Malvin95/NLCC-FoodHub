@@ -66,7 +66,7 @@ export const mockAuthOptions: NextAuthOptions = {
   ],
   session: { 
     strategy: 'jwt',
-    maxAge: JWT_EXPIRE_TIME, // 10 minutes
+    maxAge: JWT_EXPIRE_TIME, // 1 hour (3600 seconds)
   },
   callbacks: {
     /**
@@ -83,7 +83,7 @@ export const mockAuthOptions: NextAuthOptions = {
     async jwt({ token, account, user }) {
       if (account) {
         token.iat = Math.floor(Date.now() / 1000);
-        token.exp = token.iat + JWT_EXPIRE_TIME; // 10 minutes
+        token.exp = token.iat + JWT_EXPIRE_TIME; // 1 hour (3600 seconds)
         token.accessToken = 'mock-access-token-' + Math.random().toString(36).substring(2, 11);
         token.idToken = 'mock-id-token-' + Math.random().toString(36).substring(2, 11);
       }

@@ -10,7 +10,7 @@ import { JWT_EXPIRE_TIME } from "./constants";
  * 
  * @remarks
  * **Session Strategy**: Uses JWT tokens stored in HTTP-only cookies
- * **Token Expiration**: 10 minutes (configurable via JWT_EXPIRE_TIME)
+ * **Token Expiration**: 1 hour (3600 seconds, configurable via JWT_EXPIRE_TIME)
  * **Provider**: AWS Cognito OAuth2/OIDC
  * 
  * @example

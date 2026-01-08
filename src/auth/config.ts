@@ -23,18 +23,30 @@
  * 3. Defaults to `false` (uses production Cognito authentication)
  */
 export const getUseMockAuth = (): boolean => {
+  let useMockAuth = false;
+
   // Check NEXT_PUBLIC_ prefixed env var first (available at build time)
-  if (typeof process !== 'undefined' && process.env.NEXT_PUBLIC_USE_MOCK_AUTH) {
-    return process.env.NEXT_PUBLIC_USE_MOCK_AUTH === 'true';
-  }
-  
-  // Check non-public env var (server-side only)
-  if (typeof process !== 'undefined' && process.env.USE_MOCK_AUTH) {
-    return process.env.USE_MOCK_AUTH === 'true';
+  if (process.env.NEXT_PUBLIC_USE_MOCK_AUTH) {
+    useMockAuth = process.env.NEXT_PUBLIC_USE_MOCK_AUTH === 'true';
+  } else if (process.env.USE_MOCK_AUTH) {
+    // Check non-public env var (server-side only)
+    useMockAuth = process.env.USE_MOCK_AUTH === 'true';
   }
 
-  // Default to production authentication
-  return false;
+  // Safeguard: prevent mock authentication from being enabled in production  
+  if (  
+    useMockAuth &&  
+    typeof process !== 'undefined' &&  
+    process.env.NODE_ENV === 'production'  
+  ) {  
+    throw new Error(  
+      'Mock authentication is enabled while NODE_ENV is "production". ' +  
+      'Disable USE_MOCK_AUTH/NEXT_PUBLIC_USE_MOCK_AUTH in production environments.'  
+    );  
+  }  
+
+  // Default to production authentication when not explicitly enabled  
+  return useMockAuth;
 };
 
 /**
