@@ -141,7 +141,7 @@ NEXTAUTH_URL=http://localhost:3000
 - Refresh Token: Valid mock token
 - Expires in: 1 hour (configurable)
 
-### File: [src/auth/auth.mock.ts](src/auth/auth.mock.ts)
+### File: [src/auth/auth.mock.ts](../src/auth/auth.mock.ts)
 
 Contains the mock authentication configuration:
 ```typescript
@@ -268,7 +268,7 @@ openssl rand -base64 32
 2. Add production URL: `https://yourdomain.com/api/auth/callback/cognito`
 3. Add sign-out URL: `https://yourdomain.com`
 
-### File: [src/auth/auth.ts](src/auth/auth.ts)
+### File: [src/auth/auth.ts](../src/auth/auth.ts)
 
 Contains the Cognito authentication configuration:
 
@@ -402,7 +402,7 @@ Tokens are automatically refreshed **before expiration**:
 
 ### Configuration
 
-Token expiration time is set in [src/auth/constants.ts](src/auth/constants.ts):
+Token expiration time is set in [src/auth/constants.ts](../src/auth/constants.ts):
 
 ```typescript
 export const JWT_EXPIRE_TIME = 3600; // 1 hour in seconds

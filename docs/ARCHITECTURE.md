@@ -140,22 +140,22 @@ NEXTAUTH_SECRET={generated_secret}
 NEXTAUTH_URL=http://localhost:3000
 ```
 
-#### [src/auth/auth.mock.ts](src/auth/auth.mock.ts)
+#### [src/auth/auth.mock.ts](../src/auth/auth.mock.ts)
 **Mock Authentication for Development**
 - Provides fake user sessions for testing without Cognito
 - Useful for CI/CD pipelines and local development
 
-#### [src/auth/config.ts](src/auth/config.ts)
+#### [src/auth/config.ts](../src/auth/config.ts)
 **Feature Flag Management**
 - Reads environment variables
 - Provides `authFeatureFlags` object
 - `getUseMockAuth()` function for runtime checks
 
-#### [src/auth/constants.ts](src/auth/constants.ts)
+#### [src/auth/constants.ts](../src/auth/constants.ts)
 **Authentication Constants**
 - `JWT_EXPIRE_TIME` - Token expiration time (3600 seconds = 1 hour)
 
-#### [src/auth/types.ts](src/auth/types.ts)
+#### [src/auth/types.ts](../src/auth/types.ts)
 **Type Definitions**
 - Custom types for auth-related data structures
 
@@ -268,12 +268,12 @@ NEXTAUTH_URL=http://localhost:3000
 
 ### Jest
 - Unit and integration tests
-- Configuration: [jest.config.ts](jest.config.ts)
+- Configuration: [jest.config.ts](../jest.config.ts)
 - Test files: `*.test.ts`, `*.test.tsx`
 
 ### Vitest
 - Alternative test runner with better ESM support
-- Configuration: [vitest.config.ts](vitest.config.ts)
+- Configuration: [vitest.config.ts](../vitest.config.ts)
 
 ### Storybook
 - Component-driven development
@@ -290,13 +290,9 @@ NEXTAUTH_URL=http://localhost:3000
 ## Code Quality
 
 ### ESLint
-- Configuration: [eslint.config.mjs](eslint.config.mjs)
+- Configuration: [eslint.config.mjs](../eslint.config.mjs)
 - Includes Next.js and Storybook plugins
 - Run: `npm run lint`
-
-### Prettier
-- Code formatter with opinionated defaults
-- Configuration: [postcss.config.mjs](postcss.config.mjs)
 
 ### TypeScript
 - Strict mode enabled
@@ -308,12 +304,11 @@ NEXTAUTH_URL=http://localhost:3000
 
 ### TailwindCSS 4
 - Utility-first CSS framework
-- Configuration: [tailwind.config.ts](tailwind.config.ts)
-- Global styles: [src/app/globals.css](src/app/globals.css)
+- Global styles: [src/app/globals.css](../src/app/globals.css)
 
 ### PostCSS
 - CSS transformations and optimizations
-- Configuration: [postcss.config.mjs](postcss.config.mjs)
+- Configuration: [postcss.config.mjs](../postcss.config.mjs)
 
 ---
 

@@ -22,7 +22,7 @@ A comprehensive dashboard application for FoodHub distribution and organization 
 
 ```bash
 git clone https://github.com/Malvin95/NLCC-FoodHub.git
-cd foodhub
+cd NLCC-FoodHub
 npm install
 ```
 
@@ -75,10 +75,10 @@ View component library at [http://localhost:6006](http://localhost:6006)
 
 For detailed documentation, see:
 
-- **[SETUP.md](SETUP.md)** - Complete installation and configuration guide
-- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Project structure and technology stack
-- **[AUTHENTICATION.md](AUTHENTICATION.md)** - Auth system and AWS Cognito setup
-- **[COMPONENTS.md](COMPONENTS.md)** - Component development guide
+- **[SETUP.md](docs/SETUP.md)** - Complete installation and configuration guide
+- **[ARCHITECTURE.md](docs/ARCHITECTURE.md)** - Project structure and technology stack
+- **[AUTHENTICATION.md](docs/AUTHENTICATION.md)** - Auth system and AWS Cognito setup
+- **[COMPONENTS.md](docs/COMPONENTS.md)** - Component development guide
 
 ## 🛠️ Available Scripts
 
@@ -135,7 +135,7 @@ This project supports two authentication modes:
 - **Setup:** Configure AWS Cognito credentials in `.env.local`
 - **Benefits:** Enterprise-grade security, real user management
 
-See [AUTHENTICATION.md](AUTHENTICATION.md) for detailed setup instructions.
+See [AUTHENTICATION.md](docs/AUTHENTICATION.md) for detailed setup instructions.
 
 ## 🧪 Testing
 

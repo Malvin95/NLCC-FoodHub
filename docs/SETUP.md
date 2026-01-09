@@ -14,7 +14,7 @@
 
 ```bash
 git clone https://github.com/Malvin95/NLCC-FoodHub.git
-cd foodhub
+cd NLCC-FoodHub
 ```
 
 ### 2. Install Dependencies
@@ -123,7 +123,7 @@ The application will be available at:
    - `Prettier - Code formatter`
    - `ESLint`
    - `Tailwind CSS IntelliSense`
-   - `TypeScript Vue Plugin (Volar)`
+   - `TypeScript + React`
 
 2. Create `.vscode/settings.json`:
    ```json
