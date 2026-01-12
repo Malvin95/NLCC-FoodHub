@@ -223,6 +223,9 @@ export function Sidebar({
                         event.preventDefault();
                         event.stopPropagation();
                       }
+                      if (!isDesktop) {
+                        setIsOpen(false);
+                      }
                     }}
                     aria-current={isActive ? "page" : undefined}
                     className={`
