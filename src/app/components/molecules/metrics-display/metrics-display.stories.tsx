@@ -142,7 +142,7 @@ export const VerifyAccessibility: Story = {
 
     // Verify activities use unordered list
     const activitiesList = canvasElement.querySelector(
-      'ul[aria-label="Activities list"]',
+      'ul[aria-label="Activities list"]'
     );
     await expect(activitiesList).toBeInTheDocument();
 
@@ -164,7 +164,7 @@ export const VerifyIconAccessibility: Story = {
 
     // Verify icon wrappers also have aria-hidden
     const iconWrappers = canvasElement.querySelectorAll(
-      'div[aria-hidden="true"]',
+      'div[aria-hidden="true"]'
     );
     await expect(iconWrappers.length).toBeGreaterThanOrEqual(4);
   },
@@ -176,15 +176,12 @@ export const VerifyIconAccessibility: Story = {
 export const DarkMode: Story = {
   args: sampleData,
   parameters: {
-    backgrounds: { default: "dark" },
+    docs: {
+      description: {
+        story:
+          "Displays metrics in dark mode with appropriate styling and accessibility features.",
+      },
+    },
   },
-  decorators: [
-    (Story) => (
-      <div className="dark">
-        <div className="bg-slate-950 p-6 rounded-lg">
-          <Story />
-        </div>
-      </div>
-    ),
-  ],
+  globals: { theme: "dark" },
 };
