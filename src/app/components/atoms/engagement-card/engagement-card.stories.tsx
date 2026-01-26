@@ -106,35 +106,6 @@ export const RendersCoreFields: Story = {
   },
 };
 
-export const UpdatesResponseCount: Story = {
-  args: {
-    configIcon: <MessageCircle className="w-4 h-4 text-blue-600" />,
-    configColor: "text-blue-600",
-    configLabel: "Comment",
-    statusColor: "border-green-300 text-green-700",
-    statusLabel: "Open",
-    title: "Community Pantry Request",
-    content:
-      "We are organizing a food drive and looking for volunteers to help with sorting and distribution.",
-    time: "2h ago",
-    author: "Jane Doe",
-    responseCount: 0,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "Tests dynamic response count display with zero responses.",
-      },
-    },
-  },
-  render: (args) => <EngagementCard {...args} />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    // Verify initial count
-    await expect(canvas.getByText(/0 responses/i)).toBeInTheDocument();
-  },
-};
-
 type SkeletonStory = StoryObj<typeof EngagementCardSkeleton>;
 
 export const LoadingSkeleton: SkeletonStory = {

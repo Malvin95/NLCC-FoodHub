@@ -86,7 +86,7 @@ export default function InventoryStatusBar({ items }: InventoryStatusBarProps) {
           aria-label={`Inventory items (${items.length} items)`}
         >
           {items.map((item) => (
-            <InventoryStatusCard key={item.id} item={item} />
+            <InventoryStatusCard key={item.id} {...item} />
           ))}
         </div>
       )}

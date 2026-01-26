@@ -206,18 +206,6 @@ export const ChildrenRenderTest: Story = {
 };
 
 /**
- * Template with no children provided
- */
-export const EmptyState: Story = {
-  render: () => (
-    <DashboardPageTemplate
-      title="Empty Dashboard"
-      description="This dashboard has no content sections"
-    ></DashboardPageTemplate>
-  ),
-};
-
-/**
  * Verify empty state message is displayed
  */
 export const EmptyStateTest: Story = {
@@ -281,7 +269,7 @@ export const AccessibilityTest: Story = {
     const description = canvasElement.querySelector("h2");
     await expect(description).toBeInTheDocument();
     await expect(description?.textContent).toBe(
-      "Testing accessibility features",
+      "Testing accessibility features"
     );
 
     // Verify content is rendered
@@ -290,21 +278,6 @@ export const AccessibilityTest: Story = {
 };
 
 // Skeleton Loading States
-
-/**
- * Loading skeleton with default content blocks
- */
-export const Skeleton: SkeletonStory = {
-  render: () => <DashboardPageTemplateSkeleton />,
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Loading skeleton mirroring the DashboardPageTemplate layout with 2 content block placeholders.",
-      },
-    },
-  },
-};
 
 /**
  * Loading skeleton with custom content blocks
@@ -336,7 +309,7 @@ export const SkeletonStructureTest: SkeletonStory = {
     await expect(skeleton).toBeInTheDocument();
     await expect(skeleton).toHaveAttribute(
       "aria-label",
-      "Loading dashboard page",
+      "Loading dashboard page"
     );
 
     // Check for screen reader text

@@ -44,30 +44,6 @@ export const Default: Story = {
   },
 };
 
-export const HelpTabActive: Story = {
-  args: {
-    activeTab: EngagementRequestSortType.HELP,
-  },
-};
-
-export const VolunteerTabActive: Story = {
-  args: {
-    activeTab: EngagementRequestSortType.VOLUNTEER,
-  },
-};
-
-export const DonationTabActive: Story = {
-  args: {
-    activeTab: EngagementRequestSortType.DONATION,
-  },
-};
-
-export const QuestionTabActive: Story = {
-  args: {
-    activeTab: EngagementRequestSortType.QUESTION,
-  },
-};
-
 export const NoActiveTab: Story = {
   args: {},
 };
@@ -110,19 +86,19 @@ export const Interactive: Story = {
 };
 
 // Interactive test stories
-export const AllTabRenderTest: Story = {
+export const RenderTest: Story = {
   args: {
-    activeTab: EngagementRequestSortType.ALL,
+    activeTab: EngagementRequestSortType.HELP,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Check all filter buttons are rendered
+    // Check all filter buttons are rendered with proper ARIA attributes
     await expect(
       canvas.getByRole("button", { name: /all requests/i }),
     ).toBeInTheDocument();
     await expect(
-      canvas.getByRole("button", { name: /help requests/i }),
+      canvas.getByRole("button", { name: /help requests/i, pressed: true }),
     ).toBeInTheDocument();
     await expect(
       canvas.getByRole("button", { name: /volunteers needed/i }),
@@ -133,35 +109,6 @@ export const AllTabRenderTest: Story = {
     await expect(
       canvas.getByRole("button", { name: /questions/i }),
     ).toBeInTheDocument();
-  },
-};
-
-export const ActiveTabStateTest: Story = {
-  args: {
-    activeTab: EngagementRequestSortType.HELP,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Check that the active filter has aria-pressed=true
-    const activeButton = canvas.getByRole("button", {
-      name: /help requests/i,
-      pressed: true,
-    });
-    await expect(activeButton).toBeInTheDocument();
-  },
-};
-
-export const TabAttributesTest: Story = {
-  args: {
-    activeTab: EngagementRequestSortType.ALL,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Check that buttons have proper ARIA pressed attribute
-    const allButton = canvas.getByRole("button", { name: /all requests/i });
-    await expect(allButton).toHaveAttribute("aria-pressed");
   },
 };
 
@@ -234,25 +181,18 @@ export const LoadingSkeleton: SkeletonStory = {
   },
 };
 
-export const SkeletonStructureTest: SkeletonStory = {
+export const SkeletonTest: SkeletonStory = {
   render: () => <FilterBarSkeleton />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Check role and aria-label
+    // Check structure and accessibility
     const container = canvas.getByRole("status");
     await expect(container).toHaveAttribute("aria-label", "Loading filter bar");
 
-    // Check skeleton elements exist and have pulse animation
+    // Check skeleton elements exist
     const skeleton = canvasElement.querySelector(".animate-pulse");
     await expect(skeleton).toBeInTheDocument();
-  },
-};
-
-export const SkeletonAccessibilityTest: SkeletonStory = {
-  render: () => <FilterBarSkeleton />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
 
     // Check for screen reader text
     const srText = canvas.getByText("Loading filter bar...");

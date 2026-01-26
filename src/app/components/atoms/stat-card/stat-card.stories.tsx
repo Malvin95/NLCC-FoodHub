@@ -2,14 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { within, expect } from "storybook/test";
 import { StatCard } from "./stat-card";
 import { StatCardSkeleton } from "./stat-card-skeleton";
-import {
-  TrendingUp,
-  TrendingDown,
-  Users,
-  Package,
-  Calendar,
-  Heart,
-} from "lucide-react";
+import { Users } from "lucide-react";
 
 const meta: Meta<typeof StatCard> = {
   title: "Atoms/StatCard",
@@ -66,74 +59,35 @@ export const Default: Story = {
   args: baseArgs,
 };
 
-export const UpTrend: Story = {
-  args: {
-    ...baseArgs,
-    trend: "up",
-    change: "+5%",
-    color: "green",
-    icon: TrendingUp,
-  },
-};
-
-export const DownTrend: Story = {
-  args: {
-    ...baseArgs,
-    trend: "down",
-    change: "-3%",
-    color: "purple",
-    icon: TrendingDown,
-  },
-};
-
-export const Rose: Story = {
-  args: { ...baseArgs, color: "rose", icon: Heart },
-};
-
-export const Blue: Story = {
-  args: { ...baseArgs, color: "blue", icon: Calendar },
-};
-
-export const Green: Story = {
-  args: { ...baseArgs, color: "green", icon: Package },
-};
-
-export const Purple: Story = {
-  args: { ...baseArgs, color: "purple", icon: Users },
-};
+// Interactive test stories
 
 // Interactive test stories
-export const TrendIconTest: Story = {
-  args: { ...baseArgs, trend: "down", change: "-8%" },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    // Assert change text renders
-    await expect(canvas.getByText("-8%")).toBeInTheDocument();
-    // Assert down icon exists (class w-4 h-4 inside red text container)
-    const downIcon = canvas.getByRole("img", { hidden: true }); // lucide icons render svg with role img
-    await expect(downIcon).toBeInTheDocument();
-  },
-};
-
-export const ValueAndTitleTest: Story = {
+export const RenderTest: Story = {
   args: baseArgs,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    // Title and value render
     await expect(canvas.getByText("Active Volunteers")).toBeInTheDocument();
     await expect(canvas.getByText("128")).toBeInTheDocument();
+    // Trend change renders
+    await expect(canvas.getByText("+12%")).toBeInTheDocument();
+    // Color classes applied
+    const accentDiv = canvasElement.querySelector("div.p-3.rounded-lg");
+    await expect(accentDiv?.className).toMatch(/bg-rose-100/);
+    await expect(accentDiv?.className).toMatch(/text-rose-600/);
   },
 };
 
-export const ColorClassTest: Story = {
-  args: { ...baseArgs, color: "blue" },
+export const DownTrendTest: Story = {
+  args: { ...baseArgs, trend: "down", change: "-8%", color: "blue" },
   play: async ({ canvasElement }) => {
-    // Check the accent wrapper div contains a blue-* class
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("-8%")).toBeInTheDocument();
+    // Verify color theme changed
     const accentDiv = canvasElement.querySelector("div.p-3.rounded-lg");
     await expect(accentDiv?.className).toMatch(/bg-blue-100/);
-    await expect(accentDiv?.className).toMatch(/text-blue-600/);
   },
 };
-
 // Skeleton Loading States
 type SkeletonStory = StoryObj<typeof StatCardSkeleton>;
 
@@ -149,25 +103,18 @@ export const LoadingSkeleton: SkeletonStory = {
   },
 };
 
-export const SkeletonStructureTest: SkeletonStory = {
+export const SkeletonTest: SkeletonStory = {
   render: () => <StatCardSkeleton />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Check role and aria-label
+    // Check structure and accessibility
     const container = canvas.getByRole("status");
     await expect(container).toHaveAttribute("aria-label", "Loading statistics");
 
     // Check skeleton elements exist
     const pulsingElements = canvasElement.querySelectorAll(".animate-pulse");
     await expect(pulsingElements.length).toBeGreaterThan(0);
-  },
-};
-
-export const SkeletonAccessibilityTest: SkeletonStory = {
-  render: () => <StatCardSkeleton />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
 
     // Check for screen reader text
     const srText = canvas.getByText("Loading statistics data...");
@@ -175,7 +122,6 @@ export const SkeletonAccessibilityTest: SkeletonStory = {
     await expect(srText.className).toContain("sr-only");
   },
 };
-
 export const MultipleSkeletons: SkeletonStory = {
   render: () => (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

@@ -31,11 +31,6 @@ type Story = StoryObj<typeof AuthPageTemplate>;
  * Desktop viewport for standard layout inspection.
  */
 export const Default: Story = {
-  parameters: {
-    viewport: {
-      defaultViewport: "desktop",
-    },
-  },
   render: () => (
     <AuthPageTemplate
       title="Sign In"
@@ -79,11 +74,6 @@ export const Default: Story = {
  * DesktopFull: Complete template on desktop with all optional elements.
  */
 export const DesktopFull: Story = {
-  parameters: {
-    viewport: {
-      defaultViewport: "desktop",
-    },
-  },
   render: () => (
     <AuthPageTemplate
       title="Sign In"
@@ -109,7 +99,7 @@ export const DesktopFull: Story = {
     // Verify title and description
     const title = root.querySelector("#auth-title");
     const description = root.textContent?.includes(
-      "Access your FoodHub account"
+      "Access your FoodHub account",
     );
     await expect(title).toBeTruthy();
     await expect(description).toBeTruthy();
@@ -124,10 +114,8 @@ export const DesktopFull: Story = {
  * Mobile: Template on iPhone 12 viewport to test responsive layout.
  */
 export const Mobile: Story = {
-  parameters: {
-    viewport: {
-      defaultViewport: "iphone12",
-    },
+  globals: {
+    viewport: { value: "mobile1", isRotated: false },
   },
   render: () => (
     <AuthPageTemplate
@@ -165,9 +153,9 @@ export const Mobile: Story = {
  * WithoutHeader: Template without title/description/logo (minimal header).
  */
 export const WithoutHeader: Story = {
-  parameters: {
+  globals: {
     viewport: {
-      defaultViewport: "desktop",
+      value: "desktop",
     },
   },
   render: () => (

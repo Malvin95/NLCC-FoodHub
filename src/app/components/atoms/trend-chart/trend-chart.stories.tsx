@@ -72,94 +72,46 @@ export const CustomLabelsTest: Story = {
 /**
  * Chart structure and content test
  */
-export const ChartStructureTest: Story = {
+
+/**
+ * Chart structure, data, and rendering test
+ */
+export const RenderTest: Story = {
   render: () => <TrendChart data={mockChartData} />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Check title exists
+    // Container and title
     const title = canvas.getByText(/Trends/i);
     await expect(title).toBeInTheDocument();
-
-    // Check container has proper styling
     const container = canvasElement.querySelector(".bg-card.rounded-lg");
     await expect(container).toBeInTheDocument();
-  },
-};
 
-/**
- * Verify chart renders with data
- */
-export const ChartRendersData: Story = {
-  render: () => <TrendChart data={mockChartData} />,
-  play: async ({ canvasElement }) => {
-    // Wait for Recharts animation to complete (typically 400-500ms)
+    // Chart renders with data
     await waitFor(() => {
-      // Check for line paths (Recharts renders lines as path elements)
       const linePaths = canvasElement.querySelectorAll(".recharts-line");
-      expect(linePaths.length).toBe(2); // Series A and Series B Trends
-
-      // Check that SVG elements exist (Recharts renders as SVG)
+      expect(linePaths.length).toBe(2);
       const svgElements = canvasElement.querySelectorAll("svg");
       expect(svgElements.length).toBeGreaterThan(0);
-    });
-  },
-};
 
-/**
- * Verify legend is present
- */
-export const LegendTest: Story = {
-  render: () => <TrendChart data={mockChartData} />,
-  play: async ({ canvasElement }) => {
-    // Wait for Recharts animation to complete (typically 400-500ms)
-    await waitFor(() => {
-      // Check for line paths (Recharts renders lines as path elements)
-      const linePaths = canvasElement.querySelectorAll(".recharts-line");
-      expect(linePaths.length).toBe(2); // Series A and Series B Trends
-    });
-
-    const canvas = within(canvasElement);
-
-    // Check legend items exist
-    await waitFor(() => {
+      // Legend items exist
       expect(canvas.queryByText(/Series A/i)).toBeInTheDocument();
       expect(canvas.queryByText(/Series B/i)).toBeInTheDocument();
-    });
-  },
-};
 
-/**
- * Verify axes are rendered
- */
-export const AxesTest: Story = {
-  render: () => <TrendChart data={mockChartData} />,
-  play: async ({ canvasElement }) => {
-    waitFor(() => {
-      // Check for X-axis (months should be visible)
+      // Axes rendered
       const xAxisElements = canvasElement.querySelectorAll(".recharts-xAxis");
       expect(xAxisElements.length).toBeGreaterThan(0);
-
-      // Check for Y-axis
       const yAxisElements = canvasElement.querySelectorAll(".recharts-yAxis");
       expect(yAxisElements.length).toBeGreaterThan(0);
     });
-  },
-};
 
-/**
- * Verify responsive container
- */
-export const ResponsiveTest: Story = {
-  render: () => <TrendChart data={mockChartData} />,
-  play: async ({ canvasElement }) => {
+    // Responsive container
     const responsiveContainer = canvasElement.querySelector(
       ".recharts-responsive-container",
     );
     await expect(responsiveContainer).toBeInTheDocument();
   },
 };
-
 // Skeleton Loading States
 
 /**
@@ -180,52 +132,30 @@ export const LoadingSkeleton: SkeletonStory = {
 /**
  * Verify skeleton structure and accessibility
  */
-export const SkeletonStructureTest: SkeletonStory = {
+export const SkeletonTest: SkeletonStory = {
   render: () => <TrendChartSkeleton />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Check role and aria-label
+    // Check role and accessibility
     const container = canvas.getByRole("status");
     await expect(container).toHaveAttribute("aria-label", "Loading chart data");
-
-    // Check skeleton elements exist
-    const pulsingElements = canvasElement.querySelectorAll(".animate-pulse");
-    await expect(pulsingElements.length).toBeGreaterThan(0);
-
-    // Check for screen reader text
     const srText = canvas.getByText("Loading chart data...");
     await expect(srText).toBeInTheDocument();
     await expect(srText.className).toContain("sr-only");
-  },
-};
 
-/**
- * Verify skeleton has title placeholder
- */
-export const SkeletonTitleTest: SkeletonStory = {
-  render: () => <TrendChartSkeleton />,
-  play: async ({ canvasElement }) => {
-    // Check title skeleton exists
+    // Check skeleton elements with animations
+    const pulsingElements = canvasElement.querySelectorAll(".animate-pulse");
+    await expect(pulsingElements.length).toBeGreaterThan(0);
+
+    // Title and legend placeholders
     const titleSkeleton = canvasElement.querySelector(".w-64.h-6.bg-gray-200");
     await expect(titleSkeleton).toBeInTheDocument();
-    await expect(titleSkeleton?.className).toContain("animate-pulse");
-  },
-};
 
-/**
- * Verify skeleton has legend placeholders
- */
-export const SkeletonLegendTest: SkeletonStory = {
-  render: () => <TrendChartSkeleton />,
-  play: async ({ canvasElement }) => {
-    // Check legend skeleton items
     const legendContainer = canvasElement.querySelector(
       ".flex.justify-center.gap-6",
     );
     await expect(legendContainer).toBeInTheDocument();
-
-    // Should have legend item placeholders
     const legendItems = legendContainer?.querySelectorAll(
       ".flex.items-center.gap-2",
     );
