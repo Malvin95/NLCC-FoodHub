@@ -31,9 +31,10 @@ type Story = StoryObj<typeof SignInForm>;
  * Default: Full sign-in page on desktop viewport.
  */
 export const Default: Story = {
-  parameters: {
+  globals: {
     viewport: {
-      defaultViewport: "desktop",
+      value: "desktop",
+      isRotated: false,
     },
   },
 };
@@ -42,9 +43,10 @@ export const Default: Story = {
  * Mobile: Sign-in page on iPhone 12 viewport.
  */
 export const Mobile: Story = {
-  parameters: {
+  globals: {
     viewport: {
-      defaultViewport: "iphone12",
+      value: "iphone12",
+      isRotated: false,
     },
   },
 };
@@ -54,9 +56,10 @@ export const Mobile: Story = {
  * Tests entering credentials, submitting, and verifying the handler is called.
  */
 export const FullFormFlow: Story = {
-  parameters: {
+  globals: {
     viewport: {
-      defaultViewport: "desktop",
+      value: "desktop",
+      isRotated: false,
     },
     docs: {
       description: {
@@ -75,7 +78,7 @@ export const FullFormFlow: Story = {
     const email = root.querySelector<HTMLInputElement>("#email");
     const password = root.querySelector<HTMLInputElement>("#password");
     const submit = root.querySelector<HTMLButtonElement>(
-      'button[type="submit"]'
+      'button[type="submit"]',
     );
 
     // Assert form elements exist; fail loudly if not
@@ -101,9 +104,10 @@ export const FullFormFlow: Story = {
  * Verifies both OAuth handlers are triggered independently.
  */
 export const OAuthFlow: Story = {
-  parameters: {
+  globals: {
     viewport: {
-      defaultViewport: "desktop",
+      value: "desktop",
+      isRotated: false,
     },
     docs: {
       description: {
@@ -115,10 +119,10 @@ export const OAuthFlow: Story = {
   play: async ({ args, canvasElement }) => {
     const root = canvasElement as HTMLElement;
     const google = root.querySelector<HTMLButtonElement>(
-      'button[aria-label="Login with Google"]'
+      'button[aria-label="Login with Google"]',
     );
     const apple = root.querySelector<HTMLButtonElement>(
-      'button[aria-label="Login with Apple"]'
+      'button[aria-label="Login with Apple"]',
     );
 
     // Assert OAuth buttons exist; fail loudly if not
@@ -140,9 +144,10 @@ export const OAuthFlow: Story = {
  * Ensures responsiveness and all interactions work on smaller screens.
  */
 export const MobileFormFlow: Story = {
-  parameters: {
+  globals: {
     viewport: {
-      defaultViewport: "iphone12",
+      value: "iphone12",
+      isRotated: false,
     },
     docs: {
       description: {
@@ -161,7 +166,7 @@ export const MobileFormFlow: Story = {
     const email = root.querySelector<HTMLInputElement>("#email");
     const password = root.querySelector<HTMLInputElement>("#password");
     const submit = root.querySelector<HTMLButtonElement>(
-      'button[type="submit"]'
+      'button[type="submit"]',
     );
 
     // Assert form elements exist; fail loudly if not
@@ -187,9 +192,10 @@ export const MobileFormFlow: Story = {
  * Checks AuthPageTemplate composition: title, description, form, and footer.
  */
 export const PageLayout: Story = {
-  parameters: {
+  globals: {
     viewport: {
-      defaultViewport: "desktop",
+      value: "desktop",
+      isRotated: false,
     },
     docs: {
       description: {
@@ -207,7 +213,7 @@ export const PageLayout: Story = {
 
     // Check for page description
     const description = root.textContent?.includes(
-      "Access your FoodHub account"
+      "Access your FoodHub account",
     );
     await expect(description).toBeTruthy();
 

@@ -74,36 +74,40 @@ const statusBgColors = {
  * @see {@link InventoryStatusCardSkeleton} for loading state
  * @see {@link InventoryItem} for the data interface
  */
-export default function InventoryStatusCard({ item }: { item: InventoryItem }) {
-  const percentage = item.target > 0 ? (item.current / item.target) * 100 : 0;
+export default function InventoryStatusCard({
+  id,
+  category,
+  current,
+  target,
+  unit,
+  status,
+}: InventoryItem) {
+  const percentage = target > 0 ? (current / target) * 100 : 0;
   const percentageLabel = `${percentage.toFixed(0)}% of target`;
 
   return (
     <article
-      className={`p-4 rounded-lg border border-border dark:border-slate-800 shadow-sm dark:shadow-md transition-colors ${statusBgColors[item.status]}`}
-      aria-labelledby={`inventory-item-${item.id}`}
+      className={`p-4 rounded-lg border border-border dark:border-slate-800 shadow-sm dark:shadow-md transition-colors ${statusBgColors[status]}`}
+      aria-labelledby={`inventory-item-${id}`}
     >
       <div className="flex items-center justify-between mb-3">
-        <h3
-          id={`inventory-item-${item.id}`}
-          className="text-foreground font-medium"
-        >
-          {item.category}
+        <h3 id={`inventory-item-${id}`} className="text-foreground font-medium">
+          {category}
         </h3>
         <span
-          className={`px-2 py-1 rounded text-white text-xs font-medium ${statusColors[item.status]}`}
-          aria-label={`Status: ${item.status}`}
+          className={`px-2 py-1 rounded text-white text-xs font-medium ${statusColors[status]}`}
+          aria-label={`Status: ${status}`}
         >
-          {item.status}
+          {status}
         </span>
       </div>
       <div className="mb-2">
         <div className="flex justify-between text-sm text-muted-foreground transition-colors mb-1">
-          <span aria-label={`Current: ${item.current} ${item.unit}`}>
-            {item.current} {item.unit}
+          <span aria-label={`Current: ${current} ${unit}`}>
+            {current} {unit}
           </span>
-          <span aria-label={`Target: ${item.target} ${item.unit}`}>
-            {item.target} {item.unit}
+          <span aria-label={`Target: ${target} ${unit}`}>
+            {target} {unit}
           </span>
         </div>
         <div
@@ -115,7 +119,7 @@ export default function InventoryStatusCard({ item }: { item: InventoryItem }) {
           aria-label={`Inventory progress: ${percentageLabel}`}
         >
           <div
-            className={`h-2 rounded-full ${statusColors[item.status]}`}
+            className={`h-2 rounded-full ${statusColors[status]}`}
             style={{ width: `${Math.min(percentage, 100)}%` }}
           />
         </div>

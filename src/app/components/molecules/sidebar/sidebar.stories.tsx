@@ -120,7 +120,7 @@ export const Loading: Story = {
     const navLinks = links.filter(
       (link) =>
         link.textContent?.includes("Dashboard") ||
-        link.textContent?.includes("Engagement")
+        link.textContent?.includes("Engagement"),
     );
     await expect(navLinks.length).toBe(0);
   },
@@ -196,40 +196,9 @@ export const CustomMenuItems: Story = {
 };
 
 /**
- * Custom menu with loading state.
- */
-export const CustomMenuLoading: Story = {
-  args: {
-    isLoading: true,
-    currentPathname: "/admin/home",
-    items: [
-      {
-        label: "Home",
-        icon: LayoutDashboard,
-        href: "/admin/home",
-        exactMatch: true,
-      },
-      {
-        label: "Settings",
-        icon: MessageSquare,
-        href: "/admin/settings",
-      },
-    ] as MenuItem[],
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Shows loading skeleton with custom menu configuration. Loading state takes precedence over menu items display.",
-      },
-    },
-  },
-};
-
-/**
  * Menu item click interaction.
  */
-export const MenuItemClickInteraction: Story = {
+export const InteractionTest: Story = {
   args: {
     currentPathname: "/dashboard",
     disableNavigation: true,

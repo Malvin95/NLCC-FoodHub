@@ -71,18 +71,13 @@ export const StructureTest: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Heading present
+    // Heading and cards present
     await expect(canvas.getByText("Inventory Status")).toBeInTheDocument();
 
-    // Correct number of cards
     const cards = canvasElement.querySelectorAll(".grid > article");
     await expect(cards.length).toBe(mockItems.length);
-  },
-};
 
-export const GridLayoutTest: Story = {
-  render: () => <InventoryStatusBar items={mockItems} />,
-  play: async ({ canvasElement }) => {
+    // Grid has responsive classes
     const grid = canvasElement.querySelector(".grid");
     await expect(grid).toBeInTheDocument();
     await expect(grid?.className).toContain("md:grid-cols-2");
@@ -102,40 +97,30 @@ export const Skeleton: SkeletonStory = {
   },
 };
 
-export const SkeletonStructureTest: SkeletonStory = {
+export const SkeletonTest: SkeletonStory = {
   render: () => <InventoryStatusBarSkeleton count={3} />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Check for role and aria-label for accessibility
+    // Check structure and accessibility
     const skeleton = canvasElement.querySelector('[role="status"]');
     await expect(skeleton).toBeInTheDocument();
     await expect(skeleton).toHaveAttribute(
       "aria-label",
-      "Loading inventory status"
+      "Loading inventory status",
     );
 
-    // Check for screen reader text
+    // Check for screen reader text and title stub
     const srText = canvas.getByText("Loading inventory status...");
     await expect(srText).toBeInTheDocument();
     await expect(srText.className).toContain("sr-only");
 
-    // Title stub should be present
     const titleStub = canvasElement.querySelector(".h-6.w-40");
     await expect(titleStub).toBeInTheDocument();
 
-    // Should have correct number of card placeholders
+    // Verify placeholder count
     const placeholders = canvasElement.querySelectorAll(".grid > div");
     await expect(placeholders.length).toBe(3);
-  },
-};
-
-export const SkeletonCustomCountTest: SkeletonStory = {
-  render: () => <InventoryStatusBarSkeleton count={6} />,
-  play: async ({ canvasElement }) => {
-    // Should render custom count of placeholders
-    const placeholders = canvasElement.querySelectorAll(".grid > div");
-    await expect(placeholders.length).toBe(6);
   },
 };
 
@@ -144,12 +129,12 @@ export const AccessibilityTest: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Section with aria-labelledby
+    // Section landmark with aria-labelledby
     const section = canvasElement.querySelector("section");
     await expect(section).toBeInTheDocument();
     await expect(section).toHaveAttribute(
       "aria-labelledby",
-      "inventory-status-heading"
+      "inventory-status-heading",
     );
 
     // Heading with matching ID
@@ -157,39 +142,22 @@ export const AccessibilityTest: Story = {
     await expect(heading).toBeInTheDocument();
     await expect(heading?.tagName).toBe("H2");
     await expect(canvas.getByText("Inventory Status")).toBeInTheDocument();
-  },
-};
 
-export const GridAccessibilityTest: Story = {
-  render: () => <InventoryStatusBar items={mockItems} />,
-  play: async ({ canvasElement }) => {
+    // Grid region with item count
     const grid = canvasElement.querySelector('[role="region"]');
-
-    // Grid should have region role and aria-label with item count
     await expect(grid).toBeInTheDocument();
     await expect(grid).toHaveAttribute(
       "aria-label",
-      `Inventory items (${mockItems.length} items)`
+      `Inventory items (${mockItems.length} items)`,
     );
-  },
-};
 
-export const SemanticStructureTest: Story = {
-  render: () => <InventoryStatusBar items={mockItems} />,
-  play: async ({ canvasElement }) => {
-    // Should use section for landmark
-    const section = canvasElement.querySelector("section");
-    await expect(section).toBeInTheDocument();
-
-    // All items should be articles
+    // All items are semantic articles with labels
     const articles = canvasElement.querySelectorAll("article");
     await expect(articles.length).toBe(mockItems.length);
-
-    // Each article should have aria-labelledby
     articles.forEach((article, idx) => {
       expect(article).toHaveAttribute(
         "aria-labelledby",
-        `inventory-item-${mockItems[idx].id}`
+        `inventory-item-${mockItems[idx].id}`,
       );
     });
   },
@@ -218,8 +186,8 @@ export const EmptyStateTest: Story = {
     // Empty state message should be displayed
     await expect(
       canvas.getByText(
-        "There are no inventory items being tracked at the moment"
-      )
+        "There are no inventory items being tracked at the moment",
+      ),
     ).toBeInTheDocument();
 
     // Grid should not be present

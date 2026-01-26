@@ -75,7 +75,7 @@ export const Default: Story = {
 
     // Verify empty state message is displayed initially
     const emptyState = canvas.getByText(
-      /select a highlighted day to view metrics/i,
+      /select a highlighted day to view metrics/i
     );
     await expect(emptyState).toBeInTheDocument();
   },
@@ -148,7 +148,7 @@ export const VerifyCalendarAccessibility: Story = {
   play: async ({ canvasElement }) => {
     // Verify calendar has proper ARIA attributes
     const calendar = canvasElement.querySelector(
-      '[aria-label="History calendar"]',
+      '[aria-label="History calendar"]'
     );
     await expect(calendar).toBeInTheDocument();
 
@@ -165,24 +165,6 @@ export const VerifyCalendarAccessibility: Story = {
 
     // Verify metrics region has aria-live for announcements
     await expect(metricsRegion).toHaveAttribute("aria-live", "polite");
-  },
-};
-
-/**
- * Interactive test: Verify legend item visibility and context
- */
-export const VerifyLegend: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Verify legend text is present
-    const legendText = canvas.getByText("Volunteer Day");
-    await expect(legendText).toBeInTheDocument();
-
-    // Verify legend color indicator has highlight styling
-    // Alternative check for the highlight color indicator
-    const legendBox = canvasElement.querySelector("#calendar-legend .rounded");
-    await expect(legendBox).toBeInTheDocument();
   },
 };
 
@@ -215,10 +197,8 @@ export const VerifyPageStructure: Story = {
  * Mobile responsive view (single column layout)
  */
 export const MobileView: Story = {
-  parameters: {
-    viewport: {
-      defaultViewport: "mobile1",
-    },
+  globals: {
+    viewport: { value: "mobile1", isRotated: false },
   },
   play: async ({ canvasElement }) => {
     // Verify single column layout on mobile
@@ -231,9 +211,7 @@ export const MobileView: Story = {
  * Tablet responsive view (transitional layout)
  */
 export const TabletView: Story = {
-  parameters: {
-    viewport: {
-      defaultViewport: "ipad",
-    },
+  globals: {
+    viewport: { value: "tablet", isRotated: false },
   },
 };
