@@ -14,7 +14,7 @@
 import DashboardPageTemplate from "../../templates/dashboard-page-template/dashboard-page-template";
 import FilterBar from "../../molecules/filter-bar/filter-bar";
 import EngagementCard from "../../atoms/engagement-card/engagement-card";
-import { requests } from "./_mock-data_";
+import { mockRequests } from "./_mock-data_";
 import {
   EngagementRequestSortType,
   EngagementRequestStatus,
@@ -35,14 +35,23 @@ export interface EngagementRequest {
 }
 
 export default function EngagementDashboard() {
-  const [activeFilter, setActiveFilter] = useState(
+  const [activeFilter, setActiveFilter] = useState<EngagementRequestSortType>(
     EngagementRequestSortType.ALL,
   );
 
-  // TODO: implement filtering logic based on activeFilter state, and place within a hook
+  const [requests, setRequests] = useState<EngagementRequest[]>(mockRequests);
 
   const handleFilterChange = (value: string) => {
     setActiveFilter(value as EngagementRequestSortType);
+
+    if (value === EngagementRequestSortType.ALL) {
+      setRequests(mockRequests);
+    } else {
+      const filteredRequests = mockRequests.filter(
+        (request) => request.type === value,
+      );
+      setRequests(filteredRequests);
+    }
   };
 
   return (

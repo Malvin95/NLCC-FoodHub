@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import EngagementDashboard from "./engagement-dashboard";
 import EngagementDashboardSkeleton from "./engagement-dashboard-skeleton";
 import { within, expect } from "storybook/test";
-import { requests } from "./_mock-data_";
+import { mockRequests } from "./_mock-data_";
 
 const meta: Meta<typeof EngagementDashboard> = {
   title: "Pages/EngagementDashboard",
@@ -68,7 +68,7 @@ export const RendersCards: Story = {
     });
     await expect(engagementList).toBeInTheDocument();
     const listItems = within(engagementList).getAllByRole("article");
-    await expect(listItems.length).toBe(requests.length);
+    await expect(listItems.length).toBe(mockRequests.length);
   },
 };
 
@@ -93,7 +93,7 @@ export const RendersMockData: Story = {
       name: /Engagement requests/i,
     });
     const items = within(engagementList).getAllByRole("article");
-    await expect(items.length).toBe(requests.length);
+    await expect(items.length).toBe(mockRequests.length);
 
     // Each item should have a status badge and a response count
     for (const item of items) {
@@ -226,7 +226,7 @@ export const HasAccessibilityStructure: Story = {
       name: /Engagement requests/i,
     });
     const items = within(engagementList).getAllByRole("article");
-    await expect(items.length).toBe(requests.length);
+    await expect(items.length).toBe(mockRequests.length);
 
     // Verify list items exist
     const listItems = canvas.getAllByRole("article");

@@ -26,7 +26,7 @@ import { EngagementRequest } from "./engagement-dashboard";
  * @constant
  * @type {EngagementRequest[]}
  */
-export const requests: EngagementRequest[] = [
+export const mockRequests: EngagementRequest[] = [
   {
     id: 1,
     type: EngagementRequestType.HELP,
